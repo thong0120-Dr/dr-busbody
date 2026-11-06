@@ -242,7 +242,10 @@ function conv(d){
   if(d.type==='receipt'||d.type==='delivery')return '';
   const n=nextOf(d),w=d.type==='quote'?'ใบวางบิล':'ใบเสร็จ';
   let h=n?`<span class="tag ok" title="ออกซ้ำไม่ได้ หากต้องการเอกสารใหม่ให้สร้างใบใหม่">ออก${w}แล้ว ${esc(n.no)}</span>`:(d.type==='quote'?`<button class="btn s" onclick="toBill('${d.id}')">→ วางบิล</button>`:`<button class="btn s" onclick="toReceipt('${d.id}')">→ ใบเสร็จ</button>`);
-  if(d.type==='quote')h+=` <button class="btn s" onclick="toDelivery('${d.id}')">→ ใบส่งมอบ</button>`;
+  if(d.type==='bill'){
+    const dv=S.docs.find(x=>x.type==='delivery'&&((x.srcId&&x.srcId===d.id)||(x.ref||'').includes('อ้างอิง '+d.no)));
+    h+=dv?` <span class="tag ok" title="ออกใบส่งมอบงานแล้ว">ออกใบส่งมอบแล้ว ${esc(dv.no)}</span>`:` <button class="btn s" onclick="toDelivery('${d.id}')">→ ใบส่งมอบ</button>`;
+  }
   return h;
 }
 function docTable(a){
