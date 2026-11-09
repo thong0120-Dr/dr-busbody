@@ -576,8 +576,12 @@ function vFiles(){
       <button class="btn p" onclick="editFile()">+ เพิ่มเอกสาร PDF</button>
     </div>
   </div>
-  <div style="display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px">
-    ${cats.map(c=>`<button class="btn s ${fCatFilter===c?'p':''}" onclick="fCatFilter='${c}';render()" style="${fCatFilter===c?'background:var(--p);color:#fff':''}">${catNames[c]} (${c==='all'?(S.files||[]).length:(S.files||[]).filter(x=>x.category===c).length})</button>`).join('')}
+  <div style="display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch">
+    ${cats.map(c=>{
+      const act=fCatFilter===c;
+      const count=c==='all'?(S.files||[]).length:(S.files||[]).filter(x=>x.category===c).length;
+      return `<button class="btn s" onclick="fCatFilter='${c}';render()" style="cursor:pointer;white-space:nowrap;padding:7px 14px;border-radius:99px;font-size:13.5px;font-weight:${act?'700':'500'};transition:all .15s ease;${act?'background:var(--brand);color:#ffffff;border:1px solid var(--brand);box-shadow:0 2px 6px rgba(15,118,110,0.28)':'background:var(--card);color:var(--ink);border:1px solid var(--line)'}">${catNames[c]} <span style="font-size:12px;margin-left:4px;padding:1px 7px;border-radius:99px;font-weight:600;${act?'background:rgba(255,255,255,0.25);color:#ffffff':'background:var(--bg);color:var(--mute)'}">${count}</span></button>`;
+    }).join('')}
   </div>
   <div class="card">
     ${list.length?`
