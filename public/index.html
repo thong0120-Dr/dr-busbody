@@ -556,11 +556,13 @@ function vFiles(){
     return ((f.title||'')+' '+(f.category||'')+' '+(f.filename||'')+' '+(f.desc||'')).toLowerCase().includes(qStr);
   }).sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(b.title||'').localeCompare(a.title||''));
 
-  const cats=['all','ใบอนุญาต/ทะเบียน','เอกสารบริษัท/ภาษี','สเปครถ/คู่มือ','แบบฟอร์ม/สัญญา','อื่นๆ'];
+  const cats=['all','ใบอนุญาต/ทะเบียน','เอกสารบริษัท/ภาษี','หนังสือค้ำประกัน','สรรพากร','สเปครถ/คู่มือ','แบบฟอร์ม/สัญญา','อื่นๆ'];
   const catNames={
     'all':'ทั้งหมด',
     'ใบอนุญาต/ทะเบียน':'ใบอนุญาต/ทะเบียน',
     'เอกสารบริษัท/ภาษี':'เอกสารบริษัท/ภาษี',
+    'หนังสือค้ำประกัน':'หนังสือค้ำประกัน',
+    'สรรพากร':'สรรพากร',
     'สเปครถ/คู่มือ':'สเปครถ/คู่มือ',
     'แบบฟอร์ม/สัญญา':'แบบฟอร์ม/สัญญา',
     'อื่นๆ':'อื่นๆ'
@@ -680,6 +682,8 @@ function editFile(id){
       <select id="f_cat">
         <option value="ใบอนุญาต/ทะเบียน" ${f&&f.category==='ใบอนุญาต/ทะเบียน'?'selected':''}>ใบอนุญาต / ทะเบียน</option>
         <option value="เอกสารบริษัท/ภาษี" ${f&&f.category==='เอกสารบริษัท/ภาษี'?'selected':''}>เอกสารบริษัท / ภาษี</option>
+        <option value="หนังสือค้ำประกัน" ${f&&f.category==='หนังสือค้ำประกัน'?'selected':''}>หนังสือค้ำประกัน</option>
+        <option value="สรรพากร" ${f&&f.category==='สรรพากร'?'selected':''}>สรรพากร</option>
         <option value="สเปครถ/คู่มือ" ${f&&f.category==='สเปครถ/คู่มือ'?'selected':''}>สเปครถ / คู่มือ</option>
         <option value="แบบฟอร์ม/สัญญา" ${f&&f.category==='แบบฟอร์ม/สัญญา'?'selected':''}>แบบฟอร์ม / สัญญา</option>
         <option value="อื่นๆ" ${f&&f.category==='อื่นๆ'?'selected':''}>อื่นๆ</option>
