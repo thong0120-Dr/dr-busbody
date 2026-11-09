@@ -36,7 +36,7 @@ const USE_SUPABASE = Boolean(SUPABASE_URL && SUPABASE_KEY);
 
 try { fs.mkdirSync(DIR, { recursive: true }); } catch (e) {}
 
-let DB = { docs: {}, customers: {}, jobs: {}, users: {}, company: {}, sessions: {} };
+let DB = { docs: {}, customers: {}, jobs: {}, users: {}, company: {}, sessions: {}, files: {} };
 let isLoaded = false;
 let loadPromise = null;
 
@@ -130,7 +130,7 @@ async function initDB() {
               // ฐานข้อมูลบน Supabase ยังว่างเปล่า แต่มีข้อมูลในเครื่อง นำข้อมูลขึ้น Supabase ให้อัตโนมัติ
               console.log('[Supabase] ฐานข้อมูลว่างเปล่า กำลังอัปโหลดข้อมูลจากในเครื่องขึ้น Supabase...');
               const batch = [];
-              for (const col of ['docs', 'customers', 'jobs', 'users', 'sessions']) {
+              for (const col of ['docs', 'customers', 'jobs', 'users', 'sessions', 'files']) {
                 for (const [id, val] of Object.entries(DB[col] || {})) {
                   batch.push({ collection: col, id, data: val, updated_at: new Date().toISOString() });
                 }
@@ -178,7 +178,7 @@ function json(res, code, obj, headers = {}) {
 function body(req) {
   return new Promise((ok, no) => {
     let s = '';
-    req.on('data', c => { s += c; if (s.length > 2e6) { req.destroy(); no(new Error('too large')); } });
+    req.on('data', c => { s += c; if (s.length > 25e6) { req.destroy(); no(new Error('ไฟล์มีขนาดใหญ่เกินไป')); } });
     req.on('end', () => { try { ok(s ? JSON.parse(s) : {}); } catch (e) { no(e); } });
   });
 }
@@ -212,7 +212,7 @@ const fail = ip => { fails[ip] = (fails[ip] || []).filter(t => t > Date.now() - 
 
 const admins = () => Object.values(DB.users).filter(u => u.role === 'admin');
 const isAdmin = u => u && u.role === 'admin';
-const COL = { docs: 'docs', customers: 'customers', jobs: 'jobs' };
+const COL = { docs: 'docs', customers: 'customers', jobs: 'jobs', files: 'files' };
 
 async function api(req, res, url) {
   const ip = TRUST_PROXY ? (req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.socket.remoteAddress) : req.socket.remoteAddress;
@@ -259,7 +259,7 @@ async function api(req, res, url) {
 
   if (r === 'state' && m === 'GET')
     return json(res, 200, {
-      docs: Object.values(DB.docs), jobs: Object.values(DB.jobs), cust: Object.values(DB.customers), co: DB.company,
+      docs: Object.values(DB.docs), jobs: Object.values(DB.jobs), cust: Object.values(DB.customers), files: Object.values(DB.files || {}), co: DB.company,
       users: isAdmin(u) ? Object.values(DB.users).map(pub) : []
     });
 
