@@ -6,49 +6,49 @@
 <title>DR Bus Body · ใบเสนอราคา & ใบวางบิล</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0b131b;--card:#16222f;--modal-bg:#1e293b;--input-bg:#0f172a;--ink:#f1f5f9;--mute:#94a3b8;--line:#283747;--brand:#0f766e;--brand2:#f59e0b;--soft:#12332f;--bad:#ef4444;--ok:#22c55e;--warn:#f59e0b;--sh:0 4px 20px rgba(0,0,0,.35);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
-@media (prefers-color-scheme:dark){:root{--bg:#0b131b;--card:#16222f;--modal-bg:#1e293b;--input-bg:#0f172a;--ink:#f1f5f9;--mute:#94a3b8;--line:#283747;--soft:#12332f;--sh:none;color-scheme:dark}}
-:root[data-theme="dark"],:root[data-theme="light"]{--bg:#0b131b;--card:#16222f;--modal-bg:#1e293b;--input-bg:#0f172a;--ink:#f1f5f9;--mute:#94a3b8;--line:#283747;--soft:#12332f;--sh:none;color-scheme:dark}
+:root{--bg:#F4F7FE;--card:#FFFFFF;--modal-bg:#FFFFFF;--input-bg:#FFFFFF;--ink:#0F172A;--mute:#64748B;--line:#E2E8F0;--brand:#1E3A8A;--brand-light:#1D4ED8;--brand2:#F26444;--accent:#F26444;--soft:#EFF6FF;--soft-coral:#FFF1EE;--bad:#EF4444;--ok:#10B981;--warn:#F59E0B;--sh:0 4px 12px rgba(15,23,42,0.05);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 'Noto Sans Thai',system-ui,'Segoe UI',Tahoma,sans-serif}
 .app{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:100vh;max-width:100vw;overflow-x:hidden}
 aside{background:var(--card);border-right:1px solid var(--line);padding:20px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:6px}
 .logo{display:flex;gap:10px;align-items:center;padding:4px 8px 18px}
-.logo b{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--brand),#14b8a6);color:#fff;font-size:15px}
+.logo b{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-light));color:#fff;font-size:15px}
 .logo span{font-weight:700;line-height:1.2}.logo small{display:block;color:var(--mute);font-weight:400;font-size:11px}
 nav button{all:unset;box-sizing:border-box;width:100%;display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;cursor:pointer;color:var(--mute);font-weight:500}
-nav button:hover{background:var(--bg)}nav button.on{background:var(--soft);color:var(--brand)}
+nav button:hover{background:var(--bg);color:var(--ink)}nav button.on{background:var(--soft);color:var(--brand);font-weight:600}
 .sp{flex:1}
 main{padding:24px 28px;width:100%;min-width:0;box-sizing:border-box}
-h1{font-size:22px;margin:0}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+h1{font-size:22px;margin:0;color:var(--ink);font-weight:700}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
 .sub{color:var(--mute);font-size:13px}
-.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 14px;border-radius:10px;cursor:pointer;font:inherit;font-weight:500}
-.btn.p{background:var(--brand);border-color:var(--brand);color:#fff}.btn.s{padding:4px 8px;font-size:12.5px;border-radius:8px;display:inline-flex;align-items:center;gap:3px;white-space:nowrap;line-height:1.35}.btn.d{color:var(--bad)}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 14px;border-radius:10px;cursor:pointer;font:inherit;font-weight:500;transition:all .15s ease}
+.btn:hover{background:var(--bg)}
+.btn.p{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}.btn.p:hover{background:var(--brand-light);border-color:var(--brand-light)}
+.btn.s{padding:4px 8px;font-size:12.5px;border-radius:8px;display:inline-flex;align-items:center;gap:3px;white-space:nowrap;line-height:1.35}.btn.d{color:var(--bad);background:#FFF1F2;border-color:#FECDD3}
 .grid{display:grid;gap:14px}.k4{grid-template-columns:repeat(4,1fr)}.k2{grid-template-columns:2fr 1fr}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--sh)}
-.kpi small{color:var(--mute)}.kpi h2{margin:4px 0 2px;font-size:24px}.kpi i{font-style:normal;font-size:12px;color:var(--mute)}
-.kpi.a{background:linear-gradient(135deg,var(--brand),#115e59);color:#fff;border:0}.kpi.a small,.kpi.a i{color:#d1fae5}
-h3{margin:0 0 12px;font-size:16px}
+.kpi small{color:var(--mute);font-weight:500}.kpi h2{margin:4px 0 2px;font-size:24px;color:var(--ink);font-weight:700}.kpi i{font-style:normal;font-size:12px;color:var(--mute)}
+.kpi.a{background:linear-gradient(135deg,var(--brand),var(--brand-light));color:#fff;border:0;box-shadow:0 8px 20px rgba(30,58,138,0.2)}.kpi.a h2{color:#fff}.kpi.a small,.kpi.a i{color:#DBEAFE}
+h3{margin:0 0 12px;font-size:16px;color:var(--ink);font-weight:700}
 .chart{display:flex;align-items:flex-end;gap:14px;height:180px;padding-top:10px}
 .col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}
 .bars{display:flex;gap:4px;align-items:flex-end;height:100%;width:100%;justify-content:center}
 .bars div{width:30%;max-width:20px;border-radius:6px 6px 0 0;min-height:2px}
 .legend{display:flex;gap:14px;font-size:12px;color:var(--mute);margin-top:8px}.legend u{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;text-decoration:none}
 .wrap{overflow-x:auto;width:100%}table{width:100%;border-collapse:collapse;table-layout:auto}th{text-align:left;font-size:12px;color:var(--mute);font-weight:600;padding:8px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
-td{padding:9px 8px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:middle}tr:last-child td{border:0}.r{text-align:right;white-space:nowrap}.c{text-align:center;white-space:nowrap}.nowrap{white-space:nowrap}.acts{display:inline-flex;align-items:center;justify-content:flex-end;gap:4px;white-space:nowrap}
+td{padding:9px 8px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:middle;color:var(--ink)}tr:last-child td{border:0}.r{text-align:right;white-space:nowrap}.c{text-align:center;white-space:nowrap}.nowrap{white-space:nowrap}.acts{display:inline-flex;align-items:center;justify-content:flex-end;gap:4px;white-space:nowrap}
 .tag{padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--bg);color:var(--mute)}
-.tag.ok{background:#16a34a22;color:var(--ok)}.tag.warn{background:#f59e0b24;color:var(--warn)}.tag.bad{background:#dc262622;color:var(--bad)}.tag.info{background:var(--soft);color:var(--brand)}
-input,select,textarea{font:inherit;color:var(--ink);background:var(--input-bg,#0f172a)!important;border:1px solid var(--line);border-radius:10px;padding:8px 10px;width:100%}
-input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-offset:-1px;border-color:var(--brand)}
-label{font-size:12px;color:var(--mute);display:block;margin-bottom:3px}
+.tag.ok{background:#DCFCE7;color:#15803D}.tag.warn{background:#FEF3C7;color:#B45309}.tag.bad{background:#FEE2E2;color:#B91C1C}.tag.info{background:#EFF6FF;color:#1D4ED8}
+input,select,textarea{font:inherit;color:var(--ink)!important;background:var(--input-bg,#FFFFFF)!important;border:1px solid #CBD5E1!important;border-radius:10px;padding:8px 10px;width:100%;transition:border-color .15s ease,box-shadow .15s ease}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--brand-light)!important;outline-offset:-1px;border-color:var(--brand-light)!important}
+label{font-size:12px;color:var(--mute);display:block;margin-bottom:3px;font-weight:500}
 .f{display:grid;gap:12px;grid-template-columns:repeat(4,1fr)}.f .w2{grid-column:span 2}.f .w4{grid-column:span 4}
-.tabs{display:flex;gap:6px;margin-bottom:14px}.tabs .btn.on{background:var(--soft);color:var(--brand);border-color:var(--brand)}
-.mask{position:fixed;inset:0;background:rgba(0,0,0,0.85)!important;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:none;align-items:flex-start;justify-content:center;overflow-y:auto;overflow-x:hidden;padding:24px 12px;z-index:1000!important}
+.tabs{display:flex;gap:6px;margin-bottom:14px}.tabs .btn.on{background:var(--soft);color:var(--brand);border-color:var(--brand);font-weight:600}
+.mask{position:fixed;inset:0;background:rgba(15,23,42,0.6)!important;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:none;align-items:flex-start;justify-content:center;overflow-y:auto;overflow-x:hidden;padding:24px 12px;z-index:1000!important}
 .mask.open{display:flex!important}
 #mask2{z-index:1100!important}
 #maskAlert{z-index:1200!important}
-.modal{background:#1e293b!important;color:#f1f5f9!important;border:1px solid #334155!important;border-radius:18px;padding:22px;width:100%;max-width:860px;opacity:1!important;box-shadow:0 25px 50px -12px rgba(0,0,0,0.85);position:relative;z-index:10}
+.modal{background:#FFFFFF!important;color:var(--ink)!important;border:1px solid var(--line)!important;border-radius:18px;padding:22px;width:100%;max-width:860px;opacity:1!important;box-shadow:0 20px 45px rgba(15,23,42,0.15)!important;position:relative;z-index:10}
 body.modal-open,body:has(.mask.open),body:has(.m-drawer.open){overflow:hidden!important;touch-action:none!important}
 body.modal-open .bn,body:has(.mask.open) .bn,body:has(.m-drawer.open) .bn{display:none!important}
 .it-wrap{width:100%}
@@ -59,10 +59,12 @@ body.modal-open .bn,body:has(.mask.open) .bn,body:has(.m-drawer.open) .bn{displa
 .it-col-tot{text-align:right;font-weight:600;font-size:13.5px;color:var(--ink);white-space:nowrap}
 .it-col-del{text-align:center}
 .it-card-top{display:none!important}
-.tot{margin-left:auto;width:300px;margin-top:14px;background:var(--input-bg,#0f172a);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.tot{margin-left:auto;width:300px;margin-top:14px;background:#F8FAFC;border:1px solid var(--line);border-radius:12px;padding:12px 16px}
 .tot div{display:flex;justify-content:space-between;padding:4px 0;font-size:13.5px}
-.tot .g{font-size:18px;font-weight:700;color:var(--brand);border-top:1px solid var(--line);margin-top:6px;padding-top:8px}
+.tot .g{font-size:18px;font-weight:700;color:var(--brand2);border-top:1px solid var(--line);margin-top:6px;padding-top:8px}
 .modal-acts{display:flex;gap:8px;justify-content:flex-end;margin-top:20px;padding-bottom:8px}
+.modal-acts .btn.p{background:var(--brand2)!important;border-color:var(--brand2)!important;color:#FFFFFF!important;font-weight:700}
+.modal-acts .btn.p:hover{background:#ea580c!important;border-color:#ea580c!important}
 .empty{padding:30px;text-align:center;color:var(--mute)}
 #pa{display:none}
 #login{display:none;min-height:100vh;place-items:center;padding:20px}.lg{width:100%;max-width:380px;text-align:center}.lg img{width:90px;margin-bottom:6px}.lg h1{margin:6px 0 4px}.lg input{margin-bottom:10px}.err{color:var(--bad);font-size:13px;min-height:20px;margin-bottom:6px}#who{padding:8px 4px;font-size:13px}
@@ -70,35 +72,35 @@ body.modal-open .bn,body:has(.mask.open) .bn,body:has(.m-drawer.open) .bn{displa
 .m-cards{display:none;flex-direction:column;gap:12px;margin-top:10px}
 .m-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:8px}
 .m-card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.m-card-no{font-size:15px;color:var(--ink)}
+.m-card-no{font-size:15px;color:var(--ink);font-weight:700}
 .m-card-body{font-size:13.5px}
 .m-card-cname{font-size:14.5px;color:var(--ink);word-break:break-word}
 .m-card-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .m-card-tot{font-size:16px;font-weight:700;color:var(--brand)}
 .m-card-acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding-top:8px;border-top:1px solid var(--line);margin-top:2px}
-.m-header{position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--line);padding:10px 14px;align-items:center;justify-content:space-between;z-index:40;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
-.m-btn-icon{all:unset;box-sizing:border-box;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-size:20px;cursor:pointer;background:var(--bg);color:var(--ink)}
-.m-brand{display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;font-size:15px}
-.m-btn-bell{all:unset;box-sizing:border-box;position:relative;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-size:19px;cursor:pointer;background:var(--bg);color:var(--ink)}
-.m-bell-badge{position:absolute;top:2px;right:2px;background:#dc2626;color:#fff;font-size:10px;font-weight:700;padding:1px 5px;border-radius:99px;line-height:1}
-.m-drawer-mask{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(3px);z-index:900}
+.m-header{position:sticky;top:0;background:var(--brand)!important;color:#fff!important;border-bottom:1px solid rgba(255,255,255,0.1);padding:10px 14px;align-items:center;justify-content:space-between;z-index:40;box-shadow:0 2px 8px rgba(15,23,42,0.12)}
+.m-btn-icon{all:unset;box-sizing:border-box;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-size:20px;cursor:pointer;background:rgba(255,255,255,0.15)!important;color:#fff!important}
+.m-brand{display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;font-size:15px;color:#fff}
+.m-btn-bell{all:unset;box-sizing:border-box;position:relative;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-size:19px;cursor:pointer;background:rgba(255,255,255,0.15)!important;color:#fff!important}
+.m-bell-badge{position:absolute;top:2px;right:2px;background:var(--brand2);color:#fff;font-size:10px;font-weight:700;padding:1px 5px;border-radius:99px;line-height:1}
+.m-drawer-mask{position:fixed;inset:0;background:rgba(15,23,42,0.6);backdrop-filter:blur(3px);z-index:900}
 .m-drawer-mask.open{display:block}
-.m-drawer{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:85vw;background:var(--card);z-index:950;transform:translateX(-100%);transition:transform .25s cubic-bezier(0.4,0,0.2,1);box-shadow:4px 0 20px rgba(0,0,0,0.3);display:flex;flex-direction:column;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom,20px)}
+.m-drawer{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:85vw;background:var(--card);z-index:950;transform:translateX(-100%);transition:transform .25s cubic-bezier(0.4,0,0.2,1);box-shadow:4px 0 25px rgba(15,23,42,0.12);display:flex;flex-direction:column;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom,20px)}
 .m-drawer.open{transform:translateX(0);display:flex}
-.m-drawer-top{padding:16px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;background:var(--bg)}
+.m-drawer-top{padding:16px 14px;border-bottom:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:space-between;background:var(--brand);color:#fff}
 .m-drawer-user{display:flex;align-items:center;gap:10px}
-.m-drawer-avatar{width:36px;height:36px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:18px}
+.m-drawer-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.2);display:grid;place-items:center;font-size:18px;color:#fff}
 .m-drawer-menu{padding:10px 12px;display:flex;flex-direction:column;gap:4px}
 .m-drawer-sec{font-size:11.5px;font-weight:700;color:var(--mute);text-transform:uppercase;padding:10px 8px 4px;letter-spacing:0.4px}
 .m-drawer-menu button{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;cursor:pointer;color:var(--ink);font-weight:500;font-size:14px}
 .m-drawer-menu button:hover{background:var(--bg)}
 .m-drawer-menu button.on{background:var(--soft);color:var(--brand);font-weight:600}
 .m-drawer-menu button .ic{font-size:18px;width:24px;text-align:center}
-.bn{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:none;justify-content:space-around;padding:4px 0 env(safe-area-inset-bottom,0px);z-index:45;box-shadow:0 -2px 10px rgba(0,0,0,0.3)}
+.bn{position:fixed;bottom:0;left:0;right:0;background:#FFFFFF;border-top:1px solid var(--line);display:none;justify-content:space-around;padding:4px 0 env(safe-area-inset-bottom,0px);z-index:45;box-shadow:0 -2px 10px rgba(15,23,42,0.06)}
 .bn button{all:unset;box-sizing:border-box;flex:1;text-align:center;padding:6px 2px;cursor:pointer;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:2px}
 .bn button .bn-ic{font-size:20px;line-height:1}
 .bn button .bn-lb{font-size:10.5px;font-weight:600;line-height:1.2}
-.bn button.on{color:var(--brand)}
+.bn button.on{color:var(--brand2);font-weight:700}
 @media (max-width:768px){
  body:not(.view-desktop) aside{display:none!important}
  body:not(.view-desktop) .app{grid-template-columns:1fr!important}
@@ -116,28 +118,28 @@ body.modal-open .bn,body:has(.mask.open) .bn,body:has(.m-drawer.open) .bn{displa
  body:not(.view-desktop) .kpi h2{font-size:20px!important}
  body:not(.view-desktop) .kpi{padding:12px!important}
  body:not(.view-desktop) .mask{padding:0!important;align-items:flex-end!important}
- body:not(.view-desktop) .modal{border-radius:20px 20px 0 0!important;padding:18px 16px calc(48px + env(safe-area-inset-bottom,20px))!important;max-height:94vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;width:100%!important;max-width:100%!important;box-shadow:0 -10px 40px rgba(0,0,0,0.85)!important;border-bottom:none!important}
+ body:not(.view-desktop) .modal{background:#FFFFFF!important;border-radius:20px 20px 0 0!important;padding:18px 16px calc(48px + env(safe-area-inset-bottom,20px))!important;max-height:94vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;width:100%!important;max-width:100%!important;box-shadow:0 -10px 40px rgba(15,23,42,0.18)!important;border-bottom:none!important;border:1px solid var(--line)!important}
  body:not(.view-desktop) .f{grid-template-columns:1fr!important;gap:10px!important}
  body:not(.view-desktop) .f .w2,body:not(.view-desktop) .f .w4{grid-column:span 1!important}
  body:not(.view-desktop) input,body:not(.view-desktop) select,body:not(.view-desktop) textarea{font-size:16px!important}
  body:not(.view-desktop) .it-head{display:none!important}
- body:not(.view-desktop) .it-card-row{display:flex!important;flex-direction:column!important;gap:10px!important;background:var(--input-bg,#0f172a)!important;border:1px solid #334155!important;border-radius:14px!important;padding:14px!important;margin-bottom:12px!important;box-shadow:0 4px 12px rgba(0,0,0,0.25)!important}
- body:not(.view-desktop) .it-card-top{display:flex!important;justify-content:space-between!important;align-items:center!important;padding-bottom:8px!important;border-bottom:1px solid #1e293b!important;margin-bottom:2px!important}
- body:not(.view-desktop) .it-badge{font-size:13px!important;font-weight:700!important;color:#38bdf8!important;background:#0b131b!important;padding:2px 10px!important;border-radius:99px!important;border:1px solid #1e293b!important}
- body:not(.view-desktop) .it-del-btn{padding:5px 12px!important;font-size:12.5px!important;font-weight:600!important;border-radius:8px!important;background:#2d1418!important;border:1px solid #7f1d1d!important;color:#f87171!important}
+ body:not(.view-desktop) .it-card-row{display:flex!important;flex-direction:column!important;gap:10px!important;background:#FFFFFF!important;border:1px solid var(--line)!important;border-radius:14px!important;padding:14px!important;margin-bottom:12px!important;box-shadow:0 2px 8px rgba(15,23,42,0.05)!important}
+ body:not(.view-desktop) .it-card-top{display:flex!important;justify-content:space-between!important;align-items:center!important;padding-bottom:8px!important;border-bottom:1px solid #F1F5F9!important;margin-bottom:2px!important}
+ body:not(.view-desktop) .it-badge{font-size:13px!important;font-weight:700!important;color:var(--brand-light)!important;background:#EFF6FF!important;padding:2px 10px!important;border-radius:99px!important;border:1px solid #DBEAFE!important}
+ body:not(.view-desktop) .it-del-btn{padding:5px 12px!important;font-size:12.5px!important;font-weight:600!important;border-radius:8px!important;background:#FEE2E2!important;border:1px solid #FCA5A5!important;color:#DC2626!important}
  body:not(.view-desktop) .it-col-desc{width:100%!important}
  body:not(.view-desktop) .it-col-nums{display:grid!important;grid-template-columns:1fr 1fr 1.3fr!important;gap:8px!important;width:100%!important}
  body:not(.view-desktop) .it-num-field input{padding:8px 8px!important;font-size:14px!important}
- body:not(.view-desktop) .it-col-tot{display:flex!important;justify-content:space-between!important;align-items:center!important;background:#16222f!important;border:1px solid #283747!important;border-radius:10px!important;padding:10px 14px!important;margin-top:2px!important;text-align:right!important}
- body:not(.view-desktop) .it-col-tot label{margin:0!important;font-size:13px!important;font-weight:600!important;color:#94a3b8!important}
- body:not(.view-desktop) .it-row-tot-val{font-size:16px!important;font-weight:700!important;color:#2dd4bf!important}
+ body:not(.view-desktop) .it-col-tot{display:flex!important;justify-content:space-between!important;align-items:center!important;background:#F8FAFC!important;border:1px solid var(--line)!important;border-radius:10px!important;padding:10px 14px!important;margin-top:2px!important;text-align:right!important}
+ body:not(.view-desktop) .it-col-tot label{margin:0!important;font-size:13px!important;font-weight:600!important;color:var(--mute)!important}
+ body:not(.view-desktop) .it-row-tot-val{font-size:16px!important;font-weight:700!important;color:var(--brand)!important}
  body:not(.view-desktop) .it-col-del.pc-only{display:none!important}
- body:not(.view-desktop) .tot{width:100%!important;margin:14px 0 0!important;background:var(--input-bg,#0f172a)!important;border:1px solid #334155!important;border-radius:12px!important;padding:12px 16px!important}
+ body:not(.view-desktop) .tot{width:100%!important;margin:14px 0 0!important;background:#F8FAFC!important;border:1px solid var(--line)!important;border-radius:12px!important;padding:12px 16px!important}
  body:not(.view-desktop) .modal-acts{display:flex!important;flex-direction:column-reverse!important;gap:10px!important;width:100%!important;margin-top:20px!important;padding-bottom:24px!important}
  body:not(.view-desktop) .modal-acts .btn{width:100%!important;padding:12px!important;font-size:15px!important;text-align:center!important;justify-content:center!important}
 }
 body.view-mobile aside{display:none!important}
-body.view-mobile .app{grid-template-columns:1fr!important;max-width:600px;margin:0 auto;box-shadow:0 0 30px rgba(0,0,0,0.1)}
+body.view-mobile .app{grid-template-columns:1fr!important;max-width:600px;margin:0 auto;box-shadow:0 0 30px rgba(15,23,42,0.08)}
 body.view-mobile .m-header{display:flex!important}
 body.view-mobile .bn{display:flex!important;max-width:600px;left:50%!important;transform:translateX(-50%)}
 body.view-mobile .pc-only{display:none!important}
@@ -152,27 +154,27 @@ body.view-mobile .k2{grid-template-columns:1fr!important}
 body.view-mobile .kpi h2{font-size:20px!important}
 body.view-mobile .kpi{padding:12px!important}
 body.view-mobile .mask{padding:0!important;align-items:flex-end!important}
-body.view-mobile .modal{border-radius:20px 20px 0 0!important;padding:18px 16px calc(48px + env(safe-area-inset-bottom,20px))!important;max-height:94vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;width:100%!important;max-width:100%!important;box-shadow:0 -10px 40px rgba(0,0,0,0.85)!important;border-bottom:none!important}
+body.view-mobile .modal{background:#FFFFFF!important;border-radius:20px 20px 0 0!important;padding:18px 16px calc(48px + env(safe-area-inset-bottom,20px))!important;max-height:94vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;width:100%!important;max-width:100%!important;box-shadow:0 -10px 40px rgba(15,23,42,0.18)!important;border-bottom:none!important;border:1px solid var(--line)!important}
 body.view-mobile .f{grid-template-columns:1fr!important;gap:10px!important}
 body.view-mobile .f .w2,body.view-mobile .f .w4{grid-column:span 1!important}
 body.view-mobile input,body.view-mobile select,body.view-mobile textarea{font-size:16px!important}
 body.view-mobile .it-head{display:none!important}
-body.view-mobile .it-card-row{display:flex!important;flex-direction:column!important;gap:10px!important;background:var(--input-bg,#0f172a)!important;border:1px solid #334155!important;border-radius:14px!important;padding:14px!important;margin-bottom:12px!important;box-shadow:0 4px 12px rgba(0,0,0,0.25)!important}
-body.view-mobile .it-card-top{display:flex!important;justify-content:space-between!important;align-items:center!important;padding-bottom:8px!important;border-bottom:1px solid #1e293b!important;margin-bottom:2px!important}
-body.view-mobile .it-badge{font-size:13px!important;font-weight:700!important;color:#38bdf8!important;background:#0b131b!important;padding:2px 10px!important;border-radius:99px!important;border:1px solid #1e293b!important}
-body.view-mobile .it-del-btn{padding:5px 12px!important;font-size:12.5px!important;font-weight:600!important;border-radius:8px!important;background:#2d1418!important;border:1px solid #7f1d1d!important;color:#f87171!important}
+body.view-mobile .it-card-row{display:flex!important;flex-direction:column!important;gap:10px!important;background:#FFFFFF!important;border:1px solid var(--line)!important;border-radius:14px!important;padding:14px!important;margin-bottom:12px!important;box-shadow:0 2px 8px rgba(15,23,42,0.05)!important}
+body.view-mobile .it-card-top{display:flex!important;justify-content:space-between!important;align-items:center!important;padding-bottom:8px!important;border-bottom:1px solid #F1F5F9!important;margin-bottom:2px!important}
+body.view-mobile .it-badge{font-size:13px!important;font-weight:700!important;color:var(--brand-light)!important;background:#EFF6FF!important;padding:2px 10px!important;border-radius:99px!important;border:1px solid #DBEAFE!important}
+body.view-mobile .it-del-btn{padding:5px 12px!important;font-size:12.5px!important;font-weight:600!important;border-radius:8px!important;background:#FEE2E2!important;border:1px solid #FCA5A5!important;color:#DC2626!important}
 body.view-mobile .it-col-desc{width:100%!important}
 body.view-mobile .it-col-nums{display:grid!important;grid-template-columns:1fr 1fr 1.3fr!important;gap:8px!important;width:100%!important}
 body.view-mobile .it-num-field input{padding:8px 8px!important;font-size:14px!important}
-body.view-mobile .it-col-tot{display:flex!important;justify-content:space-between!important;align-items:center!important;background:#16222f!important;border:1px solid #283747!important;border-radius:10px!important;padding:10px 14px!important;margin-top:2px!important;text-align:right!important}
-body.view-mobile .it-col-tot label{margin:0!important;font-size:13px!important;font-weight:600!important;color:#94a3b8!important}
-body.view-mobile .it-row-tot-val{font-size:16px!important;font-weight:700!important;color:#2dd4bf!important}
+body.view-mobile .it-col-tot{display:flex!important;justify-content:space-between!important;align-items:center!important;background:#F8FAFC!important;border:1px solid var(--line)!important;border-radius:10px!important;padding:10px 14px!important;margin-top:2px!important;text-align:right!important}
+body.view-mobile .it-col-tot label{margin:0!important;font-size:13px!important;font-weight:600!important;color:var(--mute)!important}
+body.view-mobile .it-row-tot-val{font-size:16px!important;font-weight:700!important;color:var(--brand)!important}
 body.view-mobile .it-col-del.pc-only{display:none!important}
-body.view-mobile .tot{width:100%!important;margin:14px 0 0!important;background:var(--input-bg,#0f172a)!important;border:1px solid #334155!important;border-radius:12px!important;padding:12px 16px!important}
+body.view-mobile .tot{width:100%!important;margin:14px 0 0!important;background:#F8FAFC!important;border:1px solid var(--line)!important;border-radius:12px!important;padding:12px 16px!important}
 body.view-mobile .modal-acts{display:flex!important;flex-direction:column-reverse!important;gap:10px!important;width:100%!important;margin-top:20px!important;padding-bottom:24px!important}
 body.view-mobile .modal-acts .btn{width:100%!important;padding:12px!important;font-size:15px!important;text-align:center!important;justify-content:center!important}
 @media print{body{background:#fff;color:#000}.app,.mask,.bn,#login{display:none!important}#pa{display:block!important;padding:0;color:#000}}
-#pa .h{display:flex;justify-content:space-between;border-bottom:3px solid #0f766e;padding-bottom:12px;margin-bottom:16px}
+#pa .h{display:flex;justify-content:space-between;border-bottom:3px solid #1E3A8A;padding-bottom:12px;margin-bottom:16px}
 #pa table td,#pa table th{border:1px solid var(--c2);padding:6px 8px;color:#000}#pa th{background:var(--c3,#e3eef8);-webkit-print-color-adjust:exact;print-color-adjust:exact}
 </style>
 </head>
@@ -181,7 +183,7 @@ body.view-mobile .modal-acts .btn{width:100%!important;padding:12px!important;fo
   <div style="display:flex;align-items:center;gap:10px">
     <button class="m-btn-icon" onclick="openDrawer()" aria-label="เมนู" title="เมนู">☰</button>
     <div class="m-brand" onclick="go('dash')">
-      <span style="display:grid;place-items:center;width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--brand),#14b8a6);color:#fff;font-weight:700;font-size:13px">DR</span>
+      <span style="display:grid;place-items:center;width:30px;height:30px;border-radius:8px;background:#FFFFFF;color:var(--brand);font-weight:800;font-size:13px">DR</span>
       <span id="mTitle" style="font-size:15px;font-weight:700">หน้าหลัก</span>
     </div>
   </div>
@@ -478,17 +480,17 @@ function vDash(){
   return `<div class="top"><div><h1>หน้าหลัก (Home)</h1><div class="sub">${esc(S.co.name)} · ${fd(today())}</div></div>
   <div><button class="btn" onclick="edit('quote')">+ ใบเสนอราคา</button> <button class="btn" onclick="edit('bill')">+ ใบวางบิล</button> <button class="btn p" onclick="edit('receipt')">+ ใบเสร็จ</button></div></div>
   ${urg.length?`
-  <div style="background:#281216;border:1.5px solid #e11d48;border-radius:14px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;box-shadow:0 4px 14px rgba(225,29,72,0.25)">
+  <div style="background:#FFF7F5;border:1.5px solid #FCA5A5;border-radius:14px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;box-shadow:0 4px 14px rgba(242,100,68,0.12)">
     <div style="display:flex;align-items:center;gap:12px">
-      <div style="width:42px;height:42px;border-radius:10px;background:#3f1418;display:grid;place-items:center;font-size:22px;flex-shrink:0">⚠️</div>
+      <div style="width:42px;height:42px;border-radius:10px;background:#FFF1EE;border:1px solid #FECDD3;display:grid;place-items:center;font-size:22px;flex-shrink:0">⚠️</div>
       <div>
-        <div style="font-weight:700;color:#fca5a5;font-size:15px">แจ้งเตือนเงินค้ำประกันสัญญาใกล้ครบกำหนด / เกินกำหนด (${urg.length} รายการ)</div>
-        <div style="font-size:13px;color:#cbd5e1;margin-top:2px">มียอดเงินค้ำประกันที่ต้องเร่งดำเนินการขอคืนรวม <b style="color:#f87171">฿${money(urg.reduce((a,b)=>a+(+b.amount||0),0))}</b> (ครบกำหนดภายใน 30 วัน หรือเกินกำหนดแล้ว)</div>
+        <div style="font-weight:700;color:#991B1B;font-size:15px">แจ้งเตือนเงินค้ำประกันสัญญาใกล้ครบกำหนด / เกินกำหนด (${urg.length} รายการ)</div>
+        <div style="font-size:13px;color:#475569;margin-top:2px">มียอดเงินค้ำประกันที่ต้องเร่งดำเนินการขอคืนรวม <b style="color:#DC2626">฿${money(urg.reduce((a,b)=>a+(+b.amount||0),0))}</b> (ครบกำหนดภายใน 30 วัน หรือเกินกำหนดแล้ว)</div>
       </div>
     </div>
     <div style="display:flex;gap:8px;align-items:center">
-      <button class="btn s" style="background:#3b1219;border-color:#e11d48;color:#fca5a5;font-weight:600;padding:7px 12px" onclick="checkDepositAlert(true)">📋 ดูรายการแจ้งเตือน</button>
-      <button class="btn p" style="background:#e11d48;border-color:#e11d48;padding:7px 14px;font-weight:600" onclick="go('deposit')">🛡️ ไปยังหน้าเงินค้ำประกัน</button>
+      <button class="btn s" style="background:#FFFFFF;border-color:#FCA5A5;color:#C2410C;font-weight:600;padding:7px 12px" onclick="checkDepositAlert(true)">📋 ดูรายการแจ้งเตือน</button>
+      <button class="btn p" style="background:var(--brand2);border-color:var(--brand2);color:#FFFFFF;padding:7px 14px;font-weight:600" onclick="go('deposit')">🛡️ ไปยังหน้าเงินค้ำประกัน</button>
     </div>
   </div>`:''}
   <div class="grid k4">
@@ -1013,7 +1015,7 @@ function vFiles(){
     ${cats.map(c=>{
       const act=fCatFilter===c;
       const count=c==='all'?(S.files||[]).length:(S.files||[]).filter(x=>x.category===c).length;
-      return `<button class="btn s" onclick="fCatFilter='${c}';render()" style="cursor:pointer;white-space:nowrap;padding:7px 14px;border-radius:99px;font-size:13.5px;font-weight:${act?'700':'500'};transition:all .15s ease;${act?'background:var(--brand);color:#ffffff;border:1px solid var(--brand);box-shadow:0 2px 6px rgba(15,118,110,0.28)':'background:var(--card);color:var(--ink);border:1px solid var(--line)'}">${catNames[c]} <span style="font-size:12px;margin-left:4px;padding:1px 7px;border-radius:99px;font-weight:600;${act?'background:rgba(255,255,255,0.25);color:#ffffff':'background:var(--bg);color:var(--mute)'}">${count}</span></button>`;
+      return `<button class="btn s" onclick="fCatFilter='${c}';render()" style="cursor:pointer;white-space:nowrap;padding:7px 14px;border-radius:99px;font-size:13.5px;font-weight:${act?'700':'500'};transition:all .15s ease;${act?'background:var(--brand);color:#ffffff;border:1px solid var(--brand);box-shadow:0 2px 6px rgba(30,58,138,0.25)':'background:var(--card);color:var(--ink);border:1px solid var(--line)'}">${catNames[c]} <span style="font-size:12px;margin-left:4px;padding:1px 7px;border-radius:99px;font-weight:600;${act?'background:rgba(255,255,255,0.25);color:#ffffff':'background:var(--bg);color:var(--mute)'}">${count}</span></button>`;
     }).join('')}
   </div>
   <div class="card">
@@ -1031,7 +1033,7 @@ function vFiles(){
         </tr>
         ${list.map(f=>`<tr>
           <td style="word-break:break-word;max-width:280px">
-            <b style="font-size:15px;color:var(--c1,#0f766e)">${esc(f.title)}</b>
+            <b style="font-size:15px;color:var(--brand)">${esc(f.title)}</b>
             ${f.desc?`<br><small class="sub">${esc(f.desc)}</small>`:''}
           </td>
           <td class="nowrap"><span class="tag info">${esc(f.category||'เอกสารทั่วไป')}</span></td>
@@ -1282,20 +1284,20 @@ function checkDepositAlert(force){
   const totAmount=urg.reduce((a,b)=>a+(+b.amount||0),0);
   openAlert(`
     <div style="display:flex;align-items:flex-start;gap:14px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:14px">
-      <div style="width:44px;height:44px;border-radius:12px;background:#3f1418;color:#f87171;display:grid;place-items:center;font-size:24px;flex-shrink:0">⚠️</div>
+      <div style="width:44px;height:44px;border-radius:12px;background:#FFF1EE;border:1px solid #FECDD3;color:var(--brand2);display:grid;place-items:center;font-size:24px;flex-shrink:0">⚠️</div>
       <div style="flex:1">
-        <h2 style="margin:0;font-size:18px;color:#fca5a5">แจ้งเตือน: เงินค้ำประกันสัญญาครบกำหนด / ใกล้ครบกำหนด</h2>
-        <div class="sub" style="margin-top:4px;color:#cbd5e1">พบเงินค้ำประกันที่ครบกำหนดภายใน 30 วัน หรือเกินกำหนดแล้ว <b>${urg.length} รายการ</b> กรุณาดำเนินการยื่นเรื่องขอรับเงินค้ำประกันคืน</div>
+        <h2 style="margin:0;font-size:18px;color:#991B1B">แจ้งเตือน: เงินค้ำประกันสัญญาครบกำหนด / ใกล้ครบกำหนด</h2>
+        <div class="sub" style="margin-top:4px;color:var(--mute)">พบเงินค้ำประกันที่ครบกำหนดภายใน 30 วัน หรือเกินกำหนดแล้ว <b>${urg.length} รายการ</b> กรุณาดำเนินการยื่นเรื่องขอรับเงินค้ำประกันคืน</div>
       </div>
       <button class="btn s" onclick="dismissDepositAlert()" title="ปิด" style="font-size:18px;line-height:1;padding:4px 10px">✕</button>
     </div>
 
-    <div style="background:#261317;border:1px solid #7f1d1d;border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+    <div style="background:#FFF7F5;border:1px solid #FCA5A5;border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
       <div>
-        <span style="font-size:13px;color:#fca5a5;font-weight:600">ยอดเงินค้ำประกันที่ต้องติดตามขอคืน:</span>
-        <div style="font-size:12px;color:#94a3b8">แนะนำให้ติดต่อหน่วยงานคู่สัญญาเพื่อประสานงานขอเงินค้ำประกันคืน</div>
+        <span style="font-size:13px;color:#991B1B;font-weight:600">ยอดเงินค้ำประกันที่ต้องติดตามขอคืน:</span>
+        <div style="font-size:12px;color:var(--mute)">แนะนำให้ติดต่อหน่วยงานคู่สัญญาเพื่อประสานงานขอเงินค้ำประกันคืน</div>
       </div>
-      <div style="font-size:22px;font-weight:700;color:#f87171">฿${money(totAmount)}</div>
+      <div style="font-size:22px;font-weight:700;color:var(--brand2)">฿${money(totAmount)}</div>
     </div>
 
     <div class="wrap pc-only" style="max-height:360px;overflow-y:auto;border:1px solid var(--line);border-radius:10px">
@@ -1316,7 +1318,7 @@ function checkDepositAlert(force){
             <td class="c">${i+1}</td>
             <td><b>${esc(d.title||d.name)}</b>${d.note?`<br><small class="sub">${esc(d.note)}</small>`:''}</td>
             <td class="c nowrap"><span class="tag info">${esc(d.inName||d.company||'ดีอาร์(โอน)')}</span></td>
-            <td class="r nowrap"><b style="color:#2dd4bf">฿${money(d.amount)}</b></td>
+            <td class="r nowrap"><b style="color:var(--brand)">฿${money(d.amount)}</b></td>
             <td class="c nowrap">${fdl(d.dueDate)}<br>${badge}</td>
             <td class="c nowrap"><span class="tag ${d.status==='ได้รับคืนแล้ว'?'ok':d.status==='รอขอคืนเงิน'?'info':'warn'}">${esc(d.status||'ค้ำประกันอยู่')}</span></td>
             <td class="r"><button class="btn s" onclick="closeAlert();go('deposit');editDeposit('${d.id}')">ดู/แก้ไข</button></td>
@@ -1330,16 +1332,16 @@ function checkDepositAlert(force){
         const days=getDepositDaysLeft(d.dueDate);
         const badge=days<0?`<span class="tag bad" style="font-size:11px;font-weight:700">⚠️ เกินกำหนด ${Math.abs(days)} วัน</span>`:days===0?`<span class="tag bad" style="font-size:11px;font-weight:700">⚠️ ครบกำหนดวันนี้</span>`:`<span class="tag warn" style="font-size:11px;font-weight:700">⏳ เหลืออีก ${days} วัน</span>`;
         return `
-          <div class="m-card" style="border-color:#7f1d1d;background:#0f172a">
+          <div class="m-card" style="border-color:#FCA5A5;background:#FFF7F5">
             <div style="display:flex;justify-content:space-between;align-items:center">
               <span class="tag info">${esc(d.inName||d.company||'ดีอาร์(โอน)')}</span>
               ${badge}
             </div>
             <div style="font-weight:700;font-size:14.5px;color:var(--ink);margin-top:4px">${esc(d.title||d.name)}</div>
             ${d.note?`<div class="sub" style="font-size:12px">${esc(d.note)}</div>`:''}
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;background:#16222f;padding:6px 10px;border-radius:8px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;background:#FFFFFF;border:1px solid #FED7AA;padding:6px 10px;border-radius:8px">
               <span class="sub" style="font-size:12px">ครบ: ${fdl(d.dueDate)}</span>
-              <span style="color:#2dd4bf;font-weight:700;font-size:15px">฿${money(d.amount)}</span>
+              <span style="color:var(--brand);font-weight:700;font-size:15px">฿${money(d.amount)}</span>
             </div>
             <div style="display:flex;justify-content:flex-end;margin-top:8px">
               <button class="btn s" onclick="closeAlert();go('deposit');editDeposit('${d.id}')" style="padding:6px 12px">ดู / แก้ไข</button>
@@ -1351,7 +1353,7 @@ function checkDepositAlert(force){
 
     <div class="modal-acts" style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:10px;flex-wrap:wrap">
       <button class="btn s" onclick="dismissDepositAlert()" style="padding:8px 16px;font-size:13px">รับทราบและปิดการแจ้งเตือน</button>
-      <button class="btn p" onclick="closeAlert();go('deposit')" style="padding:8px 18px;font-size:13px;background:var(--brand);border-color:var(--brand)">🛡️ ไปยังหน้าจัดการเงินค้ำประกัน</button>
+      <button class="btn p" onclick="closeAlert();go('deposit')" style="padding:8px 18px;font-size:13px;background:var(--brand2);border-color:var(--brand2);color:#FFFFFF">🛡️ ไปยังหน้าจัดการเงินค้ำประกัน</button>
     </div>
   `);
 }
@@ -1408,9 +1410,9 @@ function vDeposit(){
       <h2>฿${money(activeAmount)}</h2>
       <i>${activeList.length} รายการ</i>
     </div>
-    <div class="card kpi" style="border-left:4px solid ${urg.length?'#dc2626':'var(--ok)'}">
+    <div class="card kpi" style="border-left:4px solid ${urg.length?'var(--brand2)':'var(--ok)'}">
       <small>${urg.length?'⚠️ ครบกำหนดภายใน 30 วัน':'สถานะครบกำหนด'}</small>
-      <h2 style="color:${urg.length?'#dc2626':'var(--ok)'}">${urg.length?`฿${money(urgAmount)}`:'ปกติทุกรายการ'}</h2>
+      <h2 style="color:${urg.length?'var(--brand2)':'var(--ok)'}">${urg.length?`฿${money(urgAmount)}`:'ปกติทุกรายการ'}</h2>
       <i>${urg.length?`มี ${urg.length} รายการที่ต้องเร่งขอคืน`:'ไม่มีรายการที่ใกล้ครบกำหนด'}</i>
     </div>
     <div class="card kpi" style="border-left:4px solid var(--ok)">
@@ -1425,7 +1427,7 @@ function vDeposit(){
       <div class="tabs" style="margin:0;flex-wrap:wrap">
         <button class="btn ${depFilter==='all'?'on':''}" onclick="depFilter='all';render()">ทั้งหมด (${allList.length})</button>
         <button class="btn ${depFilter==='active'?'on':''}" onclick="depFilter='active';render()">ค้ำประกันอยู่ (${activeList.length})</button>
-        <button class="btn ${depFilter==='urgent'?'on':''}" style="${depFilter==='urgent'?'background:#fee2e2;color:#b91c1c;border-color:#b91c1c':''}" onclick="depFilter='urgent';render()">⚠️ ใกล้ครบกำหนด (${urg.length})</button>
+        <button class="btn ${depFilter==='urgent'?'on':''}" style="${depFilter==='urgent'?'background:#FFF1EE;color:#C2410C;border-color:#FCA5A5;font-weight:700':''}" onclick="depFilter='urgent';render()">⚠️ ใกล้ครบกำหนด (${urg.length})</button>
         <button class="btn ${depFilter==='refunded'?'on':''}" onclick="depFilter='refunded';render()">✅ ได้รับคืนแล้ว (${refundedList.length})</button>
       </div>
       <div style="width:280px">
@@ -1438,8 +1440,8 @@ function vDeposit(){
         ไม่พบรายการเงินค้ำประกันตามเงื่อนไขที่เลือก — กดปุ่ม <b>“+ เพิ่มรายการเงินค้ำประกัน”</b> เพื่อเพิ่มรายการใหม่
       </div>
     `:`
-      <div class="pc-only" style="border:1px solid #334155;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.3)">
-        <div style="background:#1e293b;border-bottom:1px solid #334155;color:#fff;padding:12px 18px;display:flex;justify-content:space-between;align-items:center">
+      <div class="pc-only" style="border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--sh)">
+        <div style="background:var(--brand);border-bottom:1px solid var(--brand);color:#fff;padding:12px 18px;display:flex;justify-content:space-between;align-items:center">
           <div style="font-weight:700;font-size:16px;letter-spacing:0.3px">รายการเงินค้ำประกันสัญญา หจก.ดีอาร์.บัสบอดี้</div>
           <div style="font-size:13px;opacity:0.95">${filtered.length} รายการ · รวม <b>฿${money(subtotal)}</b></div>
         </div>
@@ -1462,14 +1464,14 @@ function vDeposit(){
               const badge=isUrg?(days<0?`<span class="tag bad" style="font-size:11px;font-weight:700">เกินกำหนด ${Math.abs(days)} วัน</span>`:days===0?`<span class="tag bad" style="font-size:11px;font-weight:700">ครบกำหนดวันนี้</span>`:`<span class="tag warn" style="font-size:11px;font-weight:700">เหลืออีก ${days} วัน</span>`):'';
               const periodStr=(d.contractStart||d.contractEnd||d.startDate||d.endDate)?`${fd(d.contractStart||d.startDate)} - ${fd(d.contractEnd||d.endDate)}`:'-';
               return `
-              <tr style="${isUrg?'background:rgba(239,68,68,0.12)':''}">
+              <tr style="${isUrg?'background:#FFF7F5':''}">
                 <td class="c">${idx+1}</td>
                 <td class="c nowrap"><b>${esc(d.inName||d.company||'ดีอาร์(โอน)')}</b></td>
                 <td>
                   <b style="font-size:14px;color:var(--ink)">${esc(d.title||d.name||'เงินค้ำประกัน')}</b>
                   ${d.note?`<br><small class="sub">${esc(d.note)}</small>`:''}
                 </td>
-                <td class="r nowrap" style="font-weight:700;font-size:14.5px;color:#38bdf8">
+                <td class="r nowrap" style="font-weight:700;font-size:14.5px;color:var(--brand)">
                   ฿${money(d.amount)}
                 </td>
                 <td class="c nowrap">${esc(d.duration||d.period||'-')}</td>
@@ -1492,7 +1494,7 @@ function vDeposit(){
             }).join('')}
             <tr style="background:var(--bg);border-top:2px solid var(--line)">
               <td colspan="3" class="c" style="font-weight:700;font-size:15px">รวม</td>
-              <td class="r nowrap" style="font-weight:700;font-size:16px;color:#38bdf8">฿${money(subtotal)}</td>
+              <td class="r nowrap" style="font-weight:700;font-size:16px;color:var(--brand)">฿${money(subtotal)}</td>
               <td colspan="5"></td>
             </tr>
           </table>
@@ -1505,7 +1507,7 @@ function vDeposit(){
           const badge=isUrg?(days<0?`<span class="tag bad" style="font-size:11px;font-weight:700">เกินกำหนด ${Math.abs(days)} วัน</span>`:days===0?`<span class="tag bad" style="font-size:11px;font-weight:700">ครบกำหนดวันนี้</span>`:`<span class="tag warn" style="font-size:11px;font-weight:700">เหลืออีก ${days} วัน</span>`):'';
           const periodStr=(d.contractStart||d.contractEnd||d.startDate||d.endDate)?`${fd(d.contractStart||d.startDate)} - ${fd(d.contractEnd||d.endDate)}`:'-';
           return `
-          <div class="m-card" style="${isUrg?'border-color:#e11d48;background:#251317':''}">
+          <div class="m-card" style="${isUrg?'border-color:#FCA5A5;background:#FFF7F5':''}">
             <div class="m-card-header">
               <div>
                 <div class="m-card-no"><b>#${idx+1} · ${esc(d.title||d.name||'เงินค้ำประกัน')}</b></div>
@@ -1517,13 +1519,13 @@ function vDeposit(){
               ${d.note?`<div class="sub" style="font-size:12px">${esc(d.note)}</div>`:''}
               <div style="font-size:12px;color:var(--mute)">ระยะสัญญา: ${periodStr} (${esc(d.duration||d.period||'-')})</div>
               <div style="font-size:13px;margin-top:2px">
-                <b>ครบกำหนด:</b> <span style="font-weight:700;color:${isUrg?'#f87171':'var(--ink)'}">${fdl(d.dueDate)}</span>
+                <b>ครบกำหนด:</b> <span style="font-weight:700;color:${isUrg?'var(--brand2)':'var(--ink)'}">${fdl(d.dueDate)}</span>
                 ${badge?` ${badge}`:''}
               </div>
             </div>
             <div class="m-card-row">
               <span class="sub" style="font-size:12px">ยอดเงินค้ำประกัน</span>
-              <span class="m-card-tot" style="color:#38bdf8">฿${money(d.amount)}</span>
+              <span class="m-card-tot" style="color:var(--brand)">฿${money(d.amount)}</span>
             </div>
             <div class="m-card-acts">
               <button class="btn s" style="flex:1;padding:8px 6px;text-align:center" onclick="editDeposit('${d.id}')">✏️ แก้ไขข้อมูล</button>
@@ -1531,9 +1533,9 @@ function vDeposit(){
             </div>
           </div>`;
         }).join('')}
-        <div class="card" style="padding:12px 14px;background:#1e293b;border:1px solid #334155;color:#fff;border-radius:12px;display:flex;justify-content:space-between;align-items:center">
+        <div class="card" style="padding:12px 14px;background:var(--brand);border:none;color:#fff;border-radius:12px;display:flex;justify-content:space-between;align-items:center">
           <span style="font-weight:700;font-size:14px">ยอดรวม ${filtered.length} รายการ</span>
-          <span style="font-weight:700;font-size:16px;color:#38bdf8">฿${money(subtotal)}</span>
+          <span style="font-weight:700;font-size:16px;color:#fff">฿${money(subtotal)}</span>
         </div>
       </div>
     `}
