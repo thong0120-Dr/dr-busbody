@@ -114,7 +114,25 @@ async function pull(){
   try{
     const j=await api('GET','/api/state'),k=JSON.stringify(j);
     if(k===last)return;last=k;
-    S.docs=j.docs;S.jobs=j.jobs||[];S.cust=j.cust;S.files=j.files||[];S.deposits=j.deposits||[];S.co={...S.co,...j.co};S.users=j.users||[];render();
+    const rawDeps=j.deposits||[];
+    S.deposits=rawDeps.filter(d=>{
+      const text=`${d.company||''} ${d.inName||''} ${d.group||''} ${d.name||''} ${d.title||''}`;
+      return !text.includes('ดาวรุ่ง')&&!['dep-003','dep-004','dep-005','dep-006'].includes(d.id);
+    }).map(d=>({
+      ...d,
+      title:d.title||d.name||'เงินค้ำประกัน',
+      name:d.title||d.name||'เงินค้ำประกัน',
+      inName:d.inName||d.company||'ดีอาร์(โอน)',
+      company:'หจก. ดีอาร์.บัสบอดี้',
+      group:'dr',
+      duration:d.duration||d.period||'-',
+      period:d.duration||d.period||'-',
+      contractStart:d.contractStart||d.startDate||'',
+      contractEnd:d.contractEnd||d.endDate||'',
+      dueDate:d.dueDate||'',
+      status:d.status||'ค้ำประกันอยู่'
+    }));
+    S.docs=j.docs;S.jobs=j.jobs||[];S.cust=j.cust;S.files=j.files||[];S.co={...S.co,...j.co};S.users=j.users||[];render();
   }catch(e){}
 }
 const CM={docs:'docs',cust:'customers',users:'users',jobs:'jobs',files:'files',deposits:'deposits'};
@@ -887,8 +905,8 @@ function checkDepositAlert(force){
           const badge=days<0?`<span class="tag bad" style="font-size:11px;font-weight:700">⚠️ เกินกำหนด ${Math.abs(days)} วัน</span>`:days===0?`<span class="tag bad" style="font-size:11px;font-weight:700">⚠️ ครบกำหนดวันนี้</span>`:`<span class="tag warn" style="font-size:11px;font-weight:700">⏳ เหลืออีก ${days} วัน</span>`;
           return `<tr>
             <td class="c">${i+1}</td>
-            <td><b>${esc(d.title)}</b>${d.note?`<br><small class="sub">${esc(d.note)}</small>`:''}</td>
-            <td class="c nowrap"><span class="tag info">${esc(d.inName||'-')}</span></td>
+            <td><b>${esc(d.title||d.name)}</b>${d.note?`<br><small class="sub">${esc(d.note)}</small>`:''}</td>
+            <td class="c nowrap"><span class="tag info">${esc(d.inName||d.company||'ดีอาร์(โอน)')}</span></td>
             <td class="r nowrap"><b>฿${money(d.amount)}</b></td>
             <td class="c nowrap">${fdl(d.dueDate)}<br>${badge}</td>
             <td class="c nowrap"><span class="tag ${d.status==='ได้รับคืนแล้ว'?'ok':d.status==='รอขอคืนเงิน'?'info':'warn'}">${esc(d.status||'ค้ำประกันอยู่')}</span></td>
@@ -915,8 +933,7 @@ function vDeposit(){
   const urg=getUrgentDeposits();
 
   const filtered=allList.filter(d=>{
-    if(depFilter==='dr'&&d.group!=='dr')return false;
-    if(depFilter==='daorung'&&d.group!=='daorung')return false;
+    if(depFilter==='active'&&d.status==='ได้รับคืนแล้ว')return false;
     if(depFilter==='urgent'){
       if(d.status==='ได้รับคืนแล้ว')return false;
       const days=getDepositDaysLeft(d.dueDate);
@@ -924,25 +941,22 @@ function vDeposit(){
     }
     if(depFilter==='refunded'&&d.status!=='ได้รับคืนแล้ว')return false;
     if(!qStr)return true;
-    return ((d.title||'')+' '+(d.inName||'')+' '+(d.company||'')+' '+(d.note||'')+' '+(d.duration||'')).toLowerCase().includes(qStr);
+    return ((d.title||d.name||'')+' '+(d.inName||d.company||'')+' '+(d.note||'')+' '+(d.duration||d.period||'')).toLowerCase().includes(qStr);
   });
 
   const totalAmount=allList.reduce((a,b)=>a+(+b.amount||0),0);
-  const drTotal=allList.filter(d=>d.group==='dr').reduce((a,b)=>a+(+b.amount||0),0);
-  const drCount=allList.filter(d=>d.group==='dr').length;
-  const daorungTotal=allList.filter(d=>d.group==='daorung').reduce((a,b)=>a+(+b.amount||0),0);
-  const daorungCount=allList.filter(d=>d.group==='daorung').length;
-  const urgTotal=urg.reduce((a,b)=>a+(+b.amount||0),0);
-
-  const drItems=filtered.filter(d=>d.group==='dr');
-  const daorungItems=filtered.filter(d=>d.group==='daorung');
-  const otherItems=filtered.filter(d=>d.group!=='dr'&&d.group!=='daorung');
+  const activeList=allList.filter(d=>d.status!=='ได้รับคืนแล้ว');
+  const activeAmount=activeList.reduce((a,b)=>a+(+b.amount||0),0);
+  const urgAmount=urg.reduce((a,b)=>a+(+b.amount||0),0);
+  const refundedList=allList.filter(d=>d.status==='ได้รับคืนแล้ว');
+  const refundedAmount=refundedList.reduce((a,b)=>a+(+b.amount||0),0);
+  const subtotal=filtered.reduce((a,b)=>a+(+b.amount||0),0);
 
   return `
   <div class="top">
     <div>
       <h1>เงินค้ำประกัน (Security Deposit)</h1>
-      <div class="sub">จัดการรายการเงินค้ำประกันสัญญา ติดตามวันครบกำหนด และสถานะการขอคืนเงิน</div>
+      <div class="sub">หจก. ดีอาร์.บัสบอดี้ · จัดการรายการเงินค้ำประกันสัญญา ติดตามวันครบกำหนด และสถานะการขอคืนเงิน</div>
     </div>
     <div style="display:flex;gap:8px">
       ${urg.length?`<button class="btn s" style="background:#fee2e2;color:#b91c1c;border-color:#fca5a5;font-weight:600" onclick="checkDepositAlert(true)">⚠️ รายการครบกำหนด (${urg.length})</button>`:''}
@@ -956,20 +970,20 @@ function vDeposit(){
       <h2>฿${money(totalAmount)}</h2>
       <i>ทั้งหมด ${allList.length} รายการ</i>
     </div>
-    <div class="card kpi" style="border-left:4px solid #1e3a8a">
-      <small>ดีอาร์บัสบอดี้</small>
-      <h2>฿${money(drTotal)}</h2>
-      <i>${drCount} รายการ</i>
-    </div>
-    <div class="card kpi" style="border-left:4px solid #14532d">
-      <small>ดาวรุ่งทราเวล</small>
-      <h2>฿${money(daorungTotal)}</h2>
-      <i>${daorungCount} รายการ</i>
+    <div class="card kpi" style="border-left:4px solid var(--brand)">
+      <small>ค้ำประกันอยู่</small>
+      <h2>฿${money(activeAmount)}</h2>
+      <i>${activeList.length} รายการ</i>
     </div>
     <div class="card kpi" style="border-left:4px solid ${urg.length?'#dc2626':'var(--ok)'}">
       <small>${urg.length?'⚠️ ครบกำหนดภายใน 30 วัน':'สถานะครบกำหนด'}</small>
-      <h2 style="color:${urg.length?'#dc2626':'var(--ok)'}">${urg.length?`฿${money(urgTotal)}`:'ปกติทุกรายการ'}</h2>
+      <h2 style="color:${urg.length?'#dc2626':'var(--ok)'}">${urg.length?`฿${money(urgAmount)}`:'ปกติทุกรายการ'}</h2>
       <i>${urg.length?`มี ${urg.length} รายการที่ต้องเร่งขอคืน`:'ไม่มีรายการที่ใกล้ครบกำหนด'}</i>
+    </div>
+    <div class="card kpi" style="border-left:4px solid var(--ok)">
+      <small>ได้รับคืนแล้ว</small>
+      <h2>฿${money(refundedAmount)}</h2>
+      <i>${refundedList.length} รายการ</i>
     </div>
   </div>
 
@@ -977,10 +991,9 @@ function vDeposit(){
     <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px">
       <div class="tabs" style="margin:0;flex-wrap:wrap">
         <button class="btn ${depFilter==='all'?'on':''}" onclick="depFilter='all';render()">ทั้งหมด (${allList.length})</button>
-        <button class="btn ${depFilter==='dr'?'on':''}" onclick="depFilter='dr';render()">ดีอาร์บัสบอดี้ (${drCount})</button>
-        <button class="btn ${depFilter==='daorung'?'on':''}" onclick="depFilter='daorung';render()">ดาวรุ่งทราเวล (${daorungCount})</button>
+        <button class="btn ${depFilter==='active'?'on':''}" onclick="depFilter='active';render()">ค้ำประกันอยู่ (${activeList.length})</button>
         <button class="btn ${depFilter==='urgent'?'on':''}" style="${depFilter==='urgent'?'background:#fee2e2;color:#b91c1c;border-color:#b91c1c':''}" onclick="depFilter='urgent';render()">⚠️ ใกล้ครบกำหนด (${urg.length})</button>
-        <button class="btn ${depFilter==='refunded'?'on':''}" onclick="depFilter='refunded';render()">✅ ได้รับคืนแล้ว</button>
+        <button class="btn ${depFilter==='refunded'?'on':''}" onclick="depFilter='refunded';render()">✅ ได้รับคืนแล้ว (${refundedList.length})</button>
       </div>
       <div style="width:280px">
         <input placeholder="🔍 ค้นหารายการ, ในนาม, หน่วยงาน..." value="${esc(depQ)}" oninput="depQ=this.value;render()">
@@ -992,78 +1005,67 @@ function vDeposit(){
         ไม่พบรายการเงินค้ำประกันตามเงื่อนไขที่เลือก — กดปุ่ม <b>“+ เพิ่มรายการเงินค้ำประกัน”</b> เพื่อเพิ่มรายการใหม่
       </div>
     `:`
-      <div style="display:flex;flex-direction:column;gap:24px">
-        ${(depFilter==='all'||depFilter==='dr'||depFilter==='urgent')&&drItems.length?renderDepositGroupTable('รายการเงินค้ำประกันสัญญา ดีอาร์บัสบอดี้','#1e3a8a',drItems):''}
-        ${(depFilter==='all'||depFilter==='daorung'||depFilter==='urgent')&&daorungItems.length?renderDepositGroupTable('รายการเงินค้ำประกันสัญญา ดาวรุ่งทราเวล','#14532d',daorungItems):''}
-        ${otherItems.length?renderDepositGroupTable('รายการเงินค้ำประกันสัญญา อื่นๆ','#334155',otherItems):''}
+      <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.05)">
+        <div style="background:#1e3a8a;color:#fff;padding:12px 18px;display:flex;justify-content:space-between;align-items:center">
+          <div style="font-weight:700;font-size:16px;letter-spacing:0.3px">รายการเงินค้ำประกันสัญญา หจก.ดีอาร์.บัสบอดี้</div>
+          <div style="font-size:13px;opacity:0.95">${filtered.length} รายการ · รวม <b>฿${money(subtotal)}</b></div>
+        </div>
+        <div class="wrap">
+          <table style="margin:0">
+            <tr style="background:var(--bg)">
+              <th class="c nowrap" style="width:50px">ลำดับ</th>
+              <th class="c nowrap">ในนาม</th>
+              <th>รายการ / ชื่อหน่วยงาน</th>
+              <th class="r nowrap">ยอดเงิน (บาท)</th>
+              <th class="c nowrap">ระยะเวลา</th>
+              <th class="c nowrap">วันเริ่ม - สิ้นสุดสัญญา</th>
+              <th class="c nowrap">ครบกำหนดเงินค้ำประกัน</th>
+              <th class="c nowrap">สถานะ</th>
+              <th class="r nowrap">การจัดการ</th>
+            </tr>
+            ${filtered.map((d,idx)=>{
+              const days=getDepositDaysLeft(d.dueDate);
+              const isUrg=d.status!=='ได้รับคืนแล้ว'&&days!==null&&days<=30;
+              const badge=isUrg?(days<0?`<span class="tag bad" style="font-size:11px;font-weight:700">เกินกำหนด ${Math.abs(days)} วัน</span>`:days===0?`<span class="tag bad" style="font-size:11px;font-weight:700">ครบกำหนดวันนี้</span>`:`<span class="tag warn" style="font-size:11px;font-weight:700">เหลืออีก ${days} วัน</span>`):'';
+              const periodStr=(d.contractStart||d.contractEnd||d.startDate||d.endDate)?`${fd(d.contractStart||d.startDate)} - ${fd(d.contractEnd||d.endDate)}`:'-';
+              return `
+              <tr style="${isUrg?'background:#fff5f5':''}">
+                <td class="c">${idx+1}</td>
+                <td class="c nowrap"><b>${esc(d.inName||d.company||'ดีอาร์(โอน)')}</b></td>
+                <td>
+                  <b style="font-size:14px;color:var(--ink)">${esc(d.title||d.name||'เงินค้ำประกัน')}</b>
+                  ${d.note?`<br><small class="sub">${esc(d.note)}</small>`:''}
+                </td>
+                <td class="r nowrap" style="font-weight:700;font-size:14.5px;color:#1e3a8a">
+                  ฿${money(d.amount)}
+                </td>
+                <td class="c nowrap">${esc(d.duration||d.period||'-')}</td>
+                <td class="c nowrap" style="font-size:12.5px">${periodStr}</td>
+                <td class="c nowrap">
+                  <span style="font-weight:600">${fdl(d.dueDate)}</span>
+                  ${badge?`<br>${badge}`:''}
+                </td>
+                <td class="c nowrap">
+                  <span class="tag ${d.status==='ได้รับคืนแล้ว'?'ok':d.status==='รอขอคืนเงิน'?'info':'warn'}">${esc(d.status||'ค้ำประกันอยู่')}</span>
+                </td>
+                <td class="r nowrap">
+                  <div class="acts">
+                    <button class="btn s" onclick="editDeposit('${d.id}')" title="แก้ไข">✏️ แก้ไข</button>
+                    ${isAdmin()?`<button class="btn s d" onclick="delDeposit('${d.id}')" title="ลบ">ลบ</button>`:''}
+                  </div>
+                </td>
+              </tr>
+              `;
+            }).join('')}
+            <tr style="background:#f8fafc;border-top:2px solid var(--line)">
+              <td colspan="3" class="c" style="font-weight:700;font-size:15px">รวม</td>
+              <td class="r nowrap" style="font-weight:700;font-size:16px;color:#1e3a8a">฿${money(subtotal)}</td>
+              <td colspan="5"></td>
+            </tr>
+          </table>
+        </div>
       </div>
     `}
-  </div>
-  `;
-}
-
-function renderDepositGroupTable(title,themeColor,items){
-  const subtotal=items.reduce((a,b)=>a+(+b.amount||0),0);
-  return `
-  <div style="border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.05)">
-    <div style="background:${themeColor};color:#fff;padding:12px 18px;display:flex;justify-content:space-between;align-items:center">
-      <div style="font-weight:700;font-size:16px;letter-spacing:0.3px">${esc(title)}</div>
-      <div style="font-size:13px;opacity:0.95">${items.length} รายการ · รวม <b>฿${money(subtotal)}</b></div>
-    </div>
-    <div class="wrap">
-      <table style="margin:0">
-        <tr style="background:var(--bg)">
-          <th class="c nowrap" style="width:50px">ลำดับ</th>
-          <th class="c nowrap">ในนาม</th>
-          <th>รายการ / ชื่อหน่วยงาน</th>
-          <th class="r nowrap">ยอดเงิน (บาท)</th>
-          <th class="c nowrap">ระยะเวลา</th>
-          <th class="c nowrap">วันเริ่ม - สิ้นสุดสัญญา</th>
-          <th class="c nowrap">ครบกำหนดเงินค้ำประกัน</th>
-          <th class="c nowrap">สถานะ</th>
-          <th class="r nowrap">การจัดการ</th>
-        </tr>
-        ${items.map((d,idx)=>{
-          const days=getDepositDaysLeft(d.dueDate);
-          const isUrg=d.status!=='ได้รับคืนแล้ว'&&days!==null&&days<=30;
-          const badge=isUrg?(days<0?`<span class="tag bad" style="font-size:11px;font-weight:700">เกินกำหนด ${Math.abs(days)} วัน</span>`:days===0?`<span class="tag bad" style="font-size:11px;font-weight:700">ครบกำหนดวันนี้</span>`:`<span class="tag warn" style="font-size:11px;font-weight:700">เหลืออีก ${days} วัน</span>`):'';
-          const periodStr=(d.contractStart||d.contractEnd)?`${fd(d.contractStart)} - ${fd(d.contractEnd)}`:'-';
-          return `
-          <tr style="${isUrg?'background:#fff5f5':''}">
-            <td class="c">${idx+1}</td>
-            <td class="c nowrap"><b>${esc(d.inName||'-')}</b></td>
-            <td>
-              <b style="font-size:14px;color:var(--ink)">${esc(d.title)}</b>
-              ${d.note?`<br><small class="sub">${esc(d.note)}</small>`:''}
-            </td>
-            <td class="r nowrap" style="font-weight:700;font-size:14.5px;color:${themeColor}">
-              ฿${money(d.amount)}
-            </td>
-            <td class="c nowrap">${esc(d.duration||'-')}</td>
-            <td class="c nowrap" style="font-size:12.5px">${periodStr}</td>
-            <td class="c nowrap">
-              <span style="font-weight:600">${fdl(d.dueDate)}</span>
-              ${badge?`<br>${badge}`:''}
-            </td>
-            <td class="c nowrap">
-              <span class="tag ${d.status==='ได้รับคืนแล้ว'?'ok':d.status==='รอขอคืนเงิน'?'info':'warn'}">${esc(d.status||'ค้ำประกันอยู่')}</span>
-            </td>
-            <td class="r nowrap">
-              <div class="acts">
-                <button class="btn s" onclick="editDeposit('${d.id}')" title="แก้ไข">✏️ แก้ไข</button>
-                ${isAdmin()?`<button class="btn s d" onclick="delDeposit('${d.id}')" title="ลบ">ลบ</button>`:''}
-              </div>
-            </td>
-          </tr>
-          `;
-        }).join('')}
-        <tr style="background:#f8fafc;border-top:2px solid var(--line)">
-          <td colspan="3" class="c" style="font-weight:700;font-size:15px">รวม</td>
-          <td class="r nowrap" style="font-weight:700;font-size:16px;color:${themeColor}">฿${money(subtotal)}</td>
-          <td colspan="5"></td>
-        </tr>
-      </table>
-    </div>
   </div>
   `;
 }
@@ -1071,12 +1073,14 @@ function renderDepositGroupTable(title,themeColor,items){
 function editDeposit(id){
   const d=id?S.deposits.find(x=>x.id===id):{
     id:'dep-'+uid(),
+    company:'หจก. ดีอาร์.บัสบอดี้',
     group:'dr',
-    company:'ดีอาร์บัสบอดี้',
     inName:'ดีอาร์(โอน)',
     title:'',
+    name:'',
     amount:'',
     duration:'',
+    period:'',
     contractStart:'',
     contractEnd:'',
     dueDate:'',
@@ -1088,46 +1092,14 @@ function editDeposit(id){
     <div class="top">
       <div>
         <h1>${id?'แก้ไขรายการเงินค้ำประกัน':'เพิ่มรายการเงินค้ำประกันใหม่'}</h1>
-        <div class="sub">บันทึกข้อมูลเงินค้ำประกันสัญญาและกำหนดวันครบกำหนดคืนเงิน</div>
+        <div class="sub">หจก. ดีอาร์.บัสบอดี้ · บันทึกข้อมูลเงินค้ำประกันสัญญาและกำหนดวันครบกำหนดคืนเงิน</div>
       </div>
       <button class="btn s" onclick="closeM()" title="ปิด" style="font-size:18px;line-height:1;padding:6px 12px">✕</button>
     </div>
     <div class="f">
       <div class="w2">
-        <label>กลุ่ม / บริษัท *</label>
-        <select id="dep_g" onchange="autoFillDepInName(this.value)">
-          <option value="dr" ${curDep.group==='dr'?'selected':''}>ดีอาร์บัสบอดี้ (หจก. ดีอาร์.บัสบอดี้)</option>
-          <option value="daorung" ${curDep.group==='daorung'?'selected':''}>ดาวรุ่งทราเวล (หจก. ดาวรุ่งทราเวล)</option>
-          <option value="other" ${curDep.group==='other'?'selected':''}>อื่นๆ</option>
-        </select>
-      </div>
-      <div class="w2">
-        <label>ในนาม * (เช่น ดีอาร์(โอน), ดาวรุ่ง(LG), ดีอาร์(เช็ค))</label>
-        <input id="dep_in" value="${esc(curDep.inName||'')}">
-      </div>
-      <div class="w4">
-        <label>รายการ / ชื่อหน่วยงาน * (เช่น ท่าเรือสัตหีบ, SCG ลำปาง, การไฟฟ้า(แม่เมาะ))</label>
-        <input id="dep_t" value="${esc(curDep.title||'')}" placeholder="ระบุชื่อหน่วยงานหรือโครงการ">
-      </div>
-      <div class="w2">
-        <label>ยอดเงินค้ำประกัน (บาท) *</label>
-        <input id="dep_a" type="number" step="0.01" value="${curDep.amount!==''?curDep.amount:''}" placeholder="0.00">
-      </div>
-      <div class="w2">
-        <label>ระยะเวลาสัญญา (เช่น 320 วัน, 5 ปี, 9 เดือน, 3 ปี)</label>
-        <input id="dep_dur" value="${esc(curDep.duration||'')}" placeholder="เช่น 5 ปี หรือ 320 วัน">
-      </div>
-      <div class="w2">
-        <label>วันเริ่มต้นสัญญาจ้าง</label>
-        <input id="dep_cs" type="date" value="${curDep.contractStart||''}">
-      </div>
-      <div class="w2">
-        <label>วันสิ้นสุดสัญญาจ้าง</label>
-        <input id="dep_ce" type="date" value="${curDep.contractEnd||''}">
-      </div>
-      <div class="w2">
-        <label>วันสิ้นสุดครบกำหนดเงินค้ำประกัน *</label>
-        <input id="dep_due" type="date" value="${curDep.dueDate||''}">
+        <label>ในนาม * (เช่น ดีอาร์(โอน), ดีอาร์(เช็ค))</label>
+        <input id="dep_in" value="${esc(curDep.inName||curDep.company||'ดีอาร์(โอน)')}">
       </div>
       <div class="w2">
         <label>สถานะ</label>
@@ -1136,6 +1108,30 @@ function editDeposit(id){
           <option value="รอขอคืนเงิน" ${curDep.status==='รอขอคืนเงิน'?'selected':''}>รอขอคืนเงิน</option>
           <option value="ได้รับคืนแล้ว" ${curDep.status==='ได้รับคืนแล้ว'?'selected':''}>ได้รับคืนแล้ว</option>
         </select>
+      </div>
+      <div class="w4">
+        <label>รายการ / ชื่อหน่วยงาน * (เช่น ท่าเรือสัตหีบ (รถห้องน้ำ), ไนท์ซาฟารี)</label>
+        <input id="dep_t" value="${esc(curDep.title||curDep.name||'')}" placeholder="ระบุชื่อหน่วยงานหรือโครงการ">
+      </div>
+      <div class="w2">
+        <label>ยอดเงินค้ำประกัน (บาท) *</label>
+        <input id="dep_a" type="number" step="0.01" value="${curDep.amount!==''?curDep.amount:''}" placeholder="0.00">
+      </div>
+      <div class="w2">
+        <label>ระยะเวลาสัญญา (เช่น 320 วัน, 1 ปี, 2 ปี)</label>
+        <input id="dep_dur" value="${esc(curDep.duration||curDep.period||'')}" placeholder="เช่น 320 วัน หรือ 1 ปี">
+      </div>
+      <div class="w2">
+        <label>วันเริ่มต้นสัญญาจ้าง</label>
+        <input id="dep_cs" type="date" value="${curDep.contractStart||curDep.startDate||''}">
+      </div>
+      <div class="w2">
+        <label>วันสิ้นสุดสัญญาจ้าง</label>
+        <input id="dep_ce" type="date" value="${curDep.contractEnd||curDep.endDate||''}">
+      </div>
+      <div class="w4">
+        <label>วันสิ้นสุดครบกำหนดเงินค้ำประกัน *</label>
+        <input id="dep_due" type="date" value="${curDep.dueDate||''}">
       </div>
       <div class="w4">
         <label>หมายเหตุ</label>
@@ -1155,18 +1151,7 @@ function editDeposit(id){
   `);
 }
 
-function autoFillDepInName(val){
-  const el=$('#dep_in');
-  if(!el)return;
-  if(val==='dr'&&(!el.value||el.value.startsWith('ดาวรุ่ง'))){
-    el.value='ดีอาร์(โอน)';
-  }else if(val==='daorung'&&(!el.value||el.value.startsWith('ดีอาร์'))){
-    el.value='ดาวรุ่ง(LG)';
-  }
-}
-
 async function saveDeposit(id){
-  const g=$('#dep_g').value;
   const inName=$('#dep_in').value.trim();
   const title=$('#dep_t').value.trim();
   const amount=parseFloat($('#dep_a').value);
@@ -1182,17 +1167,20 @@ async function saveDeposit(id){
   if(isNaN(amount)||amount<0){errBox.textContent='กรุณาระบุยอดเงินที่ถูกต้อง';return}
   if(!dueDate){errBox.textContent='กรุณาระบุวันสิ้นสุดครบกำหนดเงินค้ำประกัน';return}
 
-  const company=g==='dr'?'ดีอาร์บัสบอดี้':g==='daorung'?'ดาวรุ่งทราเวล':'อื่นๆ';
   const depObj={
     id:curDep.id,
-    group:g,
-    company,
-    inName:inName||(g==='dr'?'ดีอาร์':'ดาวรุ่ง'),
+    company:'หจก. ดีอาร์.บัสบอดี้',
+    group:'dr',
+    inName:inName||'ดีอาร์(โอน)',
     title,
+    name:title,
     amount,
     duration:duration||'-',
+    period:duration||'-',
     contractStart,
+    startDate:contractStart,
     contractEnd,
+    endDate:contractEnd,
     dueDate,
     status,
     note,

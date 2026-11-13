@@ -94,12 +94,8 @@ function persist(collection, id, data, isDelete = false) {
 }
 
 const SEED_DEPOSITS = [
-  { id: 'dep-001', company: 'ดีอาร์(โอน)', group: 'ดีอาร์บัสบอดี้', name: 'ท่าเรือสัตหีบ(รถห้องน้ำ)', amount: 158250, period: '-', startDate: '', endDate: '', dueDate: '2026-10-28', status: 'รอครบกำหนด', note: 'เงินหลักประกันสัญญา' },
-  { id: 'dep-002', company: 'ดีอาร์(โอน)', group: 'ดีอาร์บัสบอดี้', name: 'ไนท์ซาฟารี', amount: 42450, period: '320 วัน', startDate: '', endDate: '', dueDate: '2026-11-04', status: 'รอครบกำหนด', note: '' },
-  { id: 'dep-003', company: 'ดาวรุ่ง(LG)', group: 'ดาวรุ่งทราเวล', name: 'SCG ลำปาง', amount: 1647000, period: '5 ปี', startDate: '', endDate: '', dueDate: '2030-10-31', status: 'รอครบกำหนด', note: '' },
-  { id: 'dep-004', company: 'ดาวรุ่ง(LG)', group: 'ดาวรุ่งทราเวล', name: 'การไฟฟ้า(แม่เมาะ)', amount: 1975104, period: '3 ปี', startDate: '', endDate: '', dueDate: '2029-04-30', status: 'รอครบกำหนด', note: '' },
-  { id: 'dep-005', company: 'ดาวรุ่ง(LG)', group: 'ดาวรุ่งทราเวล', name: 'การไฟฟ้า(เขื่อนแม่งัด)', amount: 148850, period: '5 ปี', startDate: '', endDate: '', dueDate: '2031-03-31', status: 'รอครบกำหนด', note: '' },
-  { id: 'dep-006', company: 'ดาวรุ่ง(LG)', group: 'ดาวรุ่งทราเวล', name: 'มหาวิทยาลัยราชภัฏเชียงใหม่', amount: 153090, period: '9 เดือน', startDate: '', endDate: '', dueDate: '2027-02-19', status: 'รอครบกำหนด', note: '' }
+  { id: 'dep-001', company: 'หจก. ดีอาร์.บัสบอดี้', inName: 'ดีอาร์(โอน)', group: 'dr', title: 'ท่าเรือสัตหีบ(รถห้องน้ำ)', name: 'ท่าเรือสัตหีบ(รถห้องน้ำ)', amount: 158250, duration: '-', period: '-', startDate: '', endDate: '', contractStart: '', contractEnd: '', dueDate: '2026-10-28', status: 'ค้ำประกันอยู่', note: '' },
+  { id: 'dep-002', company: 'หจก. ดีอาร์.บัสบอดี้', inName: 'ดีอาร์(โอน)', group: 'dr', title: 'ไนท์ซาฟารี', name: 'ไนท์ซาฟารี', amount: 42450, duration: '320 วัน', period: '320 วัน', startDate: '', endDate: '', contractStart: '', contractEnd: '', dueDate: '2026-11-04', status: 'ค้ำประกันอยู่', note: '' }
 ];
 
 // โหลดข้อมูลเริ่มต้นจาก Local File หรือ Supabase
@@ -175,10 +171,18 @@ async function initDB() {
         }
       }
       if (!DB.deposits) DB.deposits = {};
-      if (Object.keys(DB.deposits).length === 0) {
-        for (const dep of SEED_DEPOSITS) {
-          DB.deposits[dep.id] = dep;
-          persist('deposits', dep.id, dep);
+      // ลบรายการของดาวรุ่งทราเวลออกทั้งหมด ไม่ให้มีกลุ่มบริษัทอื่น มีแต่ หจก.ดีอาร์.บัสบอดี้
+      for (const [id, dep] of Object.entries(DB.deposits)) {
+        const text = `${dep.company || ''} ${dep.inName || ''} ${dep.group || ''} ${dep.name || ''} ${dep.title || ''}`;
+        if (text.includes('ดาวรุ่ง') || ['dep-003', 'dep-004', 'dep-005', 'dep-006'].includes(id)) {
+          delete DB.deposits[id];
+          persist('deposits', id, null, true);
+        }
+      }
+      for (const dep of SEED_DEPOSITS) {
+        if (!DB.deposits[dep.id] || !DB.deposits[dep.id].title) {
+          DB.deposits[dep.id] = { ...(DB.deposits[dep.id] || {}), ...dep };
+          persist('deposits', dep.id, DB.deposits[dep.id]);
         }
       }
       isLoaded = true;
