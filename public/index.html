@@ -6,9 +6,9 @@
 <title>DR Bus Body · ใบเสนอราคา & ใบวางบิล</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f4f6f8;--card:#fff;--ink:#14202b;--mute:#6b7885;--line:#e4e9ee;--brand:#0f766e;--brand2:#f59e0b;--soft:#e6f4f2;--bad:#dc2626;--ok:#16a34a;--warn:#d97706;--sh:0 1px 2px rgba(20,32,43,.06),0 8px 24px rgba(20,32,43,.06);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d141a;--card:#16212a;--ink:#e8eef3;--mute:#8d9ba8;--line:#25323d;--soft:#12332f;--sh:none;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0d141a;--card:#16212a;--ink:#e8eef3;--mute:#8d9ba8;--line:#25323d;--soft:#12332f;--sh:none;color-scheme:dark}
+:root{--bg:#0b131b;--card:#16222f;--modal-bg:#1e293b;--input-bg:#0f172a;--ink:#f1f5f9;--mute:#94a3b8;--line:#283747;--brand:#0f766e;--brand2:#f59e0b;--soft:#12332f;--bad:#ef4444;--ok:#22c55e;--warn:#f59e0b;--sh:0 4px 20px rgba(0,0,0,.35);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+@media (prefers-color-scheme:dark){:root{--bg:#0b131b;--card:#16222f;--modal-bg:#1e293b;--input-bg:#0f172a;--ink:#f1f5f9;--mute:#94a3b8;--line:#283747;--soft:#12332f;--sh:none;color-scheme:dark}}
+:root[data-theme="dark"],:root[data-theme="light"]{--bg:#0b131b;--card:#16222f;--modal-bg:#1e293b;--input-bg:#0f172a;--ink:#f1f5f9;--mute:#94a3b8;--line:#283747;--soft:#12332f;--sh:none;color-scheme:dark}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 'Noto Sans Thai',system-ui,'Segoe UI',Tahoma,sans-serif}
@@ -39,14 +39,30 @@ h3{margin:0 0 12px;font-size:16px}
 td{padding:9px 8px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:middle}tr:last-child td{border:0}.r{text-align:right;white-space:nowrap}.c{text-align:center;white-space:nowrap}.nowrap{white-space:nowrap}.acts{display:inline-flex;align-items:center;justify-content:flex-end;gap:4px;white-space:nowrap}
 .tag{padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--bg);color:var(--mute)}
 .tag.ok{background:#16a34a22;color:var(--ok)}.tag.warn{background:#f59e0b24;color:var(--warn)}.tag.bad{background:#dc262622;color:var(--bad)}.tag.info{background:var(--soft);color:var(--brand)}
-input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;width:100%}
-input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-offset:-1px}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--input-bg,#0f172a)!important;border:1px solid var(--line);border-radius:10px;padding:8px 10px;width:100%}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-offset:-1px;border-color:var(--brand)}
 label{font-size:12px;color:var(--mute);display:block;margin-bottom:3px}
 .f{display:grid;gap:12px;grid-template-columns:repeat(4,1fr)}.f .w2{grid-column:span 2}.f .w4{grid-column:span 4}
 .tabs{display:flex;gap:6px;margin-bottom:14px}.tabs .btn.on{background:var(--soft);color:var(--brand);border-color:var(--brand)}
-.mask{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:flex-start;justify-content:center;overflow:auto;padding:24px 12px;z-index:50}
-.mask.open{display:flex}.modal{background:var(--card);border-radius:18px;padding:22px;width:100%;max-width:860px}
-.it input{padding:6px 8px}.tot{margin-left:auto;width:290px;margin-top:12px}.tot div{display:flex;justify-content:space-between;padding:3px 0}.tot .g{font-size:18px;font-weight:700;color:var(--brand);border-top:1px solid var(--line);margin-top:6px;padding-top:8px}
+.mask{position:fixed;inset:0;background:rgba(0,0,0,0.85)!important;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:none;align-items:flex-start;justify-content:center;overflow-y:auto;overflow-x:hidden;padding:24px 12px;z-index:1000!important}
+.mask.open{display:flex!important}
+#mask2{z-index:1100!important}
+#maskAlert{z-index:1200!important}
+.modal{background:#1e293b!important;color:#f1f5f9!important;border:1px solid #334155!important;border-radius:18px;padding:22px;width:100%;max-width:860px;opacity:1!important;box-shadow:0 25px 50px -12px rgba(0,0,0,0.85);position:relative;z-index:10}
+body.modal-open,body:has(.mask.open),body:has(.m-drawer.open){overflow:hidden!important;touch-action:none!important}
+body.modal-open .bn,body:has(.mask.open) .bn,body:has(.m-drawer.open) .bn{display:none!important}
+.it-wrap{width:100%}
+.it-head{display:grid;grid-template-columns:minmax(220px,1fr) 85px 85px 130px 120px 42px;gap:8px;padding:8px 10px;font-size:12px;font-weight:600;color:var(--mute);border-bottom:1px solid var(--line);background:var(--bg);border-radius:8px 8px 0 0}
+.it-rows{display:flex;flex-direction:column}
+.it-card-row{display:grid;grid-template-columns:minmax(220px,1fr) 85px 85px 130px 120px 42px;gap:8px;align-items:center;padding:6px 10px;border-bottom:1px solid var(--line)}
+.it-col-nums{display:contents}
+.it-col-tot{text-align:right;font-weight:600;font-size:13.5px;color:var(--ink);white-space:nowrap}
+.it-col-del{text-align:center}
+.it-card-top{display:none!important}
+.tot{margin-left:auto;width:300px;margin-top:14px;background:var(--input-bg,#0f172a);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.tot div{display:flex;justify-content:space-between;padding:4px 0;font-size:13.5px}
+.tot .g{font-size:18px;font-weight:700;color:var(--brand);border-top:1px solid var(--line);margin-top:6px;padding-top:8px}
+.modal-acts{display:flex;gap:8px;justify-content:flex-end;margin-top:20px;padding-bottom:8px}
 .empty{padding:30px;text-align:center;color:var(--mute)}
 #pa{display:none}
 #login{display:none;min-height:100vh;place-items:center;padding:20px}.lg{width:100%;max-width:380px;text-align:center}.lg img{width:90px;margin-bottom:6px}.lg h1{margin:6px 0 4px}.lg input{margin-bottom:10px}.err{color:var(--bad);font-size:13px;min-height:20px;margin-bottom:6px}#who{padding:8px 4px;font-size:13px}
@@ -65,9 +81,9 @@ label{font-size:12px;color:var(--mute);display:block;margin-bottom:3px}
 .m-brand{display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;font-size:15px}
 .m-btn-bell{all:unset;box-sizing:border-box;position:relative;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-size:19px;cursor:pointer;background:var(--bg);color:var(--ink)}
 .m-bell-badge{position:absolute;top:2px;right:2px;background:#dc2626;color:#fff;font-size:10px;font-weight:700;padding:1px 5px;border-radius:99px;line-height:1}
-.m-drawer-mask{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:90}
+.m-drawer-mask{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(3px);z-index:900}
 .m-drawer-mask.open{display:block}
-.m-drawer{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:85vw;background:var(--card);z-index:95;transform:translateX(-100%);transition:transform .25s cubic-bezier(0.4,0,0.2,1);box-shadow:4px 0 20px rgba(0,0,0,0.15);display:flex;flex-direction:column;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom,20px)}
+.m-drawer{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:85vw;background:var(--card);z-index:950;transform:translateX(-100%);transition:transform .25s cubic-bezier(0.4,0,0.2,1);box-shadow:4px 0 20px rgba(0,0,0,0.3);display:flex;flex-direction:column;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom,20px)}
 .m-drawer.open{transform:translateX(0);display:flex}
 .m-drawer-top{padding:16px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;background:var(--bg)}
 .m-drawer-user{display:flex;align-items:center;gap:10px}
@@ -78,7 +94,7 @@ label{font-size:12px;color:var(--mute);display:block;margin-bottom:3px}
 .m-drawer-menu button:hover{background:var(--bg)}
 .m-drawer-menu button.on{background:var(--soft);color:var(--brand);font-weight:600}
 .m-drawer-menu button .ic{font-size:18px;width:24px;text-align:center}
-.bn{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:none;justify-content:space-around;padding:4px 0 env(safe-area-inset-bottom,0px);z-index:45;box-shadow:0 -2px 10px rgba(0,0,0,0.06)}
+.bn{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--line);display:none;justify-content:space-around;padding:4px 0 env(safe-area-inset-bottom,0px);z-index:45;box-shadow:0 -2px 10px rgba(0,0,0,0.3)}
 .bn button{all:unset;box-sizing:border-box;flex:1;text-align:center;padding:6px 2px;cursor:pointer;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:2px}
 .bn button .bn-ic{font-size:20px;line-height:1}
 .bn button .bn-lb{font-size:10.5px;font-weight:600;line-height:1.2}
@@ -100,10 +116,25 @@ label{font-size:12px;color:var(--mute);display:block;margin-bottom:3px}
  body:not(.view-desktop) .kpi h2{font-size:20px!important}
  body:not(.view-desktop) .kpi{padding:12px!important}
  body:not(.view-desktop) .mask{padding:0!important;align-items:flex-end!important}
- body:not(.view-desktop) .modal{border-radius:18px 18px 0 0!important;padding:16px 14px 34px!important;max-height:92vh!important;width:100%!important;max-width:100%!important}
+ body:not(.view-desktop) .modal{border-radius:20px 20px 0 0!important;padding:18px 16px calc(48px + env(safe-area-inset-bottom,20px))!important;max-height:94vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;width:100%!important;max-width:100%!important;box-shadow:0 -10px 40px rgba(0,0,0,0.85)!important;border-bottom:none!important}
  body:not(.view-desktop) .f{grid-template-columns:1fr!important;gap:10px!important}
  body:not(.view-desktop) .f .w2,body:not(.view-desktop) .f .w4{grid-column:span 1!important}
  body:not(.view-desktop) input,body:not(.view-desktop) select,body:not(.view-desktop) textarea{font-size:16px!important}
+ body:not(.view-desktop) .it-head{display:none!important}
+ body:not(.view-desktop) .it-card-row{display:flex!important;flex-direction:column!important;gap:10px!important;background:var(--input-bg,#0f172a)!important;border:1px solid #334155!important;border-radius:14px!important;padding:14px!important;margin-bottom:12px!important;box-shadow:0 4px 12px rgba(0,0,0,0.25)!important}
+ body:not(.view-desktop) .it-card-top{display:flex!important;justify-content:space-between!important;align-items:center!important;padding-bottom:8px!important;border-bottom:1px solid #1e293b!important;margin-bottom:2px!important}
+ body:not(.view-desktop) .it-badge{font-size:13px!important;font-weight:700!important;color:#38bdf8!important;background:#0b131b!important;padding:2px 10px!important;border-radius:99px!important;border:1px solid #1e293b!important}
+ body:not(.view-desktop) .it-del-btn{padding:5px 12px!important;font-size:12.5px!important;font-weight:600!important;border-radius:8px!important;background:#2d1418!important;border:1px solid #7f1d1d!important;color:#f87171!important}
+ body:not(.view-desktop) .it-col-desc{width:100%!important}
+ body:not(.view-desktop) .it-col-nums{display:grid!important;grid-template-columns:1fr 1fr 1.3fr!important;gap:8px!important;width:100%!important}
+ body:not(.view-desktop) .it-num-field input{padding:8px 8px!important;font-size:14px!important}
+ body:not(.view-desktop) .it-col-tot{display:flex!important;justify-content:space-between!important;align-items:center!important;background:#16222f!important;border:1px solid #283747!important;border-radius:10px!important;padding:10px 14px!important;margin-top:2px!important;text-align:right!important}
+ body:not(.view-desktop) .it-col-tot label{margin:0!important;font-size:13px!important;font-weight:600!important;color:#94a3b8!important}
+ body:not(.view-desktop) .it-row-tot-val{font-size:16px!important;font-weight:700!important;color:#2dd4bf!important}
+ body:not(.view-desktop) .it-col-del.pc-only{display:none!important}
+ body:not(.view-desktop) .tot{width:100%!important;margin:14px 0 0!important;background:var(--input-bg,#0f172a)!important;border:1px solid #334155!important;border-radius:12px!important;padding:12px 16px!important}
+ body:not(.view-desktop) .modal-acts{display:flex!important;flex-direction:column-reverse!important;gap:10px!important;width:100%!important;margin-top:20px!important;padding-bottom:24px!important}
+ body:not(.view-desktop) .modal-acts .btn{width:100%!important;padding:12px!important;font-size:15px!important;text-align:center!important;justify-content:center!important}
 }
 body.view-mobile aside{display:none!important}
 body.view-mobile .app{grid-template-columns:1fr!important;max-width:600px;margin:0 auto;box-shadow:0 0 30px rgba(0,0,0,0.1)}
@@ -121,10 +152,25 @@ body.view-mobile .k2{grid-template-columns:1fr!important}
 body.view-mobile .kpi h2{font-size:20px!important}
 body.view-mobile .kpi{padding:12px!important}
 body.view-mobile .mask{padding:0!important;align-items:flex-end!important}
-body.view-mobile .modal{border-radius:18px 18px 0 0!important;padding:16px 14px 34px!important;max-height:92vh!important;width:100%!important;max-width:100%!important}
+body.view-mobile .modal{border-radius:20px 20px 0 0!important;padding:18px 16px calc(48px + env(safe-area-inset-bottom,20px))!important;max-height:94vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;width:100%!important;max-width:100%!important;box-shadow:0 -10px 40px rgba(0,0,0,0.85)!important;border-bottom:none!important}
 body.view-mobile .f{grid-template-columns:1fr!important;gap:10px!important}
 body.view-mobile .f .w2,body.view-mobile .f .w4{grid-column:span 1!important}
 body.view-mobile input,body.view-mobile select,body.view-mobile textarea{font-size:16px!important}
+body.view-mobile .it-head{display:none!important}
+body.view-mobile .it-card-row{display:flex!important;flex-direction:column!important;gap:10px!important;background:var(--input-bg,#0f172a)!important;border:1px solid #334155!important;border-radius:14px!important;padding:14px!important;margin-bottom:12px!important;box-shadow:0 4px 12px rgba(0,0,0,0.25)!important}
+body.view-mobile .it-card-top{display:flex!important;justify-content:space-between!important;align-items:center!important;padding-bottom:8px!important;border-bottom:1px solid #1e293b!important;margin-bottom:2px!important}
+body.view-mobile .it-badge{font-size:13px!important;font-weight:700!important;color:#38bdf8!important;background:#0b131b!important;padding:2px 10px!important;border-radius:99px!important;border:1px solid #1e293b!important}
+body.view-mobile .it-del-btn{padding:5px 12px!important;font-size:12.5px!important;font-weight:600!important;border-radius:8px!important;background:#2d1418!important;border:1px solid #7f1d1d!important;color:#f87171!important}
+body.view-mobile .it-col-desc{width:100%!important}
+body.view-mobile .it-col-nums{display:grid!important;grid-template-columns:1fr 1fr 1.3fr!important;gap:8px!important;width:100%!important}
+body.view-mobile .it-num-field input{padding:8px 8px!important;font-size:14px!important}
+body.view-mobile .it-col-tot{display:flex!important;justify-content:space-between!important;align-items:center!important;background:#16222f!important;border:1px solid #283747!important;border-radius:10px!important;padding:10px 14px!important;margin-top:2px!important;text-align:right!important}
+body.view-mobile .it-col-tot label{margin:0!important;font-size:13px!important;font-weight:600!important;color:#94a3b8!important}
+body.view-mobile .it-row-tot-val{font-size:16px!important;font-weight:700!important;color:#2dd4bf!important}
+body.view-mobile .it-col-del.pc-only{display:none!important}
+body.view-mobile .tot{width:100%!important;margin:14px 0 0!important;background:var(--input-bg,#0f172a)!important;border:1px solid #334155!important;border-radius:12px!important;padding:12px 16px!important}
+body.view-mobile .modal-acts{display:flex!important;flex-direction:column-reverse!important;gap:10px!important;width:100%!important;margin-top:20px!important;padding-bottom:24px!important}
+body.view-mobile .modal-acts .btn{width:100%!important;padding:12px!important;font-size:15px!important;text-align:center!important;justify-content:center!important}
 @media print{body{background:#fff;color:#000}.app,.mask,.bn,#login{display:none!important}#pa{display:block!important;padding:0;color:#000}}
 #pa .h{display:flex;justify-content:space-between;border-bottom:3px solid #0f766e;padding-bottom:12px;margin-bottom:16px}
 #pa table td,#pa table th{border:1px solid var(--c2);padding:6px 8px;color:#000}#pa th{background:var(--c3,#e3eef8);-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -161,8 +207,8 @@ body.view-mobile input,body.view-mobile select,body.view-mobile textarea{font-si
 <div class="bn" id="bn"></div>
 <div id="login"></div>
 <div class="mask" id="mask"><div class="modal" id="modal"></div></div>
-<div class="mask" id="mask2" style="z-index:70"><div class="modal" id="modal2" style="max-width:560px"></div></div>
-<div class="mask" id="maskAlert" style="z-index:80"><div class="modal" id="modalAlert" style="max-width:720px"></div></div>
+<div class="mask" id="mask2"><div class="modal" id="modal2" style="max-width:560px"></div></div>
+<div class="mask" id="maskAlert"><div class="modal" id="modalAlert" style="max-width:720px"></div></div>
 <div id="pa"></div>
 
 <script>
@@ -212,11 +258,13 @@ function updateViewToggleLabels(){
 function openDrawer(){
   $('#mDrawerMask').classList.add('open');
   $('#mDrawer').classList.add('open');
+  updateModalLock();
   renderDrawer();
 }
 function closeDrawer(){
   $('#mDrawerMask').classList.remove('open');
   $('#mDrawer').classList.remove('open');
+  updateModalLock();
 }
 function renderDrawer(){
   const d=$('#mDrawer');
@@ -430,16 +478,16 @@ function vDash(){
   return `<div class="top"><div><h1>หน้าหลัก (Home)</h1><div class="sub">${esc(S.co.name)} · ${fd(today())}</div></div>
   <div><button class="btn" onclick="edit('quote')">+ ใบเสนอราคา</button> <button class="btn" onclick="edit('bill')">+ ใบวางบิล</button> <button class="btn p" onclick="edit('receipt')">+ ใบเสร็จ</button></div></div>
   ${urg.length?`
-  <div style="background:#fff1f2;border:1.5px solid #f43f5e;border-radius:14px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;box-shadow:0 2px 8px rgba(244,63,94,0.12)">
+  <div style="background:#281216;border:1.5px solid #e11d48;border-radius:14px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;box-shadow:0 4px 14px rgba(225,29,72,0.25)">
     <div style="display:flex;align-items:center;gap:12px">
-      <div style="width:42px;height:42px;border-radius:10px;background:#ffe4e6;display:grid;place-items:center;font-size:22px;flex-shrink:0">⚠️</div>
+      <div style="width:42px;height:42px;border-radius:10px;background:#3f1418;display:grid;place-items:center;font-size:22px;flex-shrink:0">⚠️</div>
       <div>
-        <div style="font-weight:700;color:#9f1239;font-size:15px">แจ้งเตือนเงินค้ำประกันสัญญาใกล้ครบกำหนด / เกินกำหนด (${urg.length} รายการ)</div>
-        <div style="font-size:13px;color:#881337;margin-top:2px">มียอดเงินค้ำประกันที่ต้องเร่งดำเนินการขอคืนรวม <b>฿${money(urg.reduce((a,b)=>a+(+b.amount||0),0))}</b> (ครบกำหนดภายใน 30 วัน หรือเกินกำหนดแล้ว)</div>
+        <div style="font-weight:700;color:#fca5a5;font-size:15px">แจ้งเตือนเงินค้ำประกันสัญญาใกล้ครบกำหนด / เกินกำหนด (${urg.length} รายการ)</div>
+        <div style="font-size:13px;color:#cbd5e1;margin-top:2px">มียอดเงินค้ำประกันที่ต้องเร่งดำเนินการขอคืนรวม <b style="color:#f87171">฿${money(urg.reduce((a,b)=>a+(+b.amount||0),0))}</b> (ครบกำหนดภายใน 30 วัน หรือเกินกำหนดแล้ว)</div>
       </div>
     </div>
     <div style="display:flex;gap:8px;align-items:center">
-      <button class="btn s" style="background:#fff;border-color:#f43f5e;color:#9f1239;font-weight:600;padding:7px 12px" onclick="checkDepositAlert(true)">📋 ดูรายการแจ้งเตือน</button>
+      <button class="btn s" style="background:#3b1219;border-color:#e11d48;color:#fca5a5;font-weight:600;padding:7px 12px" onclick="checkDepositAlert(true)">📋 ดูรายการแจ้งเตือน</button>
       <button class="btn p" style="background:#e11d48;border-color:#e11d48;padding:7px 14px;font-weight:600" onclick="go('deposit')">🛡️ ไปยังหน้าเงินค้ำประกัน</button>
     </div>
   </div>`:''}
@@ -555,8 +603,16 @@ function vCust(){
 }
 
 /* ---------- modal ---------- */
-const open=h=>{$('#modal').innerHTML=h;$('#mask').classList.add('open')};
-const closeM=()=>$('#mask').classList.remove('open');
+function updateModalLock(){
+  const hasOpen=Boolean(document.querySelector('.mask.open, .m-drawer.open'));
+  if(hasOpen){
+    document.body.classList.add('modal-open');
+  } else {
+    document.body.classList.remove('modal-open');
+  }
+}
+const open=h=>{$('#modal').innerHTML=h;$('#mask').classList.add('open');updateModalLock()};
+const closeM=()=>{$('#mask').classList.remove('open');updateModalLock()};
 
 function edit(type,id){
   cur=id?JSON.parse(JSON.stringify(S.docs.find(d=>d.id===id))):{id:uid(),type,no:nextNo(type),date:today(),due:'',cname:'',caddr:'',ctax:'',items:[{d:'',q:1,u:'งาน',p:0}],dis:0,vm:'out',note:'',status:STS[type][0],pay:'โอนเงิน',signer:(me&&me.name)||'',createdAt:new Date().toISOString()};
@@ -574,24 +630,76 @@ function edit(type,id){
    <div class="w2"><label>${({quote:'ผู้เสนอราคา',bill:'ผู้วางบิล',receipt:'ผู้รับเงิน',delivery:'ผู้ส่งมอบ'})[cur.type]} (ชื่อที่แสดงใต้ช่องลงนาม)</label><input id="e_sg" value="${esc(cur.signer||'')}"></div>
    <div class="w2"><label>งานซ่อม / รถ (ผูกรายได้เข้ากับคันนี้)</label><select id="e_job" onchange="pickJob(this.value)"><option value="">— ไม่ผูกกับงาน —</option>${S.jobs.map(j=>`<option value="${j.id}" ${cur.jobId===j.id?'selected':''}>${esc(j.plate||'ไม่มีทะเบียน')} · ${esc(j.model||'')} · ${esc(j.cname||'')} (${esc(j.no)})</option>`).join('')}</select></div>
   </div>
-  <div class="wrap it" style="margin-top:14px"><table><tr><th style="text-align:center">รายการ</th><th style="width:80px;text-align:center">จำนวน</th><th style="width:80px;text-align:center">หน่วย</th><th class="pc" style="width:130px">ราคา/หน่วย</th><th class="r pc" style="width:120px">รวม</th><th></th></tr><tbody id="rows"></tbody></table></div>
-  <button class="btn s" onclick="sync();cur.items.push({d:'',q:1,u:'งาน',p:0});rows()">+ เพิ่มรายการ</button>
-  <div class="f" style="margin-top:12px"><div class="w2"><label>หมายเหตุ / เงื่อนไข</label><textarea id="e_note" rows="3">${esc(cur.note)}</textarea></div>
-   <div class="pc"><label>ส่วนลด (บาท)</label><input id="e_dis" type="number" value="${cur.dis||0}" oninput="sync();tot()"></div>
-   <div class="pc"><label>ภาษีมูลค่าเพิ่ม</label><select id="e_vat" onchange="sync();tot()"><option value="none" ${vmOf(cur)==='none'?'selected':''}>ไม่มี VAT</option><option value="out" ${vmOf(cur)==='out'?'selected':''}>VAT นอก (บวกเพิ่ม 7%)</option><option value="in" ${vmOf(cur)==='in'?'selected':''}>VAT ใน (รวมในราคาแล้ว)</option></select></div></div>
-  <div class="tot pc" id="tot"></div>
-  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:18px"><button class="btn" onclick="closeM()">ยกเลิก</button><button class="btn" onclick="commit(true)">บันทึก & พิมพ์</button><button class="btn p" onclick="commit()">บันทึก</button></div>`);
+  <div class="it-wrap" style="margin-top:16px">
+    <div class="it-head pc-only">
+      <div style="text-align:left">รายการ</div>
+      <div style="text-align:center">จำนวน</div>
+      <div style="text-align:center">หน่วย</div>
+      <div style="text-align:right">ราคา/หน่วย</div>
+      <div style="text-align:right">รวม</div>
+      <div></div>
+    </div>
+    <div id="rows" class="it-rows"></div>
+  </div>
+  <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center">
+    <button type="button" class="btn s" onclick="sync();cur.items.push({d:'',q:1,u:'งาน',p:0});rows()">+ เพิ่มรายการ</button>
+    <span class="sub" style="font-size:12px">${cur.type==='delivery'?'* ใบส่งของไม่มีการคิดเงิน':''}</span>
+  </div>
+  <div class="f" style="margin-top:14px">
+    <div class="w2"><label>หมายเหตุ / เงื่อนไข</label><textarea id="e_note" rows="3">${esc(cur.note)}</textarea></div>
+    <div><label>ส่วนลด (บาท)</label><input id="e_dis" type="number" value="${cur.dis||0}" oninput="sync();tot()"></div>
+    <div><label>ภาษีมูลค่าเพิ่ม</label><select id="e_vat" onchange="sync();tot()"><option value="none" ${vmOf(cur)==='none'?'selected':''}>ไม่มี VAT</option><option value="out" ${vmOf(cur)==='out'?'selected':''}>VAT นอก (บวกเพิ่ม 7%)</option><option value="in" ${vmOf(cur)==='in'?'selected':''}>VAT ใน (รวมในราคาแล้ว)</option></select></div>
+  </div>
+  <div class="tot" id="tot"></div>
+  <div class="modal-acts">
+    <button type="button" class="btn" onclick="closeM()">ยกเลิก</button>
+    <button type="button" class="btn" onclick="commit(true)">บันทึก & พิมพ์</button>
+    <button type="button" class="btn p" onclick="commit()">บันทึก</button>
+  </div>`);
   $('#modal').classList.toggle('nop',cur.type==='delivery');
   rows();
 }
 function pick(v){const c=S.cust.find(x=>x.name===v);if(c){$('#e_ca').value=c.addr||'';$('#e_ct').value=c.tax||''}}
 function rows(){
-  $('#rows').innerHTML=cur.items.map((i,k)=>`<tr><td><input value="${esc(i.d)}" oninput="cur.items[${k}].d=this.value" placeholder="เช่น ต่อตัวถังรถบัส 40 ที่นั่ง"></td><td><input type="number" value="${i.q}" oninput="cur.items[${k}].q=this.value;tot(${k})"></td><td><input value="${esc(i.u)}" oninput="cur.items[${k}].u=this.value"></td><td class="pc"><input type="number" value="${i.p}" oninput="cur.items[${k}].p=this.value;tot(${k})"></td><td class="r pc" id="lt${k}">${money(i.q*i.p)}</td><td><button class="btn s d" onclick="sync();cur.items.splice(${k},1);if(!cur.items.length)cur.items.push({d:'',q:1,u:'งาน',p:0});rows()">✕</button></td></tr>`).join('');
+  const isDeliv=cur.type==='delivery';
+  $('#rows').innerHTML=cur.items.map((i,k)=>`
+    <div class="it-card-row" data-k="${k}">
+      <div class="it-card-top mobile-only">
+        <span class="it-badge">#${k+1}</span>
+        <button type="button" class="btn s d it-del-btn" onclick="sync();cur.items.splice(${k},1);if(!cur.items.length)cur.items.push({d:'',q:1,u:'งาน',p:0});rows()" title="ลบรายการนี้">✕ ลบ</button>
+      </div>
+      <div class="it-col it-col-desc">
+        <label class="mobile-only">ชื่อรายการ / รายละเอียดงาน</label>
+        <input value="${esc(i.d)}" oninput="cur.items[${k}].d=this.value" placeholder="เช่น ต่อตัวถังรถบัส 40 ที่นั่ง">
+      </div>
+      <div class="it-col it-col-nums">
+        <div class="it-num-field">
+          <label class="mobile-only">จำนวน</label>
+          <input type="number" step="any" value="${i.q}" oninput="cur.items[${k}].q=this.value;tot(${k})" placeholder="1">
+        </div>
+        <div class="it-num-field">
+          <label class="mobile-only">หน่วย</label>
+          <input value="${esc(i.u)}" oninput="cur.items[${k}].u=this.value" placeholder="งาน/ชิ้น">
+        </div>
+        <div class="it-num-field">
+          <label class="mobile-only">ราคา/หน่วย</label>
+          <input type="number" step="any" value="${i.p}" oninput="cur.items[${k}].p=this.value;tot(${k})" placeholder="0.00" ${isDeliv?'disabled':''}>
+        </div>
+      </div>
+      <div class="it-col it-col-tot">
+        <label class="mobile-only">รวมรายการนี้</label>
+        <span class="it-row-tot-val" id="lt${k}">${isDeliv?'-':'฿'+money(i.q*i.p)}</span>
+      </div>
+      <div class="it-col it-col-del pc-only">
+        <button type="button" class="btn s d" onclick="sync();cur.items.splice(${k},1);if(!cur.items.length)cur.items.push({d:'',q:1,u:'งาน',p:0});rows()" title="ลบรายการ">✕</button>
+      </div>
+    </div>
+  `).join('');
   tot();
 }
 function sync(){cur.dis=+$('#e_dis').value||0;cur.vm=$('#e_vat').value}
 function tot(k){
-  if(k!=null){const i=cur.items[k],e=$('#lt'+k);if(e)e.textContent=money(i.q*i.p)}
+  if(k!=null){const i=cur.items[k],e=$('#lt'+k);if(e)e.textContent=(cur.type==='delivery')?'-':'฿'+money(i.q*i.p)}
   const c=calc({...cur,dis:+$('#e_dis').value||0,vm:$('#e_vat').value});
   $('#tot').innerHTML=trows(c).map(x=>`<div><span>${x[0]}</span><span>${x[1]}</span></div>`).join('')+`<div class="g"><span>ยอดสุทธิ</span><span>฿${money(c.tot)}</span></div>`;
 }
@@ -662,8 +770,8 @@ const JST=['รับรถแล้ว','กำลังซ่อม','รอ�
 const EK=['อะไหล่','ค่าแรง','งานจ้างภายนอก','ค่าดำเนินการ','อื่นๆ'];
 const PL={all:'ทั้งหมด',month:'เดือนนี้',year:'ปีนี้'};
 let jp='all',lastEx={d:'',k:'อะไหล่',s:'',b:''},exK=null;
-const open2=h=>{$('#modal2').innerHTML=h;$('#mask2').classList.add('open')};
-const close2=()=>$('#mask2').classList.remove('open');
+const open2=h=>{$('#modal2').innerHTML=h;$('#mask2').classList.add('open');updateModalLock()};
+const close2=()=>{$('#mask2').classList.remove('open');updateModalLock()};
 const jobDocs=j=>S.docs.filter(d=>d.jobId===j.id);
 const mz=n=>n?money(n):'-';
 const inP=j=>{const d=j.recv||'',t=today();return jp==='all'||(jp==='month'&&d.slice(0,7)===t.slice(0,7))||(jp==='year'&&d.slice(0,4)===t.slice(0,4))};
@@ -1141,8 +1249,8 @@ async function saveFile(id){
 }
 
 /* ---------- security deposit (เงินค้ำประกัน) ---------- */
-const openAlert=h=>{$('#modalAlert').innerHTML=h;$('#maskAlert').classList.add('open')};
-const closeAlert=()=>$('#maskAlert').classList.remove('open');
+const openAlert=h=>{$('#modalAlert').innerHTML=h;$('#maskAlert').classList.add('open');updateModalLock()};
+const closeAlert=()=>{$('#maskAlert').classList.remove('open');updateModalLock()};
 
 function getDepositDaysLeft(dueDate){
   if(!dueDate)return null;
@@ -1174,23 +1282,23 @@ function checkDepositAlert(force){
   const totAmount=urg.reduce((a,b)=>a+(+b.amount||0),0);
   openAlert(`
     <div style="display:flex;align-items:flex-start;gap:14px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:14px">
-      <div style="width:48px;height:48px;border-radius:12px;background:#fee2e2;color:#dc2626;display:grid;place-items:center;font-size:26px;flex-shrink:0">⚠️</div>
+      <div style="width:44px;height:44px;border-radius:12px;background:#3f1418;color:#f87171;display:grid;place-items:center;font-size:24px;flex-shrink:0">⚠️</div>
       <div style="flex:1">
-        <h2 style="margin:0;font-size:20px;color:#b91c1c">แจ้งเตือน: เงินค้ำประกันสัญญาครบกำหนด / ใกล้ครบกำหนด</h2>
-        <div class="sub" style="margin-top:4px;color:#7f1d1d">พบเงินค้ำประกันที่ครบกำหนดภายใน 30 วัน หรือเกินกำหนดแล้ว <b>${urg.length} รายการ</b> กรุณาดำเนินการยื่นเรื่องขอรับเงินค้ำประกันคืน</div>
+        <h2 style="margin:0;font-size:18px;color:#fca5a5">แจ้งเตือน: เงินค้ำประกันสัญญาครบกำหนด / ใกล้ครบกำหนด</h2>
+        <div class="sub" style="margin-top:4px;color:#cbd5e1">พบเงินค้ำประกันที่ครบกำหนดภายใน 30 วัน หรือเกินกำหนดแล้ว <b>${urg.length} รายการ</b> กรุณาดำเนินการยื่นเรื่องขอรับเงินค้ำประกันคืน</div>
       </div>
       <button class="btn s" onclick="dismissDepositAlert()" title="ปิด" style="font-size:18px;line-height:1;padding:4px 10px">✕</button>
     </div>
 
-    <div style="background:#fef2f2;border:1px solid #fca5a5;border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+    <div style="background:#261317;border:1px solid #7f1d1d;border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
       <div>
-        <span style="font-size:13px;color:#991b1b;font-weight:600">ยอดเงินค้ำประกันที่ต้องติดตามขอคืน:</span>
-        <div style="font-size:12px;color:#7f1d1d">แนะนำให้ติดต่อหน่วยงานคู่สัญญาเพื่อประสานงานขอเงินค้ำประกันคืน</div>
+        <span style="font-size:13px;color:#fca5a5;font-weight:600">ยอดเงินค้ำประกันที่ต้องติดตามขอคืน:</span>
+        <div style="font-size:12px;color:#94a3b8">แนะนำให้ติดต่อหน่วยงานคู่สัญญาเพื่อประสานงานขอเงินค้ำประกันคืน</div>
       </div>
-      <div style="font-size:22px;font-weight:700;color:#b91c1c">฿${money(totAmount)}</div>
+      <div style="font-size:22px;font-weight:700;color:#f87171">฿${money(totAmount)}</div>
     </div>
 
-    <div class="wrap" style="max-height:360px;overflow-y:auto;border:1px solid var(--line);border-radius:10px">
+    <div class="wrap pc-only" style="max-height:360px;overflow-y:auto;border:1px solid var(--line);border-radius:10px">
       <table>
         <tr style="background:var(--bg)">
           <th class="c nowrap" style="width:50px">ลำดับ</th>
@@ -1208,7 +1316,7 @@ function checkDepositAlert(force){
             <td class="c">${i+1}</td>
             <td><b>${esc(d.title||d.name)}</b>${d.note?`<br><small class="sub">${esc(d.note)}</small>`:''}</td>
             <td class="c nowrap"><span class="tag info">${esc(d.inName||d.company||'ดีอาร์(โอน)')}</span></td>
-            <td class="r nowrap"><b>฿${money(d.amount)}</b></td>
+            <td class="r nowrap"><b style="color:#2dd4bf">฿${money(d.amount)}</b></td>
             <td class="c nowrap">${fdl(d.dueDate)}<br>${badge}</td>
             <td class="c nowrap"><span class="tag ${d.status==='ได้รับคืนแล้ว'?'ok':d.status==='รอขอคืนเงิน'?'info':'warn'}">${esc(d.status||'ค้ำประกันอยู่')}</span></td>
             <td class="r"><button class="btn s" onclick="closeAlert();go('deposit');editDeposit('${d.id}')">ดู/แก้ไข</button></td>
@@ -1217,7 +1325,31 @@ function checkDepositAlert(force){
       </table>
     </div>
 
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:10px;flex-wrap:wrap">
+    <div class="m-cards mobile-only" style="max-height:46vh;overflow-y:auto;padding-right:2px">
+      ${urg.map((d,i)=>{
+        const days=getDepositDaysLeft(d.dueDate);
+        const badge=days<0?`<span class="tag bad" style="font-size:11px;font-weight:700">⚠️ เกินกำหนด ${Math.abs(days)} วัน</span>`:days===0?`<span class="tag bad" style="font-size:11px;font-weight:700">⚠️ ครบกำหนดวันนี้</span>`:`<span class="tag warn" style="font-size:11px;font-weight:700">⏳ เหลืออีก ${days} วัน</span>`;
+        return `
+          <div class="m-card" style="border-color:#7f1d1d;background:#0f172a">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span class="tag info">${esc(d.inName||d.company||'ดีอาร์(โอน)')}</span>
+              ${badge}
+            </div>
+            <div style="font-weight:700;font-size:14.5px;color:var(--ink);margin-top:4px">${esc(d.title||d.name)}</div>
+            ${d.note?`<div class="sub" style="font-size:12px">${esc(d.note)}</div>`:''}
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;background:#16222f;padding:6px 10px;border-radius:8px">
+              <span class="sub" style="font-size:12px">ครบ: ${fdl(d.dueDate)}</span>
+              <span style="color:#2dd4bf;font-weight:700;font-size:15px">฿${money(d.amount)}</span>
+            </div>
+            <div style="display:flex;justify-content:flex-end;margin-top:8px">
+              <button class="btn s" onclick="closeAlert();go('deposit');editDeposit('${d.id}')" style="padding:6px 12px">ดู / แก้ไข</button>
+            </div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+
+    <div class="modal-acts" style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:10px;flex-wrap:wrap">
       <button class="btn s" onclick="dismissDepositAlert()" style="padding:8px 16px;font-size:13px">รับทราบและปิดการแจ้งเตือน</button>
       <button class="btn p" onclick="closeAlert();go('deposit')" style="padding:8px 18px;font-size:13px;background:var(--brand);border-color:var(--brand)">🛡️ ไปยังหน้าจัดการเงินค้ำประกัน</button>
     </div>
@@ -1306,8 +1438,8 @@ function vDeposit(){
         ไม่พบรายการเงินค้ำประกันตามเงื่อนไขที่เลือก — กดปุ่ม <b>“+ เพิ่มรายการเงินค้ำประกัน”</b> เพื่อเพิ่มรายการใหม่
       </div>
     `:`
-      <div class="pc-only" style="border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.05)">
-        <div style="background:#1e3a8a;color:#fff;padding:12px 18px;display:flex;justify-content:space-between;align-items:center">
+      <div class="pc-only" style="border:1px solid #334155;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.3)">
+        <div style="background:#1e293b;border-bottom:1px solid #334155;color:#fff;padding:12px 18px;display:flex;justify-content:space-between;align-items:center">
           <div style="font-weight:700;font-size:16px;letter-spacing:0.3px">รายการเงินค้ำประกันสัญญา หจก.ดีอาร์.บัสบอดี้</div>
           <div style="font-size:13px;opacity:0.95">${filtered.length} รายการ · รวม <b>฿${money(subtotal)}</b></div>
         </div>
@@ -1330,14 +1462,14 @@ function vDeposit(){
               const badge=isUrg?(days<0?`<span class="tag bad" style="font-size:11px;font-weight:700">เกินกำหนด ${Math.abs(days)} วัน</span>`:days===0?`<span class="tag bad" style="font-size:11px;font-weight:700">ครบกำหนดวันนี้</span>`:`<span class="tag warn" style="font-size:11px;font-weight:700">เหลืออีก ${days} วัน</span>`):'';
               const periodStr=(d.contractStart||d.contractEnd||d.startDate||d.endDate)?`${fd(d.contractStart||d.startDate)} - ${fd(d.contractEnd||d.endDate)}`:'-';
               return `
-              <tr style="${isUrg?'background:#fff5f5':''}">
+              <tr style="${isUrg?'background:rgba(239,68,68,0.12)':''}">
                 <td class="c">${idx+1}</td>
                 <td class="c nowrap"><b>${esc(d.inName||d.company||'ดีอาร์(โอน)')}</b></td>
                 <td>
                   <b style="font-size:14px;color:var(--ink)">${esc(d.title||d.name||'เงินค้ำประกัน')}</b>
                   ${d.note?`<br><small class="sub">${esc(d.note)}</small>`:''}
                 </td>
-                <td class="r nowrap" style="font-weight:700;font-size:14.5px;color:#1e3a8a">
+                <td class="r nowrap" style="font-weight:700;font-size:14.5px;color:#38bdf8">
                   ฿${money(d.amount)}
                 </td>
                 <td class="c nowrap">${esc(d.duration||d.period||'-')}</td>
@@ -1358,9 +1490,9 @@ function vDeposit(){
               </tr>
               `;
             }).join('')}
-            <tr style="background:#f8fafc;border-top:2px solid var(--line)">
+            <tr style="background:var(--bg);border-top:2px solid var(--line)">
               <td colspan="3" class="c" style="font-weight:700;font-size:15px">รวม</td>
-              <td class="r nowrap" style="font-weight:700;font-size:16px;color:#1e3a8a">฿${money(subtotal)}</td>
+              <td class="r nowrap" style="font-weight:700;font-size:16px;color:#38bdf8">฿${money(subtotal)}</td>
               <td colspan="5"></td>
             </tr>
           </table>
@@ -1373,7 +1505,7 @@ function vDeposit(){
           const badge=isUrg?(days<0?`<span class="tag bad" style="font-size:11px;font-weight:700">เกินกำหนด ${Math.abs(days)} วัน</span>`:days===0?`<span class="tag bad" style="font-size:11px;font-weight:700">ครบกำหนดวันนี้</span>`:`<span class="tag warn" style="font-size:11px;font-weight:700">เหลืออีก ${days} วัน</span>`):'';
           const periodStr=(d.contractStart||d.contractEnd||d.startDate||d.endDate)?`${fd(d.contractStart||d.startDate)} - ${fd(d.contractEnd||d.endDate)}`:'-';
           return `
-          <div class="m-card" style="${isUrg?'border-color:#f43f5e;background:#fff5f5':''}">
+          <div class="m-card" style="${isUrg?'border-color:#e11d48;background:#251317':''}">
             <div class="m-card-header">
               <div>
                 <div class="m-card-no"><b>#${idx+1} · ${esc(d.title||d.name||'เงินค้ำประกัน')}</b></div>
@@ -1385,13 +1517,13 @@ function vDeposit(){
               ${d.note?`<div class="sub" style="font-size:12px">${esc(d.note)}</div>`:''}
               <div style="font-size:12px;color:var(--mute)">ระยะสัญญา: ${periodStr} (${esc(d.duration||d.period||'-')})</div>
               <div style="font-size:13px;margin-top:2px">
-                <b>ครบกำหนด:</b> <span style="font-weight:700;color:${isUrg?'#b91c1c':'var(--ink)'}">${fdl(d.dueDate)}</span>
+                <b>ครบกำหนด:</b> <span style="font-weight:700;color:${isUrg?'#f87171':'var(--ink)'}">${fdl(d.dueDate)}</span>
                 ${badge?` ${badge}`:''}
               </div>
             </div>
             <div class="m-card-row">
               <span class="sub" style="font-size:12px">ยอดเงินค้ำประกัน</span>
-              <span class="m-card-tot" style="color:#1e3a8a">฿${money(d.amount)}</span>
+              <span class="m-card-tot" style="color:#38bdf8">฿${money(d.amount)}</span>
             </div>
             <div class="m-card-acts">
               <button class="btn s" style="flex:1;padding:8px 6px;text-align:center" onclick="editDeposit('${d.id}')">✏️ แก้ไขข้อมูล</button>
@@ -1399,9 +1531,9 @@ function vDeposit(){
             </div>
           </div>`;
         }).join('')}
-        <div class="card" style="padding:12px 14px;background:#1e3a8a;color:#fff;border-radius:12px;display:flex;justify-content:space-between;align-items:center">
+        <div class="card" style="padding:12px 14px;background:#1e293b;border:1px solid #334155;color:#fff;border-radius:12px;display:flex;justify-content:space-between;align-items:center">
           <span style="font-weight:700;font-size:14px">ยอดรวม ${filtered.length} รายการ</span>
-          <span style="font-weight:700;font-size:16px">฿${money(subtotal)}</span>
+          <span style="font-weight:700;font-size:16px;color:#38bdf8">฿${money(subtotal)}</span>
         </div>
       </div>
     `}
@@ -1559,6 +1691,18 @@ function prt(id,later){
   <div style="display:flex;justify-content:${Q?'flex-end;padding-right:60px':'space-around'};margin-top:60px;text-align:center">${(Q?[['ผู้เสนอราคา',d.signer]]:d.type==='bill'?[['ผู้วางบิล',d.signer],['ผู้รับวางบิล','']]:dl?[['ผู้ส่งมอบ',d.signer],['ผู้รับมอบ','']]:[['ผู้ชำระเงิน',''],['ผู้รับเงิน',d.signer]]).map(t=>`<div>________________<br>${t[1]?'('+esc(t[1])+')':'&nbsp;'}<br>${t[0]}<br><span style="font-size:13px">วันที่ .....................................</span></div>`).join('')}</div>`;
   setTimeout(()=>window.print(),later?250:0);
 }
+['mask','mask2','maskAlert'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el){
+    el.addEventListener('click',e=>{
+      if(e.target===el){
+        if(id==='mask')closeM();
+        else if(id==='mask2')close2();
+        else if(id==='maskAlert')closeAlert();
+      }
+    });
+  }
+});
 init();
 </script>
 </body>
