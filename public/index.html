@@ -217,7 +217,7 @@ function vDash(){
   const key=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
   const data=months.map(m=>({l:m.toLocaleDateString('th-TH',{month:'short'}),q:sum(Q.filter(d=>(d.date||'').slice(0,7)===key(m))),b:sum(B.filter(d=>(d.date||'').slice(0,7)===key(m))),r:sum(paid.filter(d=>(d.date||'').slice(0,7)===key(m)))}));
   const mx=Math.max(1,...data.flatMap(x=>[x.q,x.b,x.r]));
-  const recent=[...S.docs].sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(b.createdAt||'').localeCompare(a.createdAt||'')||b.no?.localeCompare(a.no)).slice(0,6);
+  const recent=[...S.docs].sort((x,y)=>(y.no||'').localeCompare(x.no||'',undefined,{numeric:true})).slice(0,6);
   return `<div class="top"><div><h1>แดชบอร์ด</h1><div class="sub">${esc(S.co.name)} · ${fd(today())}</div></div>
   <div><button class="btn" onclick="edit('quote')">+ ใบเสนอราคา</button> <button class="btn" onclick="edit('bill')">+ ใบวางบิล</button> <button class="btn p" onclick="edit('receipt')">+ ใบเสร็จ</button></div></div>
   <div class="grid k4">
@@ -252,12 +252,16 @@ function conv(d){
 function docTable(a){
   if(!a.length)return '<div class="empty">ยังไม่มีเอกสาร — กดปุ่ม “+” เพื่อเริ่มสร้าง</div>';
   return `<div class="wrap"><table><tr><th class="nowrap">เลขที่</th><th class="nowrap">ประเภท</th><th>ลูกค้า</th><th class="nowrap">วันที่</th><th class="r nowrap">ยอดรวม</th><th class="nowrap">สถานะ</th><th class="r"></th></tr>`+
-  a.map(d=>`<tr><td class="nowrap"><b>${esc(d.no)}</b>${d.by?`<br><small class="sub">โดย ${esc(d.by)}</small>`:''}</td><td class="nowrap">${TT[d.type]}</td><td style="word-break:break-word;max-width:280px">${esc(d.cname)}</td><td class="nowrap">${d.date?fd(d.date):'<span class="sub">-</span>'}${d.createdAt?`<br><small class="sub" title="วันเวลาออกเอกสารจริง">⏱️ ${fdt(d.createdAt)}</small>`:''}</td><td class="r nowrap">${d.type==='delivery'?'-':'฿'+money(calc(d).tot)}</td><td class="nowrap">${tag(d)}</td>
-  <td class="r"><div class="acts"><button class="btn s" onclick="edit('${d.type}','${d.id}')">เปิด</button><button class="btn s" onclick="prt('${d.id}')">🖨</button>${conv(d)}${isAdmin()?`<button class="btn s d" onclick="del('docs','${d.id}')">ลบ</button>`:''}</div></td></tr>`).join('')+'</table></div>';
+  a.map(d=>{
+    const cdt=d.createdAt||d.updatedAt;
+    const timeStr=cdt?`⏱️ ${fdt(cdt)}`:(d.date?`⏱️ ${fd(d.date)}`:'');
+    return `<tr><td class="nowrap"><b>${esc(d.no)}</b>${d.by?`<br><small class="sub">โดย ${esc(d.by)}</small>`:''}${timeStr?`<br><small class="sub" title="วันเวลาที่จัดทำเอกสาร">${timeStr}</small>`:''}</td><td class="nowrap">${TT[d.type]}</td><td style="word-break:break-word;max-width:280px">${esc(d.cname)}</td><td class="nowrap">${d.date?fd(d.date):'<span class="sub">-</span>'}</td><td class="r nowrap">${d.type==='delivery'?'-':'฿'+money(calc(d).tot)}</td><td class="nowrap">${tag(d)}</td>
+  <td class="r"><div class="acts"><button class="btn s" onclick="edit('${d.type}','${d.id}')">เปิด</button><button class="btn s" onclick="prt('${d.id}')">🖨</button>${conv(d)}${isAdmin()?`<button class="btn s d" onclick="del('docs','${d.id}')">ลบ</button>`:''}</div></td></tr>`;
+  }).join('')+'</table></div>';
 }
 
 function vList(t){
-  const a=S.docs.filter(d=>d.type===t&&(!q||(d.no+d.cname).toLowerCase().includes(q.toLowerCase()))).sort((x,y)=>(y.date||'').localeCompare(x.date||'')||(y.createdAt||'').localeCompare(x.createdAt||'')||y.no.localeCompare(x.no));
+  const a=S.docs.filter(d=>d.type===t&&(!q||(d.no+d.cname).toLowerCase().includes(q.toLowerCase()))).sort((x,y)=>(y.no||'').localeCompare(x.no||'',undefined,{numeric:true}));
   return `<div class="top"><div><h1>${TT[t]}</h1><div class="sub">${a.length} รายการ${t==='delivery'?'':' · รวม ฿'+money(a.reduce((s,d)=>s+calc(d).tot,0))}</div></div>
   <div style="display:flex;gap:8px"><input placeholder="ค้นหาเลขที่ / ลูกค้า" value="${esc(q)}" oninput="q=this.value;render();document.querySelector('main input').focus();const i=document.querySelector('main input');i.setSelectionRange(q.length,q.length)" style="width:200px"><button class="btn p" onclick="edit('${t}')">+ สร้างใหม่</button></div></div>
   <div class="card">${docTable(a)}</div>`;
@@ -276,7 +280,7 @@ const closeM=()=>$('#mask').classList.remove('open');
 function edit(type,id){
   cur=id?JSON.parse(JSON.stringify(S.docs.find(d=>d.id===id))):{id:uid(),type,no:nextNo(type),date:today(),due:'',cname:'',caddr:'',ctax:'',items:[{d:'',q:1,u:'งาน',p:0}],dis:0,vm:'out',note:'',status:STS[type][0],pay:'โอนเงิน',signer:(me&&me.name)||'',createdAt:new Date().toISOString()};
   const sts=STS[cur.type];
-  open(`<div class="top"><div><h1>${TT[cur.type]}</h1>${cur.createdAt?`<div class="sub" style="font-size:12px;margin-top:2px">⏱️ วันเวลาออกเอกสารจริง: <b>${fdt(cur.createdAt)}</b></div>`:''}</div><button class="btn s" onclick="closeM()" title="ปิด" aria-label="ปิด" style="font-size:18px;line-height:1;padding:6px 12px">✕</button></div>
+  open(`<div class="top"><div><h1>${TT[cur.type]}</h1>${(cur.createdAt||cur.updatedAt)?`<div class="sub" style="font-size:12px;margin-top:2px">⏱️ วันเวลาที่จัดทำเอกสาร: <b>${fdt(cur.createdAt||cur.updatedAt)}</b></div>`:''}</div><button class="btn s" onclick="closeM()" title="ปิด" aria-label="ปิด" style="font-size:18px;line-height:1;padding:6px 12px">✕</button></div>
   <div class="f">
    <div><label>เลขที่</label><input id="e_no" value="${esc(cur.no)}"></div>
    <div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px"><label style="margin:0">วันที่</label><span style="font-size:11px"><a href="javascript:void(0)" onclick="$('#e_date').value=''" style="color:var(--mute);text-decoration:none;margin-right:6px" title="เว้นว่างเพื่อให้พิมพ์เป็น วันที่ .....................................">✕ เว้นว่าง</a><a href="javascript:void(0)" onclick="$('#e_date').value=today()" style="color:var(--brand);text-decoration:none">วันนี้</a></span></div><input id="e_date" type="date" value="${cur.date||''}"></div>
