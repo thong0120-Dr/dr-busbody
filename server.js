@@ -109,7 +109,7 @@ async function initDB() {
       if (USE_SUPABASE) {
         try {
           console.log('[Supabase] กำลังเชื่อมต่อกับฐานข้อมูลคลาวด์...');
-          const res = await fetch(`${SUPABASE_URL}/rest/v1/dr_records?select=collection,id,data`, {
+          const res = await fetch(`${SUPABASE_URL}/rest/v1/dr_records?select=collection,id,data,updated_at`, {
             headers: {
               'apikey': SUPABASE_KEY,
               'Authorization': `Bearer ${SUPABASE_KEY}`
@@ -122,7 +122,13 @@ async function initDB() {
                 if (row.collection === 'company') {
                   DB.company = row.data || {};
                 } else if (DB[row.collection]) {
-                  DB[row.collection][row.id] = row.data;
+                  const item = row.data;
+                  if (item && typeof item === 'object') {
+                    if (row.collection === 'docs' && !item.createdAt && row.updated_at) {
+                      item.createdAt = row.updated_at;
+                    }
+                  }
+                  DB[row.collection][row.id] = item;
                 }
               }
               console.log(`[Supabase] โหลดข้อมูลเรียบร้อยแล้ว (${rows.length} รายการ)`);
@@ -269,7 +275,11 @@ async function api(req, res, url) {
       const b = await body(req);
       if (r === 'docs' && b.srcId && Object.values(c).some(x => x.id !== id && x.srcId === b.srcId && x.type === b.type))
         return json(res, 409, { error: 'ออกเอกสารจากใบต้นทางนี้ไปแล้ว ออกซ้ำไม่ได้' });
-      b.id = id; c[id] = b;
+      b.id = id;
+      if (r === 'docs' && !b.createdAt) {
+        b.createdAt = (c[id] && c[id].createdAt) || new Date().toISOString();
+      }
+      c[id] = b;
       persist(COL[r], id, b);
       return json(res, 200, { ok: true });
     }
