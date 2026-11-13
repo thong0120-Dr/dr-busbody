@@ -36,7 +36,7 @@ const USE_SUPABASE = Boolean(SUPABASE_URL && SUPABASE_KEY);
 
 try { fs.mkdirSync(DIR, { recursive: true }); } catch (e) {}
 
-let DB = { docs: {}, customers: {}, jobs: {}, users: {}, company: {}, sessions: {}, files: {} };
+let DB = { docs: {}, customers: {}, jobs: {}, users: {}, company: {}, sessions: {}, files: {}, deposits: {} };
 let isLoaded = false;
 let loadPromise = null;
 
@@ -93,6 +93,15 @@ function persist(collection, id, data, isDelete = false) {
   }
 }
 
+const SEED_DEPOSITS = [
+  { id: 'dep-001', company: 'ดีอาร์(โอน)', group: 'ดีอาร์บัสบอดี้', name: 'ท่าเรือสัตหีบ(รถห้องน้ำ)', amount: 158250, period: '-', startDate: '', endDate: '', dueDate: '2026-10-28', status: 'รอครบกำหนด', note: 'เงินหลักประกันสัญญา' },
+  { id: 'dep-002', company: 'ดีอาร์(โอน)', group: 'ดีอาร์บัสบอดี้', name: 'ไนท์ซาฟารี', amount: 42450, period: '320 วัน', startDate: '', endDate: '', dueDate: '2026-11-04', status: 'รอครบกำหนด', note: '' },
+  { id: 'dep-003', company: 'ดาวรุ่ง(LG)', group: 'ดาวรุ่งทราเวล', name: 'SCG ลำปาง', amount: 1647000, period: '5 ปี', startDate: '', endDate: '', dueDate: '2030-10-31', status: 'รอครบกำหนด', note: '' },
+  { id: 'dep-004', company: 'ดาวรุ่ง(LG)', group: 'ดาวรุ่งทราเวล', name: 'การไฟฟ้า(แม่เมาะ)', amount: 1975104, period: '3 ปี', startDate: '', endDate: '', dueDate: '2029-04-30', status: 'รอครบกำหนด', note: '' },
+  { id: 'dep-005', company: 'ดาวรุ่ง(LG)', group: 'ดาวรุ่งทราเวล', name: 'การไฟฟ้า(เขื่อนแม่งัด)', amount: 148850, period: '5 ปี', startDate: '', endDate: '', dueDate: '2031-03-31', status: 'รอครบกำหนด', note: '' },
+  { id: 'dep-006', company: 'ดาวรุ่ง(LG)', group: 'ดาวรุ่งทราเวล', name: 'มหาวิทยาลัยราชภัฏเชียงใหม่', amount: 153090, period: '9 เดือน', startDate: '', endDate: '', dueDate: '2027-02-19', status: 'รอครบกำหนด', note: '' }
+];
+
 // โหลดข้อมูลเริ่มต้นจาก Local File หรือ Supabase
 async function initDB() {
   if (isLoaded) return;
@@ -136,7 +145,7 @@ async function initDB() {
               // ฐานข้อมูลบน Supabase ยังว่างเปล่า แต่มีข้อมูลในเครื่อง นำข้อมูลขึ้น Supabase ให้อัตโนมัติ
               console.log('[Supabase] ฐานข้อมูลว่างเปล่า กำลังอัปโหลดข้อมูลจากในเครื่องขึ้น Supabase...');
               const batch = [];
-              for (const col of ['docs', 'customers', 'jobs', 'users', 'sessions', 'files']) {
+              for (const col of ['docs', 'customers', 'jobs', 'users', 'sessions', 'files', 'deposits']) {
                 for (const [id, val] of Object.entries(DB[col] || {})) {
                   batch.push({ collection: col, id, data: val, updated_at: new Date().toISOString() });
                 }
@@ -163,6 +172,13 @@ async function initDB() {
           }
         } catch (err) {
           console.error('[Supabase] ไม่สามารถเชื่อมต่อได้:', err.message);
+        }
+      }
+      if (!DB.deposits) DB.deposits = {};
+      if (Object.keys(DB.deposits).length === 0) {
+        for (const dep of SEED_DEPOSITS) {
+          DB.deposits[dep.id] = dep;
+          persist('deposits', dep.id, dep);
         }
       }
       isLoaded = true;
@@ -218,7 +234,7 @@ const fail = ip => { fails[ip] = (fails[ip] || []).filter(t => t > Date.now() - 
 
 const admins = () => Object.values(DB.users).filter(u => u.role === 'admin');
 const isAdmin = u => u && u.role === 'admin';
-const COL = { docs: 'docs', customers: 'customers', jobs: 'jobs', files: 'files' };
+const COL = { docs: 'docs', customers: 'customers', jobs: 'jobs', files: 'files', deposits: 'deposits' };
 
 async function api(req, res, url) {
   const ip = TRUST_PROXY ? (req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.socket.remoteAddress) : req.socket.remoteAddress;
@@ -265,7 +281,7 @@ async function api(req, res, url) {
 
   if (r === 'state' && m === 'GET')
     return json(res, 200, {
-      docs: Object.values(DB.docs), jobs: Object.values(DB.jobs), cust: Object.values(DB.customers), files: Object.values(DB.files || {}), co: DB.company,
+      docs: Object.values(DB.docs), jobs: Object.values(DB.jobs), cust: Object.values(DB.customers), files: Object.values(DB.files || {}), deposits: Object.values(DB.deposits || {}), co: DB.company,
       users: isAdmin(u) ? Object.values(DB.users).map(pub) : []
     });
 
