@@ -378,11 +378,15 @@ const server = http.createServer(async (req, res) => {
 
 module.exports = server;
 
-if (require.main === module) {
-  initDB().then(() => {
-    server.listen(PORT, HOST, () => {
-      console.log(`DR Bus Body พร้อมใช้งานที่ http://${HOST === '0.0.0.0' ? 'localhost' : HOST}:${PORT}`);
-      console.log(`โหมดการจัดเก็บข้อมูล: ${USE_SUPABASE ? 'Supabase Cloud Database' : 'Local File (data/data.json)'}`);
-    });
-  });
+if (require.main === module || (!process.env.VERCEL && !process.env.AWS_LAMBDA_FUNCTION_NAME)) {
+  initDB().catch(err => console.error('[InitDB]', err));
+  const onListen = () => {
+    console.log(`DR Bus Body พร้อมใช้งานที่ http://${HOST === '0.0.0.0' ? 'localhost' : HOST}:${PORT}`);
+    console.log(`โหมดการจัดเก็บข้อมูล: ${USE_SUPABASE ? 'Supabase Cloud Database' : 'Local File (data/data.json)'}`);
+  };
+  if (typeof PORT === 'string' && isNaN(Number(PORT))) {
+    server.listen(PORT, onListen);
+  } else {
+    server.listen(PORT, HOST, onListen);
+  }
 }
