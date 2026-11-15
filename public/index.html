@@ -137,6 +137,18 @@ body.modal-open .bn,body:has(.mask.open) .bn,body:has(.m-drawer.open) .bn{displa
  body:not(.view-desktop) .tot{width:100%!important;margin:14px 0 0!important;background:#F8FAFC!important;border:1px solid var(--line)!important;border-radius:12px!important;padding:12px 16px!important}
  body:not(.view-desktop) .modal-acts{display:flex!important;flex-direction:column-reverse!important;gap:10px!important;width:100%!important;margin-top:20px!important;padding-bottom:24px!important}
  body:not(.view-desktop) .modal-acts .btn{width:100%!important;padding:12px!important;font-size:15px!important;text-align:center!important;justify-content:center!important}
+ body:not(.view-desktop) #modalAlert{max-height:36vh!important;max-height:36dvh!important;padding:10px 12px calc(10px + env(safe-area-inset-bottom,8px))!important;border-radius:16px 16px 0 0!important}
+ body:not(.view-desktop) #modalAlert .dep-alert-head{gap:8px!important;padding-bottom:6px!important;margin-bottom:6px!important}
+ body:not(.view-desktop) #modalAlert .dep-alert-ico{width:28px!important;height:28px!important;border-radius:8px!important;font-size:15px!important}
+ body:not(.view-desktop) #modalAlert .dep-alert-title{font-size:13.5px!important;line-height:1.25!important}
+ body:not(.view-desktop) #modalAlert .dep-alert-close{font-size:14px!important;padding:2px 8px!important}
+ body:not(.view-desktop) #modalAlert .dep-alert-sum{padding:6px 10px!important;margin-bottom:6px!important;border-radius:8px!important;gap:6px!important}
+ body:not(.view-desktop) #modalAlert .dep-alert-sum-lbl{font-size:12px!important}
+ body:not(.view-desktop) #modalAlert .dep-alert-sum-val{font-size:15px!important}
+ body:not(.view-desktop) #modalAlert .dep-alert-list{max-height:110px!important;gap:6px!important;margin-top:0!important}
+ body:not(.view-desktop) #modalAlert .dep-alert-item{padding:6px 10px!important;border-radius:8px!important;gap:4px!important}
+ body:not(.view-desktop) #modalAlert .modal-acts{flex-direction:row!important;gap:8px!important;margin-top:8px!important;padding-bottom:0!important}
+ body:not(.view-desktop) #modalAlert .modal-acts .btn{width:auto!important;flex:1!important;padding:7px 8px!important;font-size:12.5px!important}
 }
 body.view-mobile aside{display:none!important}
 body.view-mobile .app{grid-template-columns:1fr!important;max-width:600px;margin:0 auto;box-shadow:0 0 30px rgba(15,23,42,0.08)}
@@ -173,6 +185,18 @@ body.view-mobile .it-col-del.pc-only{display:none!important}
 body.view-mobile .tot{width:100%!important;margin:14px 0 0!important;background:#F8FAFC!important;border:1px solid var(--line)!important;border-radius:12px!important;padding:12px 16px!important}
 body.view-mobile .modal-acts{display:flex!important;flex-direction:column-reverse!important;gap:10px!important;width:100%!important;margin-top:20px!important;padding-bottom:24px!important}
 body.view-mobile .modal-acts .btn{width:100%!important;padding:12px!important;font-size:15px!important;text-align:center!important;justify-content:center!important}
+body.view-mobile #modalAlert{max-height:36vh!important;max-height:36dvh!important;padding:10px 12px calc(10px + env(safe-area-inset-bottom,8px))!important;border-radius:16px 16px 0 0!important}
+body.view-mobile #modalAlert .dep-alert-head{gap:8px!important;padding-bottom:6px!important;margin-bottom:6px!important}
+body.view-mobile #modalAlert .dep-alert-ico{width:28px!important;height:28px!important;border-radius:8px!important;font-size:15px!important}
+body.view-mobile #modalAlert .dep-alert-title{font-size:13.5px!important;line-height:1.25!important}
+body.view-mobile #modalAlert .dep-alert-close{font-size:14px!important;padding:2px 8px!important}
+body.view-mobile #modalAlert .dep-alert-sum{padding:6px 10px!important;margin-bottom:6px!important;border-radius:8px!important;gap:6px!important}
+body.view-mobile #modalAlert .dep-alert-sum-lbl{font-size:12px!important}
+body.view-mobile #modalAlert .dep-alert-sum-val{font-size:15px!important}
+body.view-mobile #modalAlert .dep-alert-list{max-height:110px!important;gap:6px!important;margin-top:0!important}
+body.view-mobile #modalAlert .dep-alert-item{padding:6px 10px!important;border-radius:8px!important;gap:4px!important}
+body.view-mobile #modalAlert .modal-acts{flex-direction:row!important;gap:8px!important;margin-top:8px!important;padding-bottom:0!important}
+body.view-mobile #modalAlert .modal-acts .btn{width:auto!important;flex:1!important;padding:7px 8px!important;font-size:12.5px!important}
 @media print{body{background:#fff;color:#000}.app,.mask,.bn,#login{display:none!important}#pa{display:block!important;padding:0;color:#000}}
 #pa .h{display:flex;justify-content:space-between;border-bottom:3px solid #1E3A8A;padding-bottom:12px;margin-bottom:16px}
 #pa table td,#pa table th{border:1px solid var(--c2);padding:6px 8px;color:#000}#pa th{background:var(--c3,#e3eef8);-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -1283,21 +1307,21 @@ function checkDepositAlert(force){
   if(!urg.length)return;
   const totAmount=urg.reduce((a,b)=>a+(+b.amount||0),0);
   openAlert(`
-    <div style="display:flex;align-items:flex-start;gap:14px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:14px">
-      <div style="width:44px;height:44px;border-radius:12px;background:#FFF1EE;border:1px solid #FECDD3;color:var(--brand2);display:grid;place-items:center;font-size:24px;flex-shrink:0">⚠️</div>
-      <div style="flex:1">
-        <h2 style="margin:0;font-size:18px;color:#991B1B">แจ้งเตือน: เงินค้ำประกันสัญญาครบกำหนด / ใกล้ครบกำหนด</h2>
-        <div class="sub" style="margin-top:4px;color:var(--mute)">พบเงินค้ำประกันที่ครบกำหนดภายใน 30 วัน หรือเกินกำหนดแล้ว <b>${urg.length} รายการ</b> กรุณาดำเนินการยื่นเรื่องขอรับเงินค้ำประกันคืน</div>
+    <div class="dep-alert-head" style="display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:14px">
+      <div class="dep-alert-ico" style="width:44px;height:44px;border-radius:12px;background:#FFF1EE;border:1px solid #FECDD3;color:var(--brand2);display:grid;place-items:center;font-size:24px;flex-shrink:0">⚠️</div>
+      <div style="flex:1;min-width:0">
+        <h2 class="dep-alert-title" style="margin:0;font-size:18px;color:#991B1B">แจ้งเตือนเงินค้ำประกัน (${urg.length} รายการ)</h2>
+        <div class="sub pc-only" style="margin-top:4px;color:var(--mute)">พบเงินค้ำประกันที่ครบกำหนดภายใน 30 วัน หรือเกินกำหนดแล้ว <b>${urg.length} รายการ</b> กรุณาดำเนินการยื่นเรื่องขอรับเงินค้ำประกันคืน</div>
       </div>
-      <button class="btn s" onclick="dismissDepositAlert()" title="ปิด" style="font-size:18px;line-height:1;padding:4px 10px">✕</button>
+      <button class="btn s dep-alert-close" onclick="dismissDepositAlert()" title="ปิด" style="font-size:18px;line-height:1;padding:4px 10px">✕</button>
     </div>
 
-    <div style="background:#FFF7F5;border:1px solid #FCA5A5;border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+    <div class="dep-alert-sum" style="background:#FFF7F5;border:1px solid #FCA5A5;border-radius:12px;padding:12px 16px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
       <div>
-        <span style="font-size:13px;color:#991B1B;font-weight:600">ยอดเงินค้ำประกันที่ต้องติดตามขอคืน:</span>
-        <div style="font-size:12px;color:var(--mute)">แนะนำให้ติดต่อหน่วยงานคู่สัญญาเพื่อประสานงานขอเงินค้ำประกันคืน</div>
+        <span class="dep-alert-sum-lbl" style="font-size:13px;color:#991B1B;font-weight:600">ยอดติดตามขอคืนทั้งหมด:</span>
+        <div class="pc-only" style="font-size:12px;color:var(--mute)">แนะนำให้ติดต่อหน่วยงานคู่สัญญาเพื่อประสานงานขอเงินค้ำประกันคืน</div>
       </div>
-      <div style="font-size:22px;font-weight:700;color:var(--brand2)">฿${money(totAmount)}</div>
+      <div class="dep-alert-sum-val" style="font-size:22px;font-weight:700;color:var(--brand2)">฿${money(totAmount)}</div>
     </div>
 
     <div class="wrap pc-only" style="max-height:360px;overflow-y:auto;border:1px solid var(--line);border-radius:10px">
@@ -1327,24 +1351,22 @@ function checkDepositAlert(force){
       </table>
     </div>
 
-    <div class="m-cards mobile-only" style="max-height:46vh;overflow-y:auto;padding-right:2px">
+    <div class="m-cards mobile-only dep-alert-list" style="overflow-y:auto;padding-right:2px">
       ${urg.map((d,i)=>{
         const days=getDepositDaysLeft(d.dueDate);
-        const badge=days<0?`<span class="tag bad" style="font-size:11px;font-weight:700">⚠️ เกินกำหนด ${Math.abs(days)} วัน</span>`:days===0?`<span class="tag bad" style="font-size:11px;font-weight:700">⚠️ ครบกำหนดวันนี้</span>`:`<span class="tag warn" style="font-size:11px;font-weight:700">⏳ เหลืออีก ${days} วัน</span>`;
+        const badge=days<0?`<span class="tag bad" style="font-size:10px;font-weight:700;padding:1px 6px">เกิน ${Math.abs(days)} วัน</span>`:days===0?`<span class="tag bad" style="font-size:10px;font-weight:700;padding:1px 6px">ครบวันนี้</span>`:`<span class="tag warn" style="font-size:10px;font-weight:700;padding:1px 6px">อีก ${days} วัน</span>`;
         return `
-          <div class="m-card" style="border-color:#FCA5A5;background:#FFF7F5">
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <span class="tag info">${esc(d.inName||d.company||'ดีอาร์(โอน)')}</span>
+          <div class="m-card dep-alert-item" style="border-color:#FCA5A5;background:#FFF7F5">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:6px">
+              <span style="font-weight:700;font-size:13px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1">${esc(d.title||d.name)}</span>
               ${badge}
             </div>
-            <div style="font-weight:700;font-size:14.5px;color:var(--ink);margin-top:4px">${esc(d.title||d.name)}</div>
-            ${d.note?`<div class="sub" style="font-size:12px">${esc(d.note)}</div>`:''}
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;background:#FFFFFF;border:1px solid #FED7AA;padding:6px 10px;border-radius:8px">
-              <span class="sub" style="font-size:12px">ครบ: ${fdl(d.dueDate)}</span>
-              <span style="color:var(--brand);font-weight:700;font-size:15px">฿${money(d.amount)}</span>
-            </div>
-            <div style="display:flex;justify-content:flex-end;margin-top:8px">
-              <button class="btn s" onclick="closeAlert();go('deposit');editDeposit('${d.id}')" style="padding:6px 12px">ดู / แก้ไข</button>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:6px">
+              <span class="sub" style="font-size:11.5px">ครบ ${fdl(d.dueDate)}</span>
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="color:var(--brand);font-weight:700;font-size:13px">฿${money(d.amount)}</span>
+                <button class="btn s" onclick="closeAlert();go('deposit');editDeposit('${d.id}')" style="padding:3px 8px;font-size:11px">ดู</button>
+              </div>
             </div>
           </div>
         `;
@@ -1352,8 +1374,8 @@ function checkDepositAlert(force){
     </div>
 
     <div class="modal-acts" style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:10px;flex-wrap:wrap">
-      <button class="btn s" onclick="dismissDepositAlert()" style="padding:8px 16px;font-size:13px">รับทราบและปิดการแจ้งเตือน</button>
-      <button class="btn p" onclick="closeAlert();go('deposit')" style="padding:8px 18px;font-size:13px;background:var(--brand2);border-color:var(--brand2);color:#FFFFFF">🛡️ ไปยังหน้าจัดการเงินค้ำประกัน</button>
+      <button class="btn s" onclick="dismissDepositAlert()" style="padding:8px 16px;font-size:13px">รับทราบและปิด</button>
+      <button class="btn p" onclick="closeAlert();go('deposit')" style="padding:8px 18px;font-size:13px;background:var(--brand2);border-color:var(--brand2);color:#FFFFFF">🛡️ จัดการเงินค้ำประกัน</button>
     </div>
   `);
 }
