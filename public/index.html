@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>DR Bus Body · ใบเสนอราคา & ใบวางบิล</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -10,8 +10,8 @@
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 'Noto Sans Thai',system-ui,'Segoe UI',Tahoma,sans-serif}
-.app{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:100vh;max-width:100vw;overflow-x:hidden}
-aside{background:var(--card);border-right:1px solid var(--line);padding:20px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:6px}
+.app{display:grid;grid-template-columns:230px minmax(0,1fr);width:100%;min-height:100vh;min-height:100dvh;max-width:100vw;overflow-x:hidden}
+aside{background:var(--card);border-right:1px solid var(--line);padding:20px 14px calc(20px + env(safe-area-inset-bottom,0px));position:sticky;top:0;height:100vh;height:100dvh;max-height:100dvh;overflow-y:auto;display:flex;flex-direction:column;gap:6px}
 .logo{display:flex;gap:10px;align-items:center;padding:4px 8px 18px}
 .logo b{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-light));color:#fff;font-size:15px}
 .logo span{font-weight:700;line-height:1.2}.logo small{display:block;color:var(--mute);font-weight:400;font-size:11px}
@@ -37,7 +37,7 @@ h3{margin:0 0 12px;font-size:16px;color:var(--ink);font-weight:700}
 .legend{display:flex;gap:14px;font-size:12px;color:var(--mute);margin-top:8px}.legend u{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;text-decoration:none}
 .wrap{overflow-x:auto;width:100%}table{width:100%;border-collapse:collapse;table-layout:auto}th{text-align:left;font-size:12px;color:var(--mute);font-weight:600;padding:8px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
 td{padding:9px 8px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:middle;color:var(--ink)}tr:last-child td{border:0}.r{text-align:right;white-space:nowrap}.c{text-align:center;white-space:nowrap}.nowrap{white-space:nowrap}.acts{display:inline-flex;align-items:center;justify-content:flex-end;gap:4px;white-space:nowrap}
-.tag{padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--bg);color:var(--mute)}
+.tag{display:inline-flex;align-items:center;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--bg);color:var(--mute);white-space:nowrap;flex-shrink:0;line-height:1.3}
 .tag.ok{background:#DCFCE7;color:#15803D}.tag.warn{background:#FEF3C7;color:#B45309}.tag.bad{background:#FEE2E2;color:#B91C1C}.tag.info{background:#EFF6FF;color:#1D4ED8}
 input,select,textarea{font:inherit;color:var(--ink)!important;background:var(--input-bg,#FFFFFF)!important;border:1px solid #CBD5E1!important;border-radius:10px;padding:8px 10px;width:100%;transition:border-color .15s ease,box-shadow .15s ease}
 input:focus,select:focus,textarea:focus{outline:2px solid var(--brand-light)!important;outline-offset:-1px;border-color:var(--brand-light)!important}
@@ -67,7 +67,15 @@ body.modal-open .bn,body:has(.mask.open) .bn,body:has(.m-drawer.open) .bn{displa
 .modal-acts .btn.p:hover{background:#ea580c!important;border-color:#ea580c!important}
 .empty{padding:30px;text-align:center;color:var(--mute)}
 #pa{display:none}
-#login{display:none;min-height:100vh;place-items:center;padding:20px}.lg{width:100%;max-width:380px;text-align:center}.lg img{width:90px;margin-bottom:6px}.lg h1{margin:6px 0 4px}.lg input{margin-bottom:10px}.err{color:var(--bad);font-size:13px;min-height:20px;margin-bottom:6px}#who{padding:8px 4px;font-size:13px}
+#login{display:none;min-height:100vh;min-height:100dvh;place-items:center;padding:20px}.lg{width:100%;max-width:380px;text-align:center}.lg img{width:90px;margin-bottom:6px}.lg h1{margin:6px 0 4px}.lg input{margin-bottom:10px}.err{color:var(--bad);font-size:13px;min-height:20px;margin-bottom:6px}#who{padding:8px 4px;font-size:13px}.wn{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;max-width:100%}
+.dash-acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.dep-banner{background:#FFF7F5;border:1.5px solid #FCA5A5;border-radius:14px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;box-shadow:0 4px 14px rgba(242,100,68,0.12);width:100%;min-width:0}
+.dep-banner-main{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+.dep-banner-ico{width:42px;height:42px;border-radius:10px;background:#FFF1EE;border:1px solid #FECDD3;display:grid;place-items:center;font-size:22px;flex-shrink:0}
+.dep-banner-txt{min-width:0;flex:1}
+.dep-banner-title{font-weight:700;color:#991B1B;font-size:15px;line-height:1.35}
+.dep-banner-desc{font-size:13px;color:#475569;margin-top:2px;line-height:1.45}
+.dep-banner-acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;flex-shrink:0}
 .pc-only{display:block}.mobile-only{display:none}.m-header{display:none}.m-drawer-mask,.m-drawer{display:none}
 .m-cards{display:none;flex-direction:column;gap:12px;margin-top:10px}
 .m-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:8px}
@@ -85,7 +93,7 @@ body.modal-open .bn,body:has(.mask.open) .bn,body:has(.m-drawer.open) .bn{displa
 .m-bell-badge{position:absolute;top:2px;right:2px;background:var(--brand2);color:#fff;font-size:10px;font-weight:700;padding:1px 5px;border-radius:99px;line-height:1}
 .m-drawer-mask{position:fixed;inset:0;background:rgba(15,23,42,0.6);backdrop-filter:blur(3px);z-index:900}
 .m-drawer-mask.open{display:block}
-.m-drawer{position:fixed;top:0;left:0;bottom:0;width:290px;max-width:85vw;background:var(--card);z-index:950;transform:translateX(-100%);transition:transform .25s cubic-bezier(0.4,0,0.2,1);box-shadow:4px 0 25px rgba(15,23,42,0.12);display:flex;flex-direction:column;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom,20px)}
+.m-drawer{position:fixed;top:0;left:0;bottom:0;height:100vh;height:100dvh;max-height:100dvh;width:290px;max-width:85vw;background:var(--card);z-index:950;transform:translateX(-100%);transition:transform .25s cubic-bezier(0.4,0,0.2,1);box-shadow:4px 0 25px rgba(15,23,42,0.12);display:flex;flex-direction:column;overflow-y:auto;padding-bottom:calc(24px + env(safe-area-inset-bottom,20px))}
 .m-drawer.open{transform:translateX(0);display:flex}
 .m-drawer-top{padding:16px 14px;border-bottom:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:space-between;background:var(--brand);color:#fff}
 .m-drawer-user{display:flex;align-items:center;gap:10px}
@@ -101,72 +109,83 @@ body.modal-open .bn,body:has(.mask.open) .bn,body:has(.m-drawer.open) .bn{displa
 .bn button .bn-ic{font-size:20px;line-height:1}
 .bn button .bn-lb{font-size:10.5px;font-weight:600;line-height:1.2}
 .bn button.on{color:var(--brand2);font-weight:700}
-@media (max-width:768px){
- body:not(.view-desktop) aside{display:none!important}
- body:not(.view-desktop) .app{grid-template-columns:1fr!important}
- body:not(.view-desktop) .m-header{display:flex!important}
+@media (max-width:1023px){
+ aside{display:none!important}
+ .app{grid-template-columns:minmax(0,1fr)!important;width:100%!important}
+ .m-header{display:flex!important}
  body:not(.view-desktop) .bn{display:flex!important}
  body:not(.view-desktop) .pc-only{display:none!important}
  body:not(.view-desktop) .mobile-only{display:flex!important}
+ main{width:100%!important;min-width:0!important;padding:12px 12px 24px!important}
  body:not(.view-desktop) main{padding:12px 12px 84px!important}
- body:not(.view-desktop) .top{flex-direction:column!important;align-items:stretch!important;gap:10px!important;margin-bottom:14px!important}
- body:not(.view-desktop) .top > div:last-child{display:flex;flex-wrap:wrap;gap:6px;width:100%}
- body:not(.view-desktop) .top input,body:not(.view-desktop) .top select{flex:1;min-width:140px}
- body:not(.view-desktop) .top h1{font-size:19px!important}
- body:not(.view-desktop) .k4{grid-template-columns:1fr 1fr!important;gap:8px!important}
- body:not(.view-desktop) .k2{grid-template-columns:1fr!important}
- body:not(.view-desktop) .kpi h2{font-size:20px!important}
- body:not(.view-desktop) .kpi{padding:12px!important}
- body:not(.view-desktop) .mask{padding:0!important;align-items:flex-end!important}
- body:not(.view-desktop) .modal{background:#FFFFFF!important;border-radius:20px 20px 0 0!important;padding:18px 16px calc(48px + env(safe-area-inset-bottom,20px))!important;max-height:94vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;width:100%!important;max-width:100%!important;box-shadow:0 -10px 40px rgba(15,23,42,0.18)!important;border-bottom:none!important;border:1px solid var(--line)!important}
- body:not(.view-desktop) .f{grid-template-columns:1fr!important;gap:10px!important}
- body:not(.view-desktop) .f .w2,body:not(.view-desktop) .f .w4{grid-column:span 1!important}
- body:not(.view-desktop) input,body:not(.view-desktop) select,body:not(.view-desktop) textarea{font-size:16px!important}
- body:not(.view-desktop) .it-head{display:none!important}
- body:not(.view-desktop) .it-card-row{display:flex!important;flex-direction:column!important;gap:10px!important;background:#FFFFFF!important;border:1px solid var(--line)!important;border-radius:14px!important;padding:14px!important;margin-bottom:12px!important;box-shadow:0 2px 8px rgba(15,23,42,0.05)!important}
- body:not(.view-desktop) .it-card-top{display:flex!important;justify-content:space-between!important;align-items:center!important;padding-bottom:8px!important;border-bottom:1px solid #F1F5F9!important;margin-bottom:2px!important}
- body:not(.view-desktop) .it-badge{font-size:13px!important;font-weight:700!important;color:var(--brand-light)!important;background:#EFF6FF!important;padding:2px 10px!important;border-radius:99px!important;border:1px solid #DBEAFE!important}
- body:not(.view-desktop) .it-del-btn{padding:5px 12px!important;font-size:12.5px!important;font-weight:600!important;border-radius:8px!important;background:#FEE2E2!important;border:1px solid #FCA5A5!important;color:#DC2626!important}
- body:not(.view-desktop) .it-col-desc{width:100%!important}
- body:not(.view-desktop) .it-col-nums{display:grid!important;grid-template-columns:1fr 1fr 1.3fr!important;gap:8px!important;width:100%!important}
- body:not(.view-desktop) .it-num-field input{padding:8px 8px!important;font-size:14px!important}
- body:not(.view-desktop) .it-col-tot{display:flex!important;justify-content:space-between!important;align-items:center!important;background:#F8FAFC!important;border:1px solid var(--line)!important;border-radius:10px!important;padding:10px 14px!important;margin-top:2px!important;text-align:right!important}
- body:not(.view-desktop) .it-col-tot label{margin:0!important;font-size:13px!important;font-weight:600!important;color:var(--mute)!important}
- body:not(.view-desktop) .it-row-tot-val{font-size:16px!important;font-weight:700!important;color:var(--brand)!important}
- body:not(.view-desktop) .it-col-del.pc-only{display:none!important}
- body:not(.view-desktop) .tot{width:100%!important;margin:14px 0 0!important;background:#F8FAFC!important;border:1px solid var(--line)!important;border-radius:12px!important;padding:12px 16px!important}
- body:not(.view-desktop) .modal-acts{display:flex!important;flex-direction:column-reverse!important;gap:10px!important;width:100%!important;margin-top:20px!important;padding-bottom:24px!important}
- body:not(.view-desktop) .modal-acts .btn{width:100%!important;padding:12px!important;font-size:15px!important;text-align:center!important;justify-content:center!important}
- body:not(.view-desktop) #modalAlert{max-height:36vh!important;max-height:36dvh!important;padding:10px 12px calc(10px + env(safe-area-inset-bottom,8px))!important;border-radius:16px 16px 0 0!important}
- body:not(.view-desktop) #modalAlert .dep-alert-head{gap:8px!important;padding-bottom:6px!important;margin-bottom:6px!important}
- body:not(.view-desktop) #modalAlert .dep-alert-ico{width:28px!important;height:28px!important;border-radius:8px!important;font-size:15px!important}
- body:not(.view-desktop) #modalAlert .dep-alert-title{font-size:13.5px!important;line-height:1.25!important}
- body:not(.view-desktop) #modalAlert .dep-alert-close{font-size:14px!important;padding:2px 8px!important}
- body:not(.view-desktop) #modalAlert .dep-alert-sum{padding:6px 10px!important;margin-bottom:6px!important;border-radius:8px!important;gap:6px!important}
- body:not(.view-desktop) #modalAlert .dep-alert-sum-lbl{font-size:12px!important}
- body:not(.view-desktop) #modalAlert .dep-alert-sum-val{font-size:15px!important}
- body:not(.view-desktop) #modalAlert .dep-alert-list{max-height:110px!important;gap:6px!important;margin-top:0!important}
- body:not(.view-desktop) #modalAlert .dep-alert-item{padding:6px 10px!important;border-radius:8px!important;gap:4px!important}
- body:not(.view-desktop) #modalAlert .modal-acts{flex-direction:row!important;gap:8px!important;margin-top:8px!important;padding-bottom:0!important}
- body:not(.view-desktop) #modalAlert .modal-acts .btn{width:auto!important;flex:1!important;padding:7px 8px!important;font-size:12.5px!important}
+ .top{flex-direction:column!important;align-items:stretch!important;gap:10px!important;margin-bottom:14px!important}
+ .top > div:last-child,.dash-acts{display:flex!important;flex-wrap:wrap!important;gap:8px!important;width:100%!important}
+ .dash-acts .btn{flex:1 1 auto;text-align:center;justify-content:center}
+ .top input,.top select{flex:1;min-width:140px}
+ .top h1{font-size:19px!important}
+ .dep-banner{flex-direction:column!important;align-items:stretch!important;padding:14px!important;gap:12px!important}
+ .dep-banner-main{flex-direction:column!important;align-items:flex-start!important;gap:8px!important}
+ .dep-banner-acts{width:100%!important;flex-direction:column!important;align-items:stretch!important;gap:8px!important}
+ .dep-banner-acts .btn{width:100%!important;justify-content:center!important;padding:9px 12px!important}
+ .k4{grid-template-columns:1fr 1fr!important;gap:8px!important}
+ .k2{grid-template-columns:1fr!important}
+ .kpi h2{font-size:20px!important}
+ .kpi{padding:12px!important}
+ .mask{padding:0!important;align-items:flex-end!important}
+ .modal{background:#FFFFFF!important;border-radius:20px 20px 0 0!important;padding:18px 16px calc(48px + env(safe-area-inset-bottom,20px))!important;max-height:94vh!important;max-height:94dvh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;width:100%!important;max-width:100%!important;box-shadow:0 -10px 40px rgba(15,23,42,0.18)!important;border-bottom:none!important;border:1px solid var(--line)!important}
+ .f{grid-template-columns:1fr!important;gap:10px!important}
+ .f .w2,.f .w4{grid-column:span 1!important}
+ input,select,textarea{font-size:16px!important}
+ .it-head{display:none!important}
+ .it-card-row{display:flex!important;flex-direction:column!important;gap:10px!important;background:#FFFFFF!important;border:1px solid var(--line)!important;border-radius:14px!important;padding:14px!important;margin-bottom:12px!important;box-shadow:0 2px 8px rgba(15,23,42,0.05)!important}
+ .it-card-top{display:flex!important;justify-content:space-between!important;align-items:center!important;padding-bottom:8px!important;border-bottom:1px solid #F1F5F9!important;margin-bottom:2px!important}
+ .it-badge{font-size:13px!important;font-weight:700!important;color:var(--brand-light)!important;background:#EFF6FF!important;padding:2px 10px!important;border-radius:99px!important;border:1px solid #DBEAFE!important}
+ .it-del-btn{padding:5px 12px!important;font-size:12.5px!important;font-weight:600!important;border-radius:8px!important;background:#FEE2E2!important;border:1px solid #FCA5A5!important;color:#DC2626!important}
+ .it-col-desc{width:100%!important}
+ .it-col-nums{display:grid!important;grid-template-columns:1fr 1fr 1.3fr!important;gap:8px!important;width:100%!important}
+ .it-num-field input{padding:8px 8px!important;font-size:14px!important}
+ .it-col-tot{display:flex!important;justify-content:space-between!important;align-items:center!important;background:#F8FAFC!important;border:1px solid var(--line)!important;border-radius:10px!important;padding:10px 14px!important;margin-top:2px!important;text-align:right!important}
+ .it-col-tot label{margin:0!important;font-size:13px!important;font-weight:600!important;color:var(--mute)!important}
+ .it-row-tot-val{font-size:16px!important;font-weight:700!important;color:var(--brand)!important}
+ .it-col-del.pc-only{display:none!important}
+ .tot{width:100%!important;margin:14px 0 0!important;background:#F8FAFC!important;border:1px solid var(--line)!important;border-radius:12px!important;padding:12px 16px!important}
+ .modal-acts{display:flex!important;flex-direction:column-reverse!important;gap:10px!important;width:100%!important;margin-top:20px!important;padding-bottom:24px!important}
+ .modal-acts .btn{width:100%!important;padding:12px!important;font-size:15px!important;text-align:center!important;justify-content:center!important}
+ #modalAlert{max-height:36vh!important;max-height:36dvh!important;padding:10px 12px calc(10px + env(safe-area-inset-bottom,8px))!important;border-radius:16px 16px 0 0!important}
+ #modalAlert .dep-alert-head{gap:8px!important;padding-bottom:6px!important;margin-bottom:6px!important}
+ #modalAlert .dep-alert-ico{width:28px!important;height:28px!important;border-radius:8px!important;font-size:15px!important}
+ #modalAlert .dep-alert-title{font-size:13.5px!important;line-height:1.25!important}
+ #modalAlert .dep-alert-close{font-size:14px!important;padding:2px 8px!important}
+ #modalAlert .dep-alert-sum{padding:6px 10px!important;margin-bottom:6px!important;border-radius:8px!important;gap:6px!important}
+ #modalAlert .dep-alert-sum-lbl{font-size:12px!important}
+ #modalAlert .dep-alert-sum-val{font-size:15px!important}
+ #modalAlert .dep-alert-list{max-height:110px!important;gap:6px!important;margin-top:0!important}
+ #modalAlert .dep-alert-item{padding:6px 10px!important;border-radius:8px!important;gap:4px!important}
+ #modalAlert .modal-acts{flex-direction:row!important;gap:8px!important;margin-top:8px!important;padding-bottom:0!important}
+ #modalAlert .modal-acts .btn{width:auto!important;flex:1!important;padding:7px 8px!important;font-size:12.5px!important}
 }
 body.view-mobile aside{display:none!important}
-body.view-mobile .app{grid-template-columns:1fr!important;max-width:600px;margin:0 auto;box-shadow:0 0 30px rgba(15,23,42,0.08)}
+body.view-mobile .app{grid-template-columns:minmax(0,1fr)!important;width:100%!important;max-width:600px;margin:0 auto;box-shadow:0 0 30px rgba(15,23,42,0.08)}
 body.view-mobile .m-header{display:flex!important}
 body.view-mobile .bn{display:flex!important;max-width:600px;left:50%!important;transform:translateX(-50%)}
 body.view-mobile .pc-only{display:none!important}
 body.view-mobile .mobile-only{display:flex!important}
-body.view-mobile main{padding:12px 12px 84px!important}
+body.view-mobile main{width:100%!important;min-width:0!important;padding:12px 12px 84px!important}
 body.view-mobile .top{flex-direction:column!important;align-items:stretch!important;gap:10px!important;margin-bottom:14px!important}
-body.view-mobile .top > div:last-child{display:flex;flex-wrap:wrap;gap:6px;width:100%}
+body.view-mobile .top > div:last-child,body.view-mobile .dash-acts{display:flex!important;flex-wrap:wrap!important;gap:8px!important;width:100%!important}
+body.view-mobile .dash-acts .btn{flex:1 1 auto;text-align:center;justify-content:center}
 body.view-mobile .top input,body.view-mobile .top select{flex:1;min-width:140px}
 body.view-mobile .top h1{font-size:19px!important}
+body.view-mobile .dep-banner{flex-direction:column!important;align-items:stretch!important;padding:14px!important;gap:12px!important}
+body.view-mobile .dep-banner-main{flex-direction:column!important;align-items:flex-start!important;gap:8px!important}
+body.view-mobile .dep-banner-acts{width:100%!important;flex-direction:column!important;align-items:stretch!important;gap:8px!important}
+body.view-mobile .dep-banner-acts .btn{width:100%!important;justify-content:center!important;padding:9px 12px!important}
 body.view-mobile .k4{grid-template-columns:1fr 1fr!important;gap:8px!important}
 body.view-mobile .k2{grid-template-columns:1fr!important}
 body.view-mobile .kpi h2{font-size:20px!important}
 body.view-mobile .kpi{padding:12px!important}
 body.view-mobile .mask{padding:0!important;align-items:flex-end!important}
-body.view-mobile .modal{background:#FFFFFF!important;border-radius:20px 20px 0 0!important;padding:18px 16px calc(48px + env(safe-area-inset-bottom,20px))!important;max-height:94vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;width:100%!important;max-width:100%!important;box-shadow:0 -10px 40px rgba(15,23,42,0.18)!important;border-bottom:none!important;border:1px solid var(--line)!important}
+body.view-mobile .modal{background:#FFFFFF!important;border-radius:20px 20px 0 0!important;padding:18px 16px calc(48px + env(safe-area-inset-bottom,20px))!important;max-height:94vh!important;max-height:94dvh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;width:100%!important;max-width:100%!important;box-shadow:0 -10px 40px rgba(15,23,42,0.18)!important;border-bottom:none!important;border:1px solid var(--line)!important}
 body.view-mobile .f{grid-template-columns:1fr!important;gap:10px!important}
 body.view-mobile .f .w2,body.view-mobile .f .w4{grid-column:span 1!important}
 body.view-mobile input,body.view-mobile select,body.view-mobile textarea{font-size:16px!important}
@@ -267,14 +286,14 @@ function toggleViewMode(target){
   if(target){
     currentViewMode=target;
   }else{
-    const isMobileNow=document.body.classList.contains('view-mobile')||(!document.body.classList.contains('view-desktop')&&window.innerWidth<=768);
+    const isMobileNow=document.body.classList.contains('view-mobile')||(!document.body.classList.contains('view-desktop')&&window.innerWidth<1024);
     currentViewMode=isMobileNow?'desktop':'mobile';
   }
   localStorage.setItem('dr_view_mode',currentViewMode);
   applyViewMode();
 }
 function updateViewToggleLabels(){
-  const isMobileNow=document.body.classList.contains('view-mobile')||(!document.body.classList.contains('view-desktop')&&window.innerWidth<=768);
+  const isMobileNow=document.body.classList.contains('view-mobile')||(!document.body.classList.contains('view-desktop')&&window.innerWidth<1024);
   const btn=$('#dViewToggleBtn');
   if(btn){
     btn.innerHTML=`<span class="ic">${isMobileNow?'💻':'📱'}</span><span class="lb2"> ${isMobileNow?'มุมมองคอมพิวเตอร์':'มุมมองมือถือ'}</span>`;
@@ -297,13 +316,13 @@ function renderDrawer(){
   if(!d)return;
   const T=isAdmin()?TABS.concat([['users','🔐','ผู้ใช้งาน']]):TABS;
   const urg=typeof getUrgentDeposits==='function'?getUrgentDeposits().length:0;
-  const isMobileNow=document.body.classList.contains('view-mobile')||(!document.body.classList.contains('view-desktop')&&window.innerWidth<=768);
+  const isMobileNow=document.body.classList.contains('view-mobile')||(!document.body.classList.contains('view-desktop')&&window.innerWidth<1024);
   d.innerHTML=`<div class="m-drawer-top">
-    <div class="m-drawer-user">
-      <div class="m-drawer-avatar">👤</div>
-      <div>
-        <div style="font-weight:700;font-size:15px;color:var(--ink)">${esc(me?me.name:'')}</div>
-        <div style="font-size:12px;color:var(--mute)">${isAdmin()?'ผู้ดูแลระบบ (Admin)':'พนักงาน'}</div>
+    <div class="m-drawer-user" style="min-width:0">
+      <div class="m-drawer-avatar" style="flex-shrink:0">👤</div>
+      <div style="min-width:0">
+        <div style="font-weight:700;font-size:15px;color:#FFFFFF;display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span>${esc(me?me.name:'')}</span><span class="tag info" style="white-space:nowrap;flex-shrink:0">${isAdmin()?'แอดมิน':'ผู้ใช้'}</span></div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.8);margin-top:2px">${isAdmin()?'ผู้ดูแลระบบ (Admin)':'พนักงาน'}</div>
       </div>
     </div>
     <button class="m-btn-icon" onclick="closeDrawer()" title="ปิดเมนู" style="font-size:18px">✕</button>
@@ -439,7 +458,7 @@ function render(){
     }
   }
   updateViewToggleLabels();
-  $('#who').title=me.name;$('#who').innerHTML=`<span class="wn">👤 <b>${esc(me.name)}</b> <span class="tag info">${isAdmin()?'แอดมิน':'ผู้ใช้'}</span><br></span><button class="btn s" style="margin-top:6px" title="ออกจากระบบ" onclick="logout()"><span class="ic">🚪</span><span class="lb2"> ออกจากระบบ</span></button>`;
+  $('#who').title=me.name;$('#who').innerHTML=`<span class="wn">👤 <b>${esc(me.name)}</b> <span class="tag info" style="white-space:nowrap;flex-shrink:0">${isAdmin()?'แอดมิน':'ผู้ใช้'}</span></span><button class="btn s" style="margin-top:6px" title="ออกจากระบบ" onclick="logout()"><span class="ic">🚪</span><span class="lb2"> ออกจากระบบ</span></button>`;
   $('#coBtn').style.display=isAdmin()?'':'none';
   $('#main').innerHTML=tab==='dash'?vDash():tab==='cust'?vCust():tab==='users'?vUsers():tab==='job'?vJobs():tab==='files'?vFiles():tab==='deposit'?vDeposit():vList(tab);
   if(tab==='dash')setTimeout(()=>checkDepositAlert(false),150);
@@ -487,7 +506,7 @@ async function saveUser(edit){
   if(u.id===me.id)me={...me,name:n,username:un,role};
   closeM();
 }
-const go=t=>{tab=t;q='';render();scrollTo(0,0)};
+const go=t=>{tab=t;q='';if(typeof closeDrawer==='function')closeDrawer();render();scrollTo(0,0)};
 
 function vDash(){
   const Q=S.docs.filter(d=>d.type==='quote'),B=S.docs.filter(d=>d.type==='bill');
@@ -502,17 +521,17 @@ function vDash(){
   const mx=Math.max(1,...data.flatMap(x=>[x.q,x.b,x.r]));
   const recent=[...S.docs].sort((x,y)=>(y.no||'').localeCompare(x.no||'',undefined,{numeric:true})).slice(0,6);
   return `<div class="top"><div><h1>หน้าหลัก (Home)</h1><div class="sub">${esc(S.co.name)} · ${fd(today())}</div></div>
-  <div><button class="btn" onclick="edit('quote')">+ ใบเสนอราคา</button> <button class="btn" onclick="edit('bill')">+ ใบวางบิล</button> <button class="btn p" onclick="edit('receipt')">+ ใบเสร็จ</button></div></div>
+  <div class="dash-acts"><button class="btn" onclick="edit('quote')">+ ใบเสนอราคา</button><button class="btn" onclick="edit('bill')">+ ใบวางบิล</button><button class="btn p" onclick="edit('receipt')">+ ใบเสร็จ</button></div></div>
   ${urg.length?`
-  <div style="background:#FFF7F5;border:1.5px solid #FCA5A5;border-radius:14px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;box-shadow:0 4px 14px rgba(242,100,68,0.12)">
-    <div style="display:flex;align-items:center;gap:12px">
-      <div style="width:42px;height:42px;border-radius:10px;background:#FFF1EE;border:1px solid #FECDD3;display:grid;place-items:center;font-size:22px;flex-shrink:0">⚠️</div>
-      <div>
-        <div style="font-weight:700;color:#991B1B;font-size:15px">แจ้งเตือนเงินค้ำประกันสัญญาใกล้ครบกำหนด / เกินกำหนด (${urg.length} รายการ)</div>
-        <div style="font-size:13px;color:#475569;margin-top:2px">มียอดเงินค้ำประกันที่ต้องเร่งดำเนินการขอคืนรวม <b style="color:#DC2626">฿${money(urg.reduce((a,b)=>a+(+b.amount||0),0))}</b> (ครบกำหนดภายใน 30 วัน หรือเกินกำหนดแล้ว)</div>
+  <div class="dep-banner">
+    <div class="dep-banner-main">
+      <div class="dep-banner-ico">⚠️</div>
+      <div class="dep-banner-txt">
+        <div class="dep-banner-title">แจ้งเตือนเงินค้ำประกันสัญญาใกล้ครบกำหนด / เกินกำหนด (${urg.length} รายการ)</div>
+        <div class="dep-banner-desc">มียอดเงินค้ำประกันที่ต้องเร่งดำเนินการขอคืนรวม <b style="color:#DC2626">฿${money(urg.reduce((a,b)=>a+(+b.amount||0),0))}</b> (ครบกำหนดภายใน 30 วัน หรือเกินกำหนดแล้ว)</div>
       </div>
     </div>
-    <div style="display:flex;gap:8px;align-items:center">
+    <div class="dep-banner-acts">
       <button class="btn s" style="background:#FFFFFF;border-color:#FCA5A5;color:#C2410C;font-weight:600;padding:7px 12px" onclick="checkDepositAlert(true)">📋 ดูรายการแจ้งเตือน</button>
       <button class="btn p" style="background:var(--brand2);border-color:var(--brand2);color:#FFFFFF;padding:7px 14px;font-weight:600" onclick="go('deposit')">🛡️ ไปยังหน้าเงินค้ำประกัน</button>
     </div>
