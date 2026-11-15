@@ -77,15 +77,24 @@ body.modal-open .bn,body:has(.mask.open) .bn,body:has(.m-drawer.open) .bn{displa
 .dep-banner-desc{font-size:13px;color:#475569;margin-top:2px;line-height:1.45}
 .dep-banner-acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap;flex-shrink:0}
 .pc-only{display:block}.mobile-only{display:none}.m-header{display:none}.m-drawer-mask,.m-drawer{display:none}
-.m-cards{display:none;flex-direction:column;gap:12px;margin-top:10px}
-.m-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:8px}
-.m-card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.m-card-no{font-size:15px;color:var(--ink);font-weight:700}
-.m-card-body{font-size:13.5px}
-.m-card-cname{font-size:14.5px;color:var(--ink);word-break:break-word}
-.m-card-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.m-card-tot{font-size:16px;font-weight:700;color:var(--brand)}
+.m-cards{display:none;flex-direction:column;gap:10px;margin-top:10px}
+.m-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:8px;width:100%;min-width:0;transition:border-color .15s ease,background .15s ease}
+.m-card.m-tap{cursor:pointer}
+.m-card.m-tap:active{background:#F8FAFC;border-color:#CBD5E1}
+.m-card-header{display:flex;justify-content:space-between;align-items:center;gap:8px;min-width:0}
+.m-card-no{font-size:15px;color:var(--ink);font-weight:700;white-space:nowrap}
+.m-card-meta-top{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.m-card-body{font-size:13.5px;width:100%;min-width:0}
+.m-card-cname{font-size:14.5px;font-weight:600;color:var(--ink);width:100%;word-break:break-word;line-height:1.4}
+.m-card-sub{font-size:12.5px;color:var(--mute);margin-top:3px;word-break:break-word;line-height:1.35}
+.m-card-row{display:flex;justify-content:space-between;align-items:center;gap:8px;min-width:0}
+.m-card-sec{font-size:12px;color:var(--mute);min-width:0;flex:1;word-break:break-word;line-height:1.35}
+.m-card-tot-wrap{display:inline-flex;align-items:center;gap:6px;flex-shrink:0}
+.m-card-tot{font-size:15.5px;font-weight:700;color:var(--brand);white-space:nowrap}
+.m-card-arrow{font-size:17px;color:var(--mute);font-weight:700;line-height:1}
 .m-card-acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding-top:8px;border-top:1px solid var(--line);margin-top:2px}
+.cat-bar{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.cat-bar .btn{flex-shrink:0;white-space:nowrap}
 .m-header{position:sticky;top:0;background:var(--brand)!important;color:#fff!important;border-bottom:1px solid rgba(255,255,255,0.1);padding:10px 14px;align-items:center;justify-content:space-between;z-index:40;box-shadow:0 2px 8px rgba(15,23,42,0.12)}
 .m-btn-icon{all:unset;box-sizing:border-box;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-size:20px;cursor:pointer;background:rgba(255,255,255,0.15)!important;color:#fff!important}
 .m-brand{display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;font-size:15px;color:#fff}
@@ -113,20 +122,29 @@ body.modal-open .bn,body:has(.mask.open) .bn,body:has(.m-drawer.open) .bn{displa
  aside{display:none!important}
  .app{grid-template-columns:minmax(0,1fr)!important;width:100%!important}
  .m-header{display:flex!important}
- body:not(.view-desktop) .bn{display:flex!important}
- body:not(.view-desktop) .pc-only{display:none!important}
- body:not(.view-desktop) .mobile-only{display:flex!important}
- main{width:100%!important;min-width:0!important;padding:12px 12px 24px!important}
- body:not(.view-desktop) main{padding:12px 12px 84px!important}
- .top{flex-direction:column!important;align-items:stretch!important;gap:10px!important;margin-bottom:14px!important}
- .top > div:last-child,.dash-acts{display:flex!important;flex-wrap:wrap!important;gap:8px!important;width:100%!important}
+ main{width:100%!important;min-width:0!important;padding:14px 16px 28px!important}
+ .dash-acts{display:flex!important;flex-wrap:wrap!important;gap:8px!important;width:100%!important}
  .dash-acts .btn{flex:1 1 auto;text-align:center;justify-content:center}
- .top input,.top select{flex:1;min-width:140px}
- .top h1{font-size:19px!important}
  .dep-banner{flex-direction:column!important;align-items:stretch!important;padding:14px!important;gap:12px!important}
  .dep-banner-main{flex-direction:column!important;align-items:flex-start!important;gap:8px!important}
  .dep-banner-acts{width:100%!important;flex-direction:column!important;align-items:stretch!important;gap:8px!important}
  .dep-banner-acts .btn{width:100%!important;justify-content:center!important;padding:9px 12px!important}
+}
+@media (max-width:767px){
+ .pc-only{display:none!important}
+ .mobile-only{display:flex!important}
+ body:not(.view-desktop) .bn{display:flex!important}
+ main{padding:12px 12px 24px!important}
+ body:not(.view-desktop) main{padding:12px 12px 84px!important}
+ .top{flex-direction:column!important;align-items:stretch!important;gap:10px!important;margin-bottom:14px!important}
+ .top > div:last-child,.list-tools{display:flex!important;flex-wrap:wrap!important;gap:8px!important;width:100%!important}
+ .list-tools input{flex:1 1 100%!important;width:100%!important;min-width:0!important}
+ .list-tools select{flex:1 1 130px!important;width:auto!important;min-width:0!important}
+ .list-tools .btn{flex:1 1 auto!important;justify-content:center!important;text-align:center!important}
+ .cat-bar{max-width:100%;overflow-x:auto!important;flex-wrap:nowrap!important;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+ .cat-bar::-webkit-scrollbar{display:none}
+ .top input,.top select{flex:1;min-width:140px}
+ .top h1{font-size:19px!important}
  .k4{grid-template-columns:1fr 1fr!important;gap:8px!important}
  .k2{grid-template-columns:1fr!important}
  .kpi h2{font-size:20px!important}
@@ -172,7 +190,10 @@ body.view-mobile .pc-only{display:none!important}
 body.view-mobile .mobile-only{display:flex!important}
 body.view-mobile main{width:100%!important;min-width:0!important;padding:12px 12px 84px!important}
 body.view-mobile .top{flex-direction:column!important;align-items:stretch!important;gap:10px!important;margin-bottom:14px!important}
-body.view-mobile .top > div:last-child,body.view-mobile .dash-acts{display:flex!important;flex-wrap:wrap!important;gap:8px!important;width:100%!important}
+body.view-mobile .top > div:last-child,body.view-mobile .dash-acts,body.view-mobile .list-tools{display:flex!important;flex-wrap:wrap!important;gap:8px!important;width:100%!important}
+body.view-mobile .list-tools input{flex:1 1 100%!important;width:100%!important;min-width:0!important}
+body.view-mobile .list-tools select{flex:1 1 130px!important;width:auto!important;min-width:0!important}
+body.view-mobile .list-tools .btn{flex:1 1 auto!important;justify-content:center!important;text-align:center!important}
 body.view-mobile .dash-acts .btn{flex:1 1 auto;text-align:center;justify-content:center}
 body.view-mobile .top input,body.view-mobile .top select{flex:1;min-width:140px}
 body.view-mobile .top h1{font-size:19px!important}
@@ -580,28 +601,23 @@ function docTable(a){
     const cdt=d.createdAt||d.updatedAt;
     const timeStr=cdt?`⏱️ ${fdt(cdt)}`:(d.date?`⏱️ ${fd(d.date)}`:'');
     const totStr=d.type==='delivery'?'-':'฿'+money(calc(d).tot);
-    return `<div class="m-card">
+    const secStr=[d.by?`โดย ${esc(d.by)}`:'',timeStr].filter(Boolean).join(' · ')||(typeof tab!=='undefined'&&tab==='dash'?TT[d.type]:'-');
+    return `<div class="m-card m-tap" onclick="edit('${d.type}','${d.id}')">
       <div class="m-card-header">
-        <div>
-          <div class="m-card-no"><b>${esc(d.no)}</b></div>
-          <div class="sub" style="font-size:11.5px">${TT[d.type]}${d.date?' · '+fd(d.date):''}</div>
-        </div>
-        <div>${tag(d)}</div>
+        <div class="m-card-no"><b>${esc(d.no)}</b></div>
+        <div class="m-card-meta-top">${d.date?`<span class="sub" style="font-size:12px;white-space:nowrap">${fd(d.date)}</span>`:''}${tag(d)}</div>
       </div>
       <div class="m-card-body">
-        <div class="m-card-cname"><b>${esc(d.cname||'ไม่ระบุชื่อลูกค้า')}</b></div>
-        ${timeStr?`<div class="sub" style="font-size:11px;margin-top:2px">${timeStr}</div>`:''}
-        ${d.by?`<div class="sub" style="font-size:11px">โดย ${esc(d.by)}</div>`:''}
+        <div class="m-card-cname">${esc(d.cname||'ไม่ระบุชื่อลูกค้า')}</div>
       </div>
       <div class="m-card-row">
-        <span class="sub" style="font-size:12px">${d.type==='delivery'?'ส่งของ':'ยอดรวม'}</span>
-        <span class="m-card-tot">${totStr}</span>
+        <span class="m-card-sec">${secStr}</span>
+        <span class="m-card-tot-wrap">${d.type==='delivery'?'':`<span class="m-card-tot">${totStr}</span>`}<span class="m-card-arrow">›</span></span>
       </div>
-      <div class="m-card-acts">
-        <button class="btn s" style="flex:1;padding:8px 6px;text-align:center" onclick="edit('${d.type}','${d.id}')">✏️ เปิด/แก้ไข</button>
-        <button class="btn s" style="padding:8px 12px" onclick="prt('${d.id}')" title="พิมพ์">🖨️</button>
+      <div class="m-card-acts" onclick="event.stopPropagation()">
+        <button class="btn s" style="padding:6px 10px" onclick="prt('${d.id}')" title="พิมพ์">🖨️ พิมพ์</button>
         ${conv(d)}
-        ${isAdmin()?`<button class="btn s d" style="padding:8px 10px" onclick="del('docs','${d.id}')">ลบ</button>`:''}
+        ${isAdmin()?`<button class="btn s d" style="padding:6px 10px;margin-left:auto" onclick="del('docs','${d.id}')">ลบ</button>`:''}
       </div>
     </div>`;
   }).join('')+`</div>`;
@@ -612,7 +628,7 @@ function docTable(a){
 function vList(t){
   const a=S.docs.filter(d=>d.type===t&&(!q||(d.no+d.cname).toLowerCase().includes(q.toLowerCase()))).sort((x,y)=>(y.no||'').localeCompare(x.no||'',undefined,{numeric:true}));
   return `<div class="top"><div><h1>${TT[t]}</h1><div class="sub">${a.length} รายการ${t==='delivery'?'':' · รวม ฿'+money(a.reduce((s,d)=>s+calc(d).tot,0))}</div></div>
-  <div style="display:flex;gap:8px"><input placeholder="ค้นหาเลขที่ / ลูกค้า" value="${esc(q)}" oninput="q=this.value;render();document.querySelector('main input').focus();const i=document.querySelector('main input');i.setSelectionRange(q.length,q.length)" style="width:200px"><button class="btn p" onclick="edit('${t}')">+ สร้างใหม่</button></div></div>
+  <div class="list-tools" style="display:flex;gap:8px"><input placeholder="ค้นหาเลขที่ / ลูกค้า" value="${esc(q)}" oninput="q=this.value;render();document.querySelector('main input').focus();const i=document.querySelector('main input');i.setSelectionRange(q.length,q.length)" style="width:200px"><button class="btn p" onclick="edit('${t}')">+ สร้างใหม่</button></div></div>
   <div class="card">${docTable(a)}</div>`;
 }
 
@@ -848,30 +864,23 @@ function jobTable(a){
 
   const cardsHtml=`<div class="m-cards mobile-only">`+
   a.map(j=>{const s=jobStat(j),done=j.status==='เสร็จ/ส่งมอบแล้ว';
-    return `<div class="m-card">
+    return `<div class="m-card m-tap" onclick="editJob('${j.id}')">
       <div class="m-card-header">
-        <div>
-          <div class="m-card-no"><b>${esc(j.no)}</b> · ${esc(j.plate)}</div>
-          <div class="sub" style="font-size:11.5px">${esc(j.model||'')} ${j.recv?'· รับรถ '+fd(j.recv):''}</div>
-        </div>
-        <span class="tag ${done?'ok':'warn'}">${esc(j.status)}</span>
+        <div class="m-card-no"><b>${esc(j.no)}</b></div>
+        <div class="m-card-meta-top">${j.recv?`<span class="sub" style="font-size:12px;white-space:nowrap">${fd(j.recv)}</span>`:''}<span class="tag ${done?'ok':'warn'}">${esc(j.status)}</span></div>
       </div>
       <div class="m-card-body">
-        <div class="m-card-cname"><b>${esc(j.cname||'ไม่ระบุชื่อลูกค้า')}</b></div>
-        <div style="display:flex;justify-content:space-between;font-size:12px;margin-top:4px">
-          <span>รายได้: ฿${money(s.inc)}</span>
-          <span style="color:var(--bad)">ค่าใช้จ่าย: ฿${money(s.cost)}</span>
-        </div>
+        <div class="m-card-cname">${esc(j.cname||'ไม่ระบุชื่อลูกค้า')}</div>
+        ${(j.plate||j.model)?`<div class="m-card-sub">🚌 ${esc(j.plate||'-')}${j.model?' · '+esc(j.model):''}</div>`:''}
       </div>
       <div class="m-card-row">
-        <span class="sub" style="font-size:12px">กำไรสุทธิ</span>
-        <span class="m-card-tot" style="color:${pc(s)}">฿${money(s.profit)}${s.inc?` <small style="font-size:11.5px;font-weight:normal">(${(s.profit/s.inc*100).toFixed(1)}%)</small>`:''}</span>
+        <span class="m-card-sec">รายได้ ฿${money(s.inc)} · ค่าใช้จ่าย <span style="color:var(--bad)">฿${money(s.cost)}</span></span>
+        <span class="m-card-tot-wrap"><span class="m-card-tot" style="color:${pc(s)}">฿${money(s.profit)}${s.inc?` <small style="font-size:11px;font-weight:500">(${(s.profit/s.inc*100).toFixed(1)}%)</small>`:''}</span><span class="m-card-arrow">›</span></span>
       </div>
-      <div class="m-card-acts">
-        <button class="btn s" style="flex:1;padding:8px 6px;text-align:center" onclick="editJob('${j.id}')">✏️ เปิด/แก้ไข</button>
-        <button class="btn s" style="padding:8px 8px;text-align:center" onclick="quickExp('${j.id}')">+ ค่าใช้จ่าย</button>
-        <button class="btn s" style="padding:8px 10px" onclick="prtJob('${j.id}')" title="พิมพ์">🖨️</button>
-        ${isAdmin()?`<button class="btn s d" style="padding:8px 10px" onclick="del('jobs','${j.id}')">ลบ</button>`:''}
+      <div class="m-card-acts" onclick="event.stopPropagation()">
+        <button class="btn s" style="padding:6px 10px" onclick="quickExp('${j.id}')">+ ค่าใช้จ่าย</button>
+        <button class="btn s" style="padding:6px 10px" onclick="prtJob('${j.id}')" title="พิมพ์">🖨️ พิมพ์</button>
+        ${isAdmin()?`<button class="btn s d" style="padding:6px 10px;margin-left:auto" onclick="del('jobs','${j.id}')">ลบ</button>`:''}
       </div>
     </div>`;
   }).join('')+`</div>`;
@@ -881,7 +890,7 @@ function jobTable(a){
 function vJobs(){
   const a=jobList(),st=a.map(jobStat),I=st.reduce((s,x)=>s+x.inc,0),C=st.reduce((s,x)=>s+x.cost,0);
   return `<div class="top"><div><h1>งานซ่อมรถ / ต้นทุนต่อคัน</h1><div class="sub">บันทึกรถที่รับเข้า ลงค่าใช้จ่ายทีละบิล แล้วดูกำไรต่อคัน</div></div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap"><select onchange="jp=this.value;render()" style="width:130px">${Object.keys(PL).map(k=>`<option value="${k}" ${jp===k?'selected':''}>${PL[k]}</option>`).join('')}</select><input placeholder="ค้นหาทะเบียน / ลูกค้า / เลขงาน" value="${esc(q)}" oninput="q=this.value;render();const i=document.querySelector('main input');i.focus();i.setSelectionRange(q.length,q.length)" style="width:210px"><button class="btn" onclick="prtJobReport()">🖨 รายงานสรุป</button><button class="btn" onclick="exportJobsCsv()">⬇ CSV</button><button class="btn p" onclick="editJob()">+ รับรถใหม่</button></div></div>
+  <div class="list-tools" style="display:flex;gap:8px;flex-wrap:wrap"><select onchange="jp=this.value;render()" style="width:130px">${Object.keys(PL).map(k=>`<option value="${k}" ${jp===k?'selected':''}>${PL[k]}</option>`).join('')}</select><input placeholder="ค้นหาทะเบียน / ลูกค้า / เลขงาน" value="${esc(q)}" oninput="q=this.value;render();const i=document.querySelector('main input');i.focus();i.setSelectionRange(q.length,q.length)" style="width:210px"><button class="btn" onclick="prtJobReport()">🖨 รายงานสรุป</button><button class="btn" onclick="exportJobsCsv()">⬇ CSV</button><button class="btn p" onclick="editJob()">+ รับรถใหม่</button></div></div>
   <div class="grid k4" style="margin-bottom:14px">
    <div class="card kpi"><small>จำนวนงาน (${PL[jp]})</small><h2>${a.length}</h2><i>เสร็จแล้ว ${a.filter(j=>j.status==='เสร็จ/ส่งมอบแล้ว').length} คัน</i></div>
    <div class="card kpi"><small>รายได้รวม (ก่อน VAT)</small><h2>฿${money(I)}</h2><i>จากเอกสารที่ผูกกับงาน</i></div>
@@ -1049,12 +1058,12 @@ function vFiles(){
       <h1>📁 เอกสารบริษัท / สเปครถ</h1>
       <div class="sub">คลังดาวน์โหลดเอกสาร PDF (รง.4, ใบอนุญาต SME, สเปครถ ฯลฯ) — ทั้งหมด ${S.files?S.files.length:0} รายการ</div>
     </div>
-    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+    <div class="list-tools" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
       <input placeholder="ค้นหาชื่อเอกสาร / สเปค..." value="${esc(q)}" oninput="q=this.value;render();const i=document.querySelector('main input');if(i){i.focus();i.setSelectionRange(q.length,q.length)}" style="width:220px">
       <button class="btn p" onclick="editFile()">+ เพิ่มเอกสาร PDF</button>
     </div>
   </div>
-  <div style="display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch">
+  <div class="cat-bar" style="display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch">
     ${cats.map(c=>{
       const act=fCatFilter===c;
       const count=c==='all'?(S.files||[]).length:(S.files||[]).filter(x=>x.category===c).length;
@@ -1095,24 +1104,24 @@ function vFiles(){
     </div>
     <div class="m-cards mobile-only">
       ${list.map(f=>`
-        <div class="m-card">
+        <div class="m-card m-tap" onclick="viewFile('${f.id}')">
           <div class="m-card-header">
-            <div>
-              <div class="m-card-cname"><b style="color:var(--brand)">📄 ${esc(f.title)}</b></div>
-              <div class="sub" style="font-size:11.5px;margin-top:2px">${esc(f.filename||'')} · ${esc(f.sizeStr||'')}</div>
-            </div>
             <span class="tag info">${esc(f.category||'ทั่วไป')}</span>
+            <div class="m-card-meta-top"><span class="sub" style="font-size:12px;white-space:nowrap">${fd(f.date)}</span></div>
           </div>
-          ${f.desc?`<div class="m-card-body" style="font-size:12.5px;color:var(--mute)">${esc(f.desc)}</div>`:''}
+          <div class="m-card-body">
+            <div class="m-card-cname" style="color:var(--brand)">📄 ${esc(f.title)}</div>
+            ${f.desc?`<div class="m-card-sub">${esc(f.desc)}</div>`:''}
+          </div>
           <div class="m-card-row">
-            <span class="sub" style="font-size:12px">วันที่เพิ่ม: ${fd(f.date)}</span>
-            <span class="sub" style="font-size:12px">โดย: ${esc(f.by||'-')}</span>
+            <span class="m-card-sec">${esc(f.category||'ทั่วไป')}${f.sizeStr?' · '+esc(f.sizeStr):''}${f.filename?' · '+esc(f.filename):''}${f.by?' · โดย '+esc(f.by):''}</span>
+            <span class="m-card-tot-wrap"><span class="m-card-arrow">›</span></span>
           </div>
-          <div class="m-card-acts">
-            <button class="btn s" style="flex:1;padding:8px 6px;text-align:center" onclick="viewFile('${f.id}')">👁️ เปิดดู PDF</button>
-            <button class="btn s" style="flex:1;padding:8px 6px;text-align:center" onclick="downloadFile('${f.id}')">⬇️ ดาวน์โหลด</button>
-            <button class="btn s" style="padding:8px 10px" onclick="editFile('${f.id}')">✏️</button>
-            ${isAdmin()?`<button class="btn s d" style="padding:8px 10px" onclick="del('files','${f.id}')">ลบ</button>`:''}
+          <div class="m-card-acts" onclick="event.stopPropagation()">
+            <button class="btn s" style="flex:1;padding:6px 8px;justify-content:center" onclick="viewFile('${f.id}')">👁️ เปิดดู PDF</button>
+            <button class="btn s" style="flex:1;padding:6px 8px;justify-content:center" onclick="downloadFile('${f.id}')">⬇️ ดาวน์โหลด</button>
+            <button class="btn s" style="padding:6px 10px" onclick="editFile('${f.id}')" title="แก้ไข">✏️</button>
+            ${isAdmin()?`<button class="btn s d" style="padding:6px 10px" onclick="del('files','${f.id}')">ลบ</button>`:''}
           </div>
         </div>
       `).join('')}
